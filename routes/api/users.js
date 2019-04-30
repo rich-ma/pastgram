@@ -2,6 +2,8 @@ const express = require('express');
 const router = express.Router();
 const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
+const jwt = require('jsonwebtoken');
+const keys = require('../../config/keys');
 
 router.get('/test', (req, res) => res.json({msg: 'This is the users route'}));
 
@@ -22,8 +24,24 @@ router.post('/register', (req, res) => {
 				bcrypt.hash(newUser.password, salt, (err, hash) => {
 					if(err) throw err;
 					newUser.password = hash;
+
+					//saving to db and then giving a token for an hour for the user
 					newUser.save()
-						.then((user) => res.json(user))
+						.then((user) => {
+							const payload = {id: user.id, username: user.username};
+							jwt.sign(
+								payload,
+								keys.secretOrKey,
+								// Sets key to expire in set amt of seconds.
+								{expiresIn: 3600},
+								(err, token) => {
+									res.json({
+										success: true,
+										token: 'Bearer ' + token
+									});
+								}
+							);
+						})
 						.catch(err => console.log(err));
 				})
 			})
@@ -32,18 +50,33 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-	User.find({email: req.body.email})
+	User.findOne({email: req.body.email})
 		.then(user => {
 			if(!user){
-				return res.status(400).json({email: "This user does not exist"});
+				return res.status(404).json({email: "This user does not exist"});
 			}
 
 			bcrypt.compare(req.body.password, user.password)
 				.then(isMatch => {
 					if(isMatch){
-						res.json({msg: 'Success'})
+
+						//successfully logs the user in, and assigns them an hour long token.
+						const payload = {id: user.id, username: user.username};
+						jwt.sign(
+							payload,
+							keys.secretOrKey,
+							// Sets key to expire in set amt of seconds.
+							{expiresIn: 3600},
+							(err, token) => {
+								res.json({
+									success: true,
+									token: 'Bearer ' + token
+								});
+							}
+						);
 					} else {
-						return res.status(400).json({msg: 'Incorrect password'});
+						erros.password = "Incorrect password";
+						return res.status(400).json({password: "Incorrect password."});
 					}
 				})
 		})
