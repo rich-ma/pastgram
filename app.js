@@ -2,11 +2,16 @@ const express = require("express");
 const app = express();
 const db = require('./config/keys').mongoURI;
 const mongoose = require('mongoose');
-const bodyParser = require('body-parser');
+const bodyParser = require('body-parser'); //allow postman
 
 //routes
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
+
+//Models
+const User = require('./models/User');
+const Post = require('./models/Post');
+
 
 mongoose
 	.connect(db, { useNewUrlParser: true })
@@ -17,6 +22,7 @@ app.get('/', (req, res) => {
 	res.send("hello world");
 });
 
+//respond to JSON requests, urlencoded, will respond to requests from postman as well
 app.use(bodyParser.urlencoded({
 	extended: false
 }));
