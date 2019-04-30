@@ -1,15 +1,23 @@
 # PastGram
 
+## About
 - A MERN stack exploration cloning of Instagram.
+- Utlizing secure User AUTH, RESTful routes, and mobile first design.
+- LIVE LINK: **Coming Soon**
 
-## MVPs:
-1. User AUTH
-2. RESTful routes
-3. Mobile first
-4. User Uploaded images
+## Goals:
+
+1. User Uploaded images
    - AWS S3 image storage
-5. Like and comment on images
-6. Users can follow other users
+2. Like and comment on images
+3. Users can follow other users
    - Directed graphs(directed acyclical graphs)
-7. Infinite scrolling
+4. Infinite scrolling
    - Home page with posts from followed users.
+
+## Limitations
+- This is a short 1 week test of the MERN stack.
+- with more time I would like to implement:
+  1. Hashtags, usertags
+  2. DMs
+  3. geolocation
