@@ -3,6 +3,7 @@ const app = express();
 const db = require('./config/keys').mongoURI;
 const mongoose = require('mongoose');
 const bodyParser = require('body-parser'); //allow postman
+const passport = require('passport');
 
 //routes
 const users = require('./routes/api/users');
@@ -18,9 +19,8 @@ mongoose
 	.then(() => console.log("Connected to MongoDB successfully"))
 	.catch(err => console.log(err));
 
-app.get('/', (req, res) => {
-	res.send("hello world");
-});
+app.use(passport.initialize());
+require('./config/passport')(passport);
 
 //respond to JSON requests, urlencoded, will respond to requests from postman as well
 app.use(bodyParser.urlencoded({

@@ -4,8 +4,18 @@ const User = require('../../models/User');
 const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
+const passport = require('passport');
 
 router.get('/test', (req, res) => res.json({msg: 'This is the users route'}));
+
+//private auth route
+router.get('/current', passport.authenticate('jwt', {
+	session: false
+}), (req, res) => {
+	res.json({
+		msg: 'Success'
+	});
+})
 
 router.post('/register', (req, res) => {
 	User.findOne({email: req.body.email})
@@ -50,6 +60,10 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
+	// const { errors, isValid } = validateLoginInput(req.body);
+
+	// if(!isValid) return res.status(400).json(errors);
+
 	User.findOne({email: req.body.email})
 		.then(user => {
 			if(!user){
@@ -65,7 +79,7 @@ router.post('/login', (req, res) => {
 						jwt.sign(
 							payload,
 							keys.secretOrKey,
-							// Sets key to expire in set amt of seconds.
+							// Sets key to expire in set amt of seconds.	
 							{expiresIn: 3600},
 							(err, token) => {
 								res.json({
@@ -75,8 +89,9 @@ router.post('/login', (req, res) => {
 							}
 						);
 					} else {
-						erros.password = "Incorrect password";
-						return res.status(400).json({password: "Incorrect password."});
+						// errors.password = "Incorrect password."
+						// return res.status(400).json(errors);
+						return res.status(400).json({password: 'Incorrect password.'});
 					}
 				})
 		})
