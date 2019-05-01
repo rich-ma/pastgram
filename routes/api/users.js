@@ -5,6 +5,8 @@ const bcrypt = require('bcryptjs');
 const jwt = require('jsonwebtoken');
 const keys = require('../../config/keys');
 const passport = require('passport');
+const validateRegisterInput = require('../../validation/register');
+const validateLoginInput = require('../../validation/login');
 
 router.get('/test', (req, res) => res.json({msg: 'This is the users route'}));
 
@@ -13,16 +15,30 @@ router.get('/current', passport.authenticate('jwt', {
 	session: false
 }), (req, res) => {
 	res.json({
-		msg: 'Success'
+		id: req.user.id,
+		username: req.user.username,
+		email: req.user.email
 	});
 })
 
 router.post('/register', (req, res) => {
+	const { errors, isValid } = validateRegisterInput(req.body);
+
+	if(!isValid) return res.status(400).json(errors);
+
 	User.findOne({email: req.body.email})
 	.then(user => {
 		if(user){
-			return res.status(400).json({email: "A User is already registered with that email"}); //user already registers	
+			return res.status(400).json({email: "A User is already registered with that email"}); //user already registered with email
 		} else {
+			
+			User.findOne({username: req.body.username})
+			.then(user =>{
+				if (user) return res.status(400).json({
+					email: "A User is already registered with that username"
+				}); //user already registers with username	
+			});
+
 			const newUser = new User({
 				username: req.body.username,
 				email: req.body.email,
@@ -38,7 +54,7 @@ router.post('/register', (req, res) => {
 					//saving to db and then giving a token for an hour for the user
 					newUser.save()
 						.then((user) => {
-							const payload = {id: user.id, username: user.username};
+							const payload = {id: user.id, username: user.username, email: user.email};
 							jwt.sign(
 								payload,
 								keys.secretOrKey,
@@ -60,27 +76,29 @@ router.post('/register', (req, res) => {
 });
 
 router.post('/login', (req, res) => {
-	// const { errors, isValid } = validateLoginInput(req.body);
+	const { errors, isValid } = validateLoginInput(req.body);
 
-	// if(!isValid) return res.status(400).json(errors);
+	if(!isValid) return res.status(400).json(errors);
 
 	User.findOne({email: req.body.email})
 		.then(user => {
 			if(!user){
-				return res.status(404).json({email: "This user does not exist"});
+				return res.status(404).json({email: "This user does not exist."});
 			}
 
 			bcrypt.compare(req.body.password, user.password)
 				.then(isMatch => {
 					if(isMatch){
+						//payload that we are sending back
+						const payload = {id: user.id, username: user.username, email: user.email};
 
-						//successfully logs the user in, and assigns them an hour long token.
-						const payload = {id: user.id, username: user.username};
+						//create a JSON webtoken
 						jwt.sign(
 							payload,
 							keys.secretOrKey,
-							// Sets key to expire in set amt of seconds.	
+							// Sets key to expire in set amt of seconds. OptionsHash
 							{expiresIn: 3600},
+							//callback function once we create the jwt
 							(err, token) => {
 								res.json({
 									success: true,
@@ -89,9 +107,8 @@ router.post('/login', (req, res) => {
 							}
 						);
 					} else {
-						// errors.password = "Incorrect password."
-						// return res.status(400).json(errors);
-						return res.status(400).json({password: 'Incorrect password.'});
+						errors.password = "Incorrect password."
+						return res.status(400).json(errors);
 					}
 				})
 		})
