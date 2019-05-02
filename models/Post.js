@@ -8,8 +8,9 @@ const PostSchema = new Schema({
 		ref: 'users',
 		required: true
 	},
-	caption: {
+	text: {
 		type: String,
+		required: true
 	},
 	date: {
 		type: Date,

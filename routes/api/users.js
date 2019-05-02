@@ -97,7 +97,7 @@ router.post('/login', (req, res) => {
 							payload,
 							keys.secretOrKey,
 							// Sets key to expire in set amt of seconds. OptionsHash
-							{expiresIn: 3600},
+							{expiresIn: 3600000},
 							//callback function once we create the jwt
 							(err, token) => {
 								res.json({
