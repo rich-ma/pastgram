@@ -3,6 +3,7 @@ const router = express.Router();
 const Post = require('../../models/Post');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
+const validatePostInput = require('../../validation/newPost');
 
 router.get('/test', (req, res) => res.json({msg: 'This is the posts route'}));
 
@@ -12,15 +13,21 @@ router.post('/', passport.authenticate('jwt', {
 	const post = req.body;
 	const user = req.user;
 	if(post.userId + '' ===  user._id + ''){
+		const {errors, isValid} = validatePostInput(req.body);
+
+		if(!isValid){
+			return res.status(400).json(errors);
+		}
+
 		const newPost = new Post({
 			userId: post.userId,
 			text: post.text,
 			url: post.url //need to fix this after AWS s3 upload
 		});
 		newPost.save().catch(err => console.log(err));
-		res.json({msg: "Success!"})
+		return res.json({msg: "Success!"});
 	} else {
-		res.json({
+		return res.json({
 			msg: "You don't have permission to post that."
 		});
 	}

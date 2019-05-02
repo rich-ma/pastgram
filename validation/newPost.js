@@ -11,7 +11,7 @@ module.exports = function validatePostInput(data){
 		errors.url = "URL is invalid.";
 	} // useless will be redundant after aws
 
-	if(!Validator.isEmpty(data.text)){
+	if(Validator.isEmpty(data.text)){
 		errors.text = "Text field is required.";
 	}
 
