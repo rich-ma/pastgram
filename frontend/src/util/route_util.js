@@ -10,7 +10,7 @@ const Auth = ({ component: Component, path, loggedIn, exact }) => (
 			<Component {...props} />
 		) : (
 			//redirect to the posts page if user is authenticated
-			<Redirect to="/posts" />
+			<Redirect to="/" />
 		)
 	)} />
 );
