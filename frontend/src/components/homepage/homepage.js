@@ -31,6 +31,7 @@ class Homepage extends React.Component {
 			<div>
 				<h1>Postgram</h1>
 				{this.state.currentUser ? <h2>Hi, {this.state.currentUser.username}!</h2> : null}
+				{!this.state.currentUser ? <h2>Nobody logged in!</h2> : null}
 				<footer>
 				&copy; 2019 POSTGRAM
 				</footer>

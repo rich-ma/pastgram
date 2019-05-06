@@ -10,11 +10,11 @@ import SignupFormContainer from './session/signup_form_container';
 
 const App = () => {
 	return (
-		<div>
-			<Route path="/" component={HomepageContainer} />
-			<Switch>
-				<AuthRoute path='/login' component={LoginFormContainer} />
-				<AuthRoute path='/signup' component={SignupFormContainer} />
+		<div className='body'>
+		<Switch>
+		<AuthRoute path='/login' component={LoginFormContainer} />
+		<AuthRoute path='/signup' component={SignupFormContainer} />
+		<AuthRoute path="/" component={HomepageContainer} />
 			</Switch>
 		</div>
 		

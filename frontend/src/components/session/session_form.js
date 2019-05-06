@@ -1,5 +1,6 @@
 import React from 'react';
-import { withRouter, Link } from 'react-router-dom';
+import { withRouter } from 'react-router-dom';
+import './session.css';
 // import ReactCSSTransitionGroup from 'react-addons-css-transition-group';
 
 class SessionForm extends React.Component {
@@ -37,7 +38,7 @@ class SessionForm extends React.Component {
 	renderErrors(){
 		if(!this.state.errors) return null;
 		return (
-			<ul>
+			<ul className='session-errors'>
 				{Object.keys(this.state.errors).map((error, i) => (
 					<li key={`error-${i}`}>
 						{this.state.errors[error]}
@@ -50,18 +51,6 @@ class SessionForm extends React.Component {
 	update(field){
 		return e => this.setState({[field]: e.currentTarget.value});
 	};
-
-	// renderErrors() {
-  //   return(
-  //     <ul>
-  //       {this.props.errors.map((error, i) => (
-  //         <li key={`error-${i}`}>
-  //           {error}
-  //         </li>
-  //       ))}
-  //     </ul>
-  //   );
-  // }
 
 	render(){
 		const username = this.props.formType === 'login' ? null : (
@@ -83,30 +72,36 @@ class SessionForm extends React.Component {
 		)
 
 		return (
-			<div>
-				<h1 className="session-title">Postgram</h1>
-				{welcome}
-				<br/>
-				{this.renderErrors()}
-				<form onSubmit={this.handleSubmit} className="session-form-box">
-					<div className="session-errors">
+			<div className='session-wrapper'>
+				<div className='session-container'>
+					<h1 className="session-title">Postgram</h1>
+					{welcome}
+					<br/>
 					{this.renderErrors()}
+					<form onSubmit={this.handleSubmit} className="session-form-box">
+						<div className="session-errors">
+						</div>
+
+						{username}	
+
+						<input type="text" value={this.state.email}
+							onChange={this.update('email')} className="session-input" placeholder='Email' />
+							
+						<input type="password" value={this.state.password}
+							onChange={this.update('password')} className="session-input"
+							placeholder='Password'/>
+
+						{password2}
+
+						<input className="session-submit" type="submit" value={this.props.formType === 'login' ? 'Log In' : 'Sign up'} />
+					</form>
+				</div>
+				<div className='session-link-container'> {
+						(this.props.formType === 'signup' ? "Have an account?  " : "Don't have an account?  ")
+					} {
+						this.props.navLink
+					} 
 					</div>
-
-					{username}	
-
-					<input type="text" value={this.state.email}
-						onChange={this.update('email')} className="session-input" placeholder='Email' />
-						
-					<input type="password" value={this.state.password}
-						onChange={this.update('password')} className="session-input"
-						placeholder='Password'/>
-
-					{password2}
-
-					<input className="session-submit" type="submit" value={this.props.formType === 'login' ? 'Log In' : 'Sign up'} />
-				</form>
-				{(this.props.formType === 'signup' ? "Have an account? " : "Don't have an account? ")}{this.props.navLink}
 			</div>
 		)
 	}
