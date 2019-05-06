@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { signup, login } from '../../actions/session_actions';
+import { signup } from '../../actions/session_actions';
 import { Link } from 'react-router-dom';
 import SessionForm from './session_form';
 import React from 'react';
@@ -16,7 +16,6 @@ const mSTP = (state) => {
 const mDTP = dispatch => {
 	return {
 		processForm: user => dispatch(signup(user)),
-		demoLogin: user => dispatch(login(user))
 	}
 }
 

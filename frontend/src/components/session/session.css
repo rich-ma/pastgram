@@ -12,10 +12,22 @@
 	display: flex;
 }
 
+.session-errors {
+	list-style-type: none;
+	padding: 0;
+	margin: 0;
+	padding-bottom: 10px;
+	border: 0;
+	font: inherit;
+	vertical-align: baseline;
+	color: #ed4956;
+	font-size: 12px;
+}
+
 .session-container {
 	display: flex;
 	flex-direction: column;
-	width: 100;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 }
@@ -23,7 +35,7 @@
 .session-wrapper {
 	display: flex;
 	flex-direction: column;
-	width: 100;
+	width: 100%;
 	justify-content: center;
 	align-items: center;
 }
@@ -62,6 +74,10 @@
 		justify-content: center;
 		width: 348px;
 	}
+}
+
+.session-input:focus{
+	border: 1px solid #999999;
 }
 
 @media (min-width: 875px){

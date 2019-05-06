@@ -15,12 +15,16 @@ class SessionForm extends React.Component {
 		this.handleSubmit = this.handleSubmit.bind(this);
 	};
 
- componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser === true) {
-      this.props.history.push('/');
-    }
+  componentWillReceiveProps(nextProps) {
 
-    this.setState({errors: nextProps.errors})
+			if (nextProps.currentUser === true) {
+				this.props.history.push('/');
+			}
+
+			this.setState({
+				errors: nextProps.errors
+			})
+		
   }
 
 	handleSubmit(e){
@@ -68,7 +72,7 @@ class SessionForm extends React.Component {
 		const password2 = this.props.formType === 'login' ? null : (
 			<input type="password" value={this.state.password2}
 						onChange={this.update('password2')} className="session-input"
-						placeholder='Password'/>
+						placeholder='Confirm Password'/>
 		)
 
 		return (

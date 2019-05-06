@@ -12,12 +12,11 @@ class Homepage extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		// if(nextProps.currentUser){
-		// 	this.setState({currentUser: nextProps.currentUser})
-		// } else {
-		// 	this.setState({currentUser: null})
-		// }
-		this.setState({currentUser: nextProps.currentUser})
+		if(nextProps.currentUser){
+			this.setState({currentUser: nextProps.currentUser})
+		} else {
+			this.setState({currentUser: null})
+		}
 	}
 
 	handleLogout(e){
