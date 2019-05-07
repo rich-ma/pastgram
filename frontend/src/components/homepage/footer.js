@@ -1,0 +1,17 @@
+import React from 'react';
+const Footer = () => (
+	<footer>
+		<ul className='footer-list'>
+        <li><a target="_blank" href="https://github.com/rich-ma">GITHUB</a>
+        </li>
+        <li><a target="_blank" href="https://www.linkedin.com/in/richard-ma-39a24718/">
+        LINKEDIN</a>
+        </li>
+        <li>RICH.MAAA@GMAIL.COM
+        </li>
+		</ul>
+		<h3>&copy; 2019 POSTGRAM</h3>
+	</footer>
+)
+
+export default Footer;

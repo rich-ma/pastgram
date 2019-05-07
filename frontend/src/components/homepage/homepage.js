@@ -1,4 +1,8 @@
 import React from 'react';
+import { Route, Switch } from 'react-router-dom';
+import { AuthRoute } from '../../util/route_util';
+import LoginFormContainer from '../../components/session/login_form_container';
+import SignupFormContainer from '../../components/session/signup_form_container';
 // import './homepage.css';
 
 class Homepage extends React.Component {
@@ -22,11 +26,11 @@ class Homepage extends React.Component {
 	handleLogout(e){
 		e.preventDefault();
 		this.props.logout();
-		this.props.history.push('/signup');
+		this.props.history.push('/');
 	};
 
 	render() {
-		return (
+		const loggedIn = () => (
 			<div>
 				<h1>Postgram</h1>
 				{this.state.currentUser ? <h2>Hi, {this.state.currentUser.username}!</h2> : null}
@@ -36,8 +40,19 @@ class Homepage extends React.Component {
 				</footer>
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
 			</div>
+		)
+		const splash = () => (
+			<div>
+				<Switch>
+					<Route path='/' component={SignupFormContainer} />	
+				</Switch>
+			</div>
 		);
+
+
+		return this.state.currentUser ? loggedIn() : splash();
 	};
+	
 }
 
 export default Homepage;
