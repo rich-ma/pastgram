@@ -7,6 +7,7 @@ import HomepageContainer from './homepage/homepage_container';
 import LoginFormContainer from './session/login_form_container';
 import SignupFormContainer from './session/signup_form_container';
 import Footer from './homepage/footer';
+import './css/app.css';
 
 const App = () => {
 	return (
