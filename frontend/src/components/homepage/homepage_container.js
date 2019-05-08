@@ -5,7 +5,6 @@ import Homepage from './homepage';
 
 const mSTP = state => {
 	let currentUser = state.session.isAuthenticated ? state.session.user : null;
-	console.log(currentUser)
 	return{
 		currentUser
 	}

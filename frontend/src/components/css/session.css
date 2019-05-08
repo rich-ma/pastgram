@@ -1,4 +1,4 @@
-.body {
+body {
 	height: 100vh;
 	font-family: -apple-system,
 	BlinkMacSystemFont,
@@ -84,7 +84,7 @@
 
 @media (min-width: 875px){
 	html{
-		background-color: red;
+	
 	}
 }
 
@@ -149,4 +149,5 @@ h1{
 	font-family: 'Cookie', cursive;
 	font-size: 56px;
 	margin-top: 30px;
+	font-weight: 200;
 }

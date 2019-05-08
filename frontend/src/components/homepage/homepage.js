@@ -1,9 +1,12 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { AuthRoute } from '../../util/route_util';
+import { AuthRoute, ProtectedRoute } from '../../util/route_util';
 import LoginFormContainer from '../../components/session/login_form_container';
 import SignupFormContainer from '../../components/session/signup_form_container';
-// import './homepage.css';
+import NavbarContainer from '../nav/navbar_container';
+import '../css/homepage.css';
+import UserpageContainer from '../homepage/userpage_container';
+
 
 class Homepage extends React.Component {
 
@@ -20,6 +23,7 @@ class Homepage extends React.Component {
 			this.setState({currentUser: nextProps.currentUser})
 		} else {
 			this.setState({currentUser: null})
+			this.props.history.push('/login');
 		}
 	}
 
@@ -31,14 +35,12 @@ class Homepage extends React.Component {
 
 	render() {
 		const loggedIn = () => (
-			<div>
-				<h1>Postgram</h1>
-				{this.state.currentUser ? <h2>Hi, {this.state.currentUser.username}!</h2> : null}
-				{!this.state.currentUser ? <h2>Nobody logged in!</h2> : null}
-				<footer>
-				&copy; 2019 POSTGRAM
-				</footer>
+			< div className='homepage-container' >
+				<Route path='/' component={NavbarContainer} />
+				<Switch>
+					<Route exact path='api/users/:userId' component={UserpageContainer} />
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
+				</Switch>
 			</div>
 		)
 		const splash = () => (

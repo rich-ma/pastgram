@@ -11,7 +11,7 @@ import './css/app.css';
 
 const App = () => {
 	return (
-		<div className='body'>
+		<div className='app-container'>
 			<Switch>
 				<AuthRoute exact path='/login' component={LoginFormContainer} /> 
 				<AuthRoute exact path='/signup' component={SignupFormContainer} /> 
