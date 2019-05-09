@@ -1,7 +1,7 @@
 import { logout } from '../../actions/session_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import Userpage from './userpage';
+import Profile from './profile';
 
 
 const mSTP = state => ({
@@ -14,4 +14,4 @@ const mDTP = dispatch => ({
 
 })
 
-export default withRouter(connect(mSTP, mDTP)(Userpage));
+export default withRouter(connect(mSTP, mDTP)(Profile));

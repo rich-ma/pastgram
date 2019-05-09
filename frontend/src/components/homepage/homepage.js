@@ -5,7 +5,7 @@ import LoginFormContainer from '../../components/session/login_form_container';
 import SignupFormContainer from '../../components/session/signup_form_container';
 import NavbarContainer from '../nav/navbar_container';
 import '../css/homepage.css';
-import UserpageContainer from '../homepage/userpage_container';
+import ProfileContainer from './profile_container';
 
 
 class Homepage extends React.Component {
@@ -37,10 +37,8 @@ class Homepage extends React.Component {
 		const loggedIn = () => (
 			< div className='homepage-container' >
 				<Route path='/' component={NavbarContainer} />
-				<Switch>
-					<Route exact path='api/users/:userId' component={UserpageContainer} />
+					<Route exact path='/users/:userId' component={ProfileContainer} />
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
-				</Switch>
 			</div>
 		)
 		const splash = () => (
