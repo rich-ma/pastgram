@@ -10,9 +10,15 @@
 	display:none;
 }
 
+.avatar-box{
+	width: 77px;
+	height: 77px;
+	overflow: hidden;
+	border-radius: 50%;
+}
 .user-avatar{
 	background-color: #fafafa;
-	border-radius: 50%;
+
 	-webkit-box-sizing: border-box;
 	box-sizing: border-box;
 	display: block;
@@ -20,10 +26,9 @@
 	-webkit-flex: 0 0 auto;
 	-ms-flex: 0 0 auto;
 	flex: 0 0 auto;
-	overflow: hidden;
 	position: relative;
-	width: 77px;
-	height: 77px;
+	max-height: 77px;
+	width: auto;
 }
 
 .user-info{
@@ -59,14 +64,14 @@
 	background: 0 0;
 	border-color: #dbdbdb;
 	color: #262626;
-	padding: 0 12px;
+	padding: 5px 20px;
 	-webkit-appearance: none;
-	border-radius: 3px;
+	border-radius: 4px;
 	border-style: solid;
 	border-width: 1px;
 	font-size: 14px;
 	font-weight: 600;
-	line-height: 26px;
+	line-height: 18px;
 	outline: 0;
 	overflow: hidden;
 	text-overflow: ellipsis;

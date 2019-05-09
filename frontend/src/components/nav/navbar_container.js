@@ -1,5 +1,6 @@
 import { connect } from 'react-redux';
-import { logout } from '../../actions/session_actions';
+// import { logout } from '../../actions/session_actions';
+import { writePost } from '../../actions/post_actions';
 
 import NavBar from './navbar';
 
@@ -7,7 +8,11 @@ const mSTP = state => {
 	return {
 	loggedIn: state.session.isAuthenticated,
 	currentUser: state.session.user
-}
+	}
 }
 
-export default connect(mSTP, {logout})(NavBar);
+const mDTP = dispatch => ({
+	writePost: (post) => dispatch(writePost(post))
+})
+
+export default connect(mSTP, mDTP)(NavBar);

@@ -4,6 +4,13 @@ export const RECEIVE_POST = 'RECEIVE_POST'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST'
 export const RECEIVE_USER_POSTS = 'RECEIVE_USER_POSTS'
+export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS'
+
+export const receiveErrors = errors => ({
+	type: RECEIVE_POST_ERRORS,
+	errors
+});
+
 
 export const receivePost = post => ({
 	type: RECEIVE_POST,
@@ -28,23 +35,23 @@ export const receiveUserPosts = posts => ({
 export const fetchPost = postId => dispatch =>{
 	getPost(postId)
 		.then(post => receivePost(post))
-		.catch(err => console.log(err));
+		.catch(err => dispatch(receiveErrors(err.response.data)));
 }
 
 export const fetchPosts = () => dispatch =>{
 	getPosts()
 		.then(posts => receivePosts(posts))
-		.catch(err => console.log(err));
+		.catch(err => dispatch(receiveErrors(err.response.data)));
 }
 
 export const fetchUserPosts = id => dispatch => (
 	getUserPosts(id)
 	.then(posts => dispatch(receiveUserPosts(posts)))
-	.catch(err => console.log(err))
+	.catch(err => dispatch(receiveErrors(err.response.data)))
 );
 
 export const writePost = data => dispatch => (
 	createPost(data)
 	.then(post => dispatch(receiveNewPost(post)))
-	.catch(err => console.log(err))
+	.catch(err => dispatch(receiveErrors(err.response.data)))
 );
