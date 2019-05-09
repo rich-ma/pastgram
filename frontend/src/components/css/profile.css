@@ -2,6 +2,7 @@
 	display: flex;
 	flex-direction: row;
 	width: 100%;
+	margin: 30px 16px 24px 16px;
 
 }
 
@@ -26,8 +27,8 @@
 }
 
 .user-info{
-	margin: 30px 16px 24px 16px;
 	display: block;
+	width: 100%;
 }
 
 .username{
@@ -74,4 +75,34 @@
 	-ms-user-select: none;
 	user-select: none;
 	white-space: nowrap;
+	width: fit-content;
+}
+
+.user-mobile{
+	display: flex;
+	flex-direction: column;
+}
+
+.user-realname{
+	display: inline;
+	font-weight: 600;
+	color: rgb(0,0,0);
+	font-size: 14px;
+	margin-left: 15px;
+}
+
+.mobile-followers{
+	margin-left: 15px;
+	color: #999;
+	display: block;
+	font-size: 12px;
+	line-height: 14px;
+	margin-top: 14px;
+}
+
+.user-data{
+	display: flex;
+	flex-direction: row;
+	border-top: 1px solid #efefef;
+	justify-content: space-evenly;
 }

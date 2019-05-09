@@ -41,13 +41,13 @@ class Profile extends React.Component {
 					</div>
 				</div>
 				<div className='user-mobile'>
+					<h3 className='user-realname'>Users real name</h3>
+					<h4 className='mobile-followers'>Followed by ...</h4>
 					<ul className='user-data'>
-						<li>posts mobile</li>
+						<li>posts</li>
 						<li>followers</li>
 						<li>following</li>
 					</ul>
-					<h3>Users real name</h3>
-					<h4>Followed by ...</h4>
 				</div>
 			</div>
 		)
