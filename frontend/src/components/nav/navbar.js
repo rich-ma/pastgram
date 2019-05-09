@@ -6,13 +6,12 @@ class NavBar extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			user: this.props.currentUser
+			user: this.props.currentUser,
+			currentUser: this.props.currentUser
 		}
 	};
 
 	componentWillReceiveProps(nextProps){
-		console.log('in cwrp navbar');
-		console.log(nextProps);
 		if (nextProps.currentUser) {
 			this.setState({
 				user: nextProps.currentUser
@@ -20,19 +19,21 @@ class NavBar extends React.Component {
 		} else{
 			this.setState({user: null})
 		}
-		console.log(this.state.user);
 	};
+
+						// <Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
+
 
 	render(){
 		return(
 			<nav className='navbar-container'>
 				<div className='navbar'>
-					<div className='nav-left'>
+					<Link className='nav-left' to='/'>
 					<i className="fab fa-instagram"></i>
 					<h1 className='nav-title'>Postgram</h1>
-					</div>
+					</Link>
 					<input className='nav-search' type="text" placeholder="Search.." />
-					<Link className='session-link' to={`/users/${this.state.user.id}`}><i className="far fa-user"></i></Link>
+					<Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
 				</div>
 			</nav>
 		)
