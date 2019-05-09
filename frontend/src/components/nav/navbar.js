@@ -11,11 +11,16 @@ class NavBar extends React.Component {
 	};
 
 	componentWillReceiveProps(nextProps){
-		if(nextProps.user){
-			this.setState({user: nextProps.user});
+		console.log('in cwrp navbar');
+		console.log(nextProps);
+		if (nextProps.currentUser) {
+			this.setState({
+				user: nextProps.currentUser
+			});
 		} else{
 			this.setState({user: null})
 		}
+		console.log(this.state.user);
 	};
 
 	render(){

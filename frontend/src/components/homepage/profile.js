@@ -1,5 +1,4 @@
 import React from 'react';
-import { Route } from 'react-router-dom';
 
 class Profile extends React.Component {
 	constructor(props){
@@ -11,7 +10,11 @@ class Profile extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({currentUser: nextProps.currentUser});
+		if(nextProps.currentUser){
+			this.setState({currentUser: nextProps.currentUser});
+		} else {
+			this.setState({currentUser: null});
+		}
 	}
 
 	render(){
@@ -21,6 +24,7 @@ class Profile extends React.Component {
 				<div className='user-info-container'>
 					<div className='user-mobile'>
 						<h3>{this.state.currentUser.username}</h3>
+						
 					</div>
 					<div className='user-larger'>
 					</div>
@@ -32,3 +36,5 @@ class Profile extends React.Component {
 }
 
 export default Profile;
+
+<img src={`this.state.`}

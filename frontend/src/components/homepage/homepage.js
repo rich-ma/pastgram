@@ -37,7 +37,7 @@ class Homepage extends React.Component {
 		const loggedIn = () => (
 			< div className='homepage-container' >
 				<Route path='/' component={NavbarContainer} />
-					<Route exact path='/users/:userId' component={ProfileContainer} />
+				<Route path='/users/:userId' component={ProfileContainer} />
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
 			</div>
 		)
