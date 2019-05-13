@@ -22,9 +22,6 @@ class NavBar extends React.Component {
 		}
 	};
 
-	odal
-	
-
 	render(){
 		return(
 			<nav className='navbar-container'>
