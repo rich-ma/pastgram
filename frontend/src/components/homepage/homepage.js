@@ -19,7 +19,6 @@ class Homepage extends React.Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log(nextProps);
 		if(nextProps.currentUser){
 			this.setState({currentUser: nextProps.currentUser})
 		} else {

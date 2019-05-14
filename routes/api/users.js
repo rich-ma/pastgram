@@ -17,7 +17,8 @@ router.get('/current', passport.authenticate('jwt', {
 	res.json({
 		id: req.user.id,
 		username: req.user.username,
-		email: req.user.email
+		email: req.user.email,
+		avatarUrl: req.user.avatarUrl
 	});
 })
 
@@ -42,7 +43,8 @@ router.post('/register', (req, res) => {
 			const newUser = new User({
 				username: req.body.username,
 				email: req.body.email,
-				password: req.body.password
+				password: req.body.password,
+				avatarUrl: "https://www.showflipper.com/blog/images/default.jpg"
 			})
 
 			//creating salted pw, running 10 times
@@ -54,7 +56,7 @@ router.post('/register', (req, res) => {
 					//saving to db and then giving a token for an hour for the user
 					newUser.save()
 						.then((user) => {
-							const payload = {id: user.id, username: user.username, email: user.email};
+							const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl};
 							jwt.sign(
 								payload,
 								keys.secretOrKey,
@@ -62,6 +64,7 @@ router.post('/register', (req, res) => {
 								{expiresIn: 3600},
 								(err, token) => {
 									res.json({
+										user: payload,
 										success: true,
 										token: 'Bearer ' + token
 									});
@@ -90,7 +93,7 @@ router.post('/login', (req, res) => {
 				.then(isMatch => {
 					if(isMatch){
 						//payload that we are sending back
-						const payload = {id: user.id, username: user.username, email: user.email};
+						const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl };
 
 						//create a JSON webtoken
 						jwt.sign(

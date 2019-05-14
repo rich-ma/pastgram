@@ -5,13 +5,11 @@ import Profile from './profile';
 
 //find user with the id we're going to
 const mSTP = (state, ownProps) => {
-	console.log(ownProps);
-	
+	// write selector here	
 	//posts
 	return({
 		currentUser: state.session.user,
 		user: state.session.user,
-
 	})
 }
 
