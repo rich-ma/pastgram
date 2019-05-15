@@ -6,6 +6,7 @@ import NewPostContainer from '../nav/new_post_container';
 import '../css/modal.css';
 
 const Modal = ({ modal, closeModal }) => {
+
   if (!modal) return null;
   let component;
   switch (modal) {
@@ -29,8 +30,9 @@ const Modal = ({ modal, closeModal }) => {
 }
 
 const mSTP = state => {
+	console.log(state.modal);
 	return {
-		modal: state.ui.modal
+		modal: state.modal
 	}
 };
 

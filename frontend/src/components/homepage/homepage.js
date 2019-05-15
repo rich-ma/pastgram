@@ -39,7 +39,6 @@ class Homepage extends React.Component {
 			< div className='homepage-container' >
 				<Route path='/' component={NavbarContainer} />
 				<Route path='/users/:userId' component={ProfileContainer} />
-				<Route path='/' component={NewPostContainer} />
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
 			</div>
 		)

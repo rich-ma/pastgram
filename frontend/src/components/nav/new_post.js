@@ -30,9 +30,6 @@ class NewPost extends React.Component{
 	}
 
 	render(){
-
-
-
 		return(
 			<div className='new-post-container' >
 				<div className='new-post-upper'>
