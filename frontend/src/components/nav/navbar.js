@@ -23,6 +23,7 @@ class NavBar extends React.Component {
 	};
 
 	render(){
+		const openModal = this.props.openModal;
 		return(
 			<nav className='navbar-container'>
 				<div className='navbar'>
@@ -32,7 +33,7 @@ class NavBar extends React.Component {
 					</Link>
 					<input className='nav-search' type="text" placeholder="Search.." />
 					<div className='nav-right'>
-						<button onClick=""/>
+						<button onClick={() => openModal('newPost')} />
 						<Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
 					</div>
 				</div>

@@ -7,7 +7,8 @@ class NewPost extends React.Component{
 		this.state = {
 			currentUser: this.props.currentUser,
 			errors: this.props.errors,
-			text: null
+			text: null,
+			photoUrl: null
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleFile = this.handleFile.bind(this);
@@ -39,6 +40,7 @@ class NewPost extends React.Component{
 					<input type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} />
 				</div>
 				<div className='new-post-lower'>
+				<input type='file' accept='image/*' />
 				</div>
 			</div>
 		)

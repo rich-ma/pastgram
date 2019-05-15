@@ -6,6 +6,7 @@ import SignupFormContainer from '../../components/session/signup_form_container'
 import NavbarContainer from '../nav/navbar_container';
 import '../css/homepage.css';
 import ProfileContainer from './profile_container';
+import NewPostContainer from '../nav/new_post_container';
 
 
 class Homepage extends React.Component {
@@ -38,6 +39,7 @@ class Homepage extends React.Component {
 			< div className='homepage-container' >
 				<Route path='/' component={NavbarContainer} />
 				<Route path='/users/:userId' component={ProfileContainer} />
+				<Route path='/' component={NewPostContainer} />
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
 			</div>
 		)

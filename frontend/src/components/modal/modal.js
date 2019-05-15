@@ -3,6 +3,7 @@ import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_actions';
 import NewPostContainer from '../nav/new_post_container';
 // import EditUserContainer from '../homepage/edit_user_container';
+import '../css/modal.css';
 
 const Modal = ({ modal, closeModal }) => {
   if (!modal) return null;
