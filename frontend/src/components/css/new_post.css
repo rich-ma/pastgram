@@ -1,0 +1,24 @@
+.new-post-container{
+	width: 100%;
+	height: 100%;
+	background-color: white;
+}
+
+.new-post-upper{
+	display: flex;
+	flex-direction: row;
+}
+
+.new-post-profile{
+	width: 100%;
+	height: 100%;
+}
+
+.new-post-avatar-box{
+	width: 80px;
+	height: 80px;
+	overflow: hidden;
+	border-radius: 50%;
+	margin: 10px;
+}
+
