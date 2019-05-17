@@ -22,3 +22,9 @@
 	margin: 10px;
 }
 
+
+.new-post-input{
+	height: 100%;
+	width: 300px;
+	overflow: scroll;
+}

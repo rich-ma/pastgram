@@ -54,7 +54,7 @@ class NewPost extends React.Component{
 					<div className='new-post-avatar-box'>
 						<img src={this.state.currentUser.avatarUrl} className='new-post-profile' />
 					</div>
-					<input type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} />
+					<input className='new-post-input' type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} />
 				</div>
 				<div className='new-post-lower'>
 				<input type='file' accept='image/*' />
