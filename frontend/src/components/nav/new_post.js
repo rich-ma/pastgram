@@ -49,12 +49,16 @@ class NewPost extends React.Component{
 	render(){
 		return(
 			<div className='new-post-container' >
-				
+				<div className='new-post-header'>
+					<i className="fas fa-times" onClick={this.props.closeModal}></i>
+					<h3>New Photo Post</h3>
+					<div></div>
+				</div>
 				<div className='new-post-upper'>
 					<div className='new-post-avatar-box'>
 						<img src={this.state.currentUser.avatarUrl} className='new-post-profile' />
 					</div>
-					<input className='new-post-input' type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} />
+					<textarea className='new-post-input' type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} ></textarea>
 				</div>
 				<div className='new-post-lower'>
 				<input type='file' accept='image/*' />

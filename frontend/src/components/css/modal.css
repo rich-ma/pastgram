@@ -9,7 +9,7 @@
 	height: 100vh;
 }
 
-@media (min-width: 450px){
+@media (min-width: 425px){
 	.modal-background {
 		position: fixed;
 		top: 0;
