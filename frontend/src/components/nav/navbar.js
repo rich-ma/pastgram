@@ -8,22 +8,27 @@ class NavBar extends React.Component {
 		super(props);
 		this.state = {
 			user: this.props.currentUser,
-			currentUser: this.props.currentUser
+			currentUser: this.props.currentUser,
+			modal: this.props.modal
 		}
 	};
 
 	componentWillReceiveProps(nextProps){
-		if (nextProps.currentUser) {
-			this.setState({
-				user: nextProps.currentUser
-			});
-		} else{
-			this.setState({user: null})
+		if(nextProps.modal){
+			const button = document.getElementsByClassName('fa-plus-square');
+			button[0].classList.remove('far');
+			button[0].classList.add('fas');
+		} else {
+			const button = document.getElementsByClassName('fa-plus-square');
+			button[0].classList.remove('fas');
+			button[0].classList.add('far');
 		}
 	};
 
 	render(){
 		const openModal = this.props.openModal;
+
+
 		return(
 			<nav className='navbar-container'>
 				<div className='navbar'>
@@ -33,7 +38,7 @@ class NavBar extends React.Component {
 					</Link>
 					<input className='nav-search' type="text" placeholder="Search.." />
 					<div className='nav-right'>
-						<button onClick={() => openModal('newPost')} />
+						<i className="far fa-plus-square" onClick={() => openModal('newPost')}></i>
 						<Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
 					</div>
 				</div>
