@@ -13,6 +13,8 @@ router.post('/new', (req, res) => {
 			}]
 			})
 		}
+		console.log(data);
+		console.log(res);
 		return res.json({'imageUrl': req.file.location});
 	})
 });

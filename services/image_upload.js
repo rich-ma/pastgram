@@ -14,7 +14,8 @@ const s3 = new aws.S3();
 const upload = multer({
 	storage: multerS3({
 		s3: s3,
-		ContentType: 'image/jpeg',
+		contentType: multerS3.AUTO_CONTENT_TYPE,
+		contentDisposition: 'inline; filename=filename.jpg',
 		bucket: 'postgram-dev',
 		acl: 'public-read',
 		metadata: function (req, file, cb) {
@@ -28,5 +29,8 @@ const upload = multer({
 	})
 });
 //date.now key could be an issue in large prod. with millions of users
+
+//		contentDisposition: 'inline; filename=filename.jpg',
+
 
 module.exports = upload;
