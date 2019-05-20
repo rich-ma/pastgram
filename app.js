@@ -8,7 +8,7 @@ const passport = require('passport');
 //routes
 const users = require('./routes/api/users');
 const posts = require('./routes/api/posts');
-const imageUpload = require('./routes/api/image_uploads');
+const imageUploads = require('./routes/api/image_uploads');
 
 //Models
 const User = require('./models/User');
@@ -29,9 +29,9 @@ app.use(bodyParser.urlencoded({
 }));
 app.use(bodyParser.json());
 
+app.use('/api/image-upload', imageUploads);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
-app.use('/api/image-upload', imageUpload);
 
 // production process.env.PORT provided by heroku
 const port = process.env.PORT || 5000;

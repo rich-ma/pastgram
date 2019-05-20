@@ -1,12 +1,15 @@
 const express = require('express');
 const router = express.Router();
-const upload = require('../../services/file_upload');
+const upload = require('../../services/image_upload');
 
 const singleUpload = upload.single('image');
 
-router.post('/image-upload', function(req, res) {
+router.post('/new', (req, res) => {
 	singleUpload(req, res, function(err, some) {
 		if(err){
+			console.log("error", err.message);
+			console.log(this.req.httpRequest);
+			console.log(this.httpResponse);
 			return res.status(422).send({errors: [{
 				title: 'Image Upload Error', 
 				detail: err.message

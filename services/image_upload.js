@@ -15,10 +15,9 @@ const upload = multer({
 	storage: multerS3({
 		s3: s3,
 		bucket: 'postgram-dev',
-		acl: 'public-read',
-		metadata: function (req, file, cb) {
+		metadata: function (req, file, cb) { 
 			cb(null, {
-				fieldName: file.fieldname
+				fieldName: "test metadata"
 			});
 		},
 		key: function (req, file, cb) {
@@ -27,5 +26,8 @@ const upload = multer({
 	})
 });
 //date.now key could be an issue in large prod. with millions of users
+
+//		acl: 'public-read',
+
 
 module.exports = upload;
