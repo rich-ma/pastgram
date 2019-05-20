@@ -8,7 +8,5 @@ export const receiveErrors = errors => ({
 })
 
 export const newImage = image => dispatch => {
-	uploadImage(image)
-		.
 
 }

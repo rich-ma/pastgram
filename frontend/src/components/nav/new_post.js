@@ -38,7 +38,7 @@ class NewPost extends React.Component{
 
 	handleFile(e){
 		e.preventDefault();
-
+		console.log(e);
 	}
 
 	updateText(e){
@@ -61,7 +61,7 @@ class NewPost extends React.Component{
 					<textarea className='new-post-input' type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} ></textarea>
 				</div>
 				<div className='new-post-lower'>
-				<input type='file' accept='image/*' />
+				<input type='file' accept='image/*' onChange={this.handleFile} />
 				</div>
 			</div>
 		)
