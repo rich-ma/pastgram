@@ -14,10 +14,12 @@ const s3 = new aws.S3();
 const upload = multer({
 	storage: multerS3({
 		s3: s3,
+		ContentType: 'image/jpeg',
 		bucket: 'postgram-dev',
-		metadata: function (req, file, cb) { 
+		acl: 'public-read',
+		metadata: function (req, file, cb) {
 			cb(null, {
-				fieldName: "test metadata"
+				fieldName: file.fieldname
 			});
 		},
 		key: function (req, file, cb) {
@@ -26,8 +28,5 @@ const upload = multer({
 	})
 });
 //date.now key could be an issue in large prod. with millions of users
-
-//		acl: 'public-read',
-
 
 module.exports = upload;
