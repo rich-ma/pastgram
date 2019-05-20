@@ -26,3 +26,6 @@ const upload = multer({
 		}
 	})
 });
+//date.now key could be an issue in large prod. with millions of users
+
+module.exports = upload;
