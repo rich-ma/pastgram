@@ -118,8 +118,10 @@ class NewPost extends React.Component{
 					<textarea className='new-post-input' type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} ></textarea>
 				</div>
 				<div className='new-post-lower'>
-				<img src={this.state.photoUrl} />
-				<input type='file' accept='image/*' onChange={e => this.updateImage(e)} />
+					<div className='new-post-image-container'>
+						<img className='post-preview' src={this.state.photoUrl} />
+					</div>
+					<input type='file' accept='image/*' onChange={e => this.imagePreview(e)} />
 				</div>
 			</div>
 		)

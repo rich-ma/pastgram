@@ -51,6 +51,25 @@
 	margin-right: 20px;
 	font-size: 16px;
 	margin-bottom: 0px;
+	cursor: pointer;
+}
+
+.new-post-submit:hover{
+	color: #2769a8;
+}
+
+.new-post-image-container{
+	overflow: hidden;
+	width: 100%;
+	max-height: 500px;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.post-preview{
+	width: 100%;
+	
 }
 
 .new-post-profile{
@@ -67,7 +86,7 @@
 
 
 .new-post-input{
-	height: 80px;
+	height: 60px;
 	width: 100%;
 	overflow: scroll;
 	margin: 10px;
