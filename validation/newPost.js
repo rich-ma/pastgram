@@ -8,7 +8,7 @@ module.exports = function validatePostInput(data){
 	data.url = validText(data.url) ? data.url : '';
 
 	if(!Validator.isURL(data.url)){
-		errors.url = "URL is invalid.";
+		errors.url = "Image upload is required.";
 	} // useless will be redundant after aws
 
 	if(Validator.isEmpty(data.text)){
