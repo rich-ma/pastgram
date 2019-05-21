@@ -6,7 +6,6 @@ class NewPost extends React.Component{
 
 	constructor(props){
 		super(props);
-		console.log(this.props.errors);
 		this.state = {
 			currentUser: this.props.currentUser,
 			errors: this.props.errors,
@@ -19,10 +18,6 @@ class NewPost extends React.Component{
 		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.imagePreview = this.imagePreview.bind(this);
 	}
-
-	// componentWillReceiveProps(newProps){
-	// 	this.setState({'errors': newProps.errors})
-	// }
 
 	handleKeyPress(e){
 		if (e.keyCode === 27) {
@@ -38,10 +33,25 @@ class NewPost extends React.Component{
 		document.removeEventListener('keydown', this.handleKeyPress, false);
 	}
 
+	componentWillReceiveProps(newProps){
+		this.setState({errors: {post: newProps.errors.post}});
+	}
 
 	handleSubmit(e){
 		e.preventDefault();
-
+		this.setState({errors: {post: null, image: null}});
+		const data = new FormData();
+		data.append('image', this.state.photoFile);
+		axios.post('/api/image-upload/new', data).then(res => {
+			this.setState({'photoUrl': res.data.imageUrl});
+			const post = {
+				userId: this.state.currentUser.id,
+				text: this.state.text,
+				url: this.state.photoUrl
+			};
+			this.props.writePost(post);
+		})
+		.catch(err => this.setState({"errors": {image: err.response.data, post: this.state.post}}));
 	}
 
 	imagePreview(e){
@@ -55,28 +65,20 @@ class NewPost extends React.Component{
     } else {
       this.setState({ PhotoUrl: "" , PhotoFile: null });
 		}
+		console.log(file);
 	}
 
-	handleFile(e){
-		e.preventDefault();
-		this.setState({errors: null});
-		const data = new FormData();
-		data.append('image', this.state.file);
-		axios.post('/api/image-upload/new', data).then(res => {
-			this.setState({'photoUrl': res.data.imageUrl});
-		})
-		.catch(err => this.setState({"errors": {image: err.response.data, post: this.state.post}}));
+	handleFile(){
+		
 	}
 
 	updateText(e){
 		e.preventDefault();
 		this.setState({text: e.currentTarget.value});
-		console.log(this.state);
 	}
 
 	renderPostErrors(){
 		if(!this.state.errors.post) return null;
-		console.log(this.state.errors.post);
 		return (
 			<ul className='post-errors'>
 				{Object.keys(this.state.errors.post).map((error, i) => (

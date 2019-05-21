@@ -30,7 +30,6 @@ const Modal = ({ modal, closeModal }) => {
 }
 
 const mSTP = state => {
-	console.log(state.modal);
 	return {
 		modal: state.modal
 	}
