@@ -43,13 +43,15 @@ class NewPost extends React.Component{
 		const data = new FormData();
 		data.append('image', this.state.photoFile);
 		axios.post('/api/image-upload/new', data).then(res => {
-			this.setState({'photoUrl': res.data.imageUrl});
-			const post = {
-				userId: this.state.currentUser.id,
-				text: this.state.text,
-				url: this.state.photoUrl
+			const data = {
+				post: {
+					userId: this.state.currentUser.id,
+					text: this.state.text,
+					url: res.data.imageUrl
+				},
+				user: this.state.currentUser
 			};
-			this.props.writePost(post);
+			this.props.writePost(data);
 		})
 		.catch(err => this.setState({"errors": {image: err.response.data, post: this.state.post}}));
 	}
@@ -65,7 +67,7 @@ class NewPost extends React.Component{
     } else {
       this.setState({ PhotoUrl: "" , PhotoFile: null });
 		}
-		console.log(file);
+		this.setState({photoFile: file});
 	}
 
 	handleFile(){

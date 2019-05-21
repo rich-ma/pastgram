@@ -5,15 +5,18 @@ const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validatePostInput = require('../../validation/newPost');
 
-router.get('/test', (req, res) => res.json({msg: 'This is the posts route'}));
+router.get('/test', (req, res) => {
+	return res.json({msg: 'This is the posts route'});
+});
 
-router.post('/', passport.authenticate('jwt', {
-	session: false
-}), (req, res) => {
-	const post = req.body;
-	const user = req.user;
-	if(post.userId + '' ===  user._id + ''){
-		const {errors, isValid} = validatePostInput(req.body);
+router.post('/', passport.authenticate('jwt', {session: false}), 
+(req, res) => {
+	console.log(req.body);
+	const post = req.body.post;
+	const user = req.body.user;
+
+	if (post.userId === user.id) {
+		const {errors, isValid} = validatePostInput(post);
 
 		if(!isValid){
 			return res.status(400).json(errors);
@@ -22,10 +25,11 @@ router.post('/', passport.authenticate('jwt', {
 		const newPost = new Post({
 			userId: post.userId,
 			text: post.text,
-			url: post.url //need to fix this after AWS s3 upload
+			url: post.url 
 		});
-		newPost.save().catch(err => console.log(err));
-		return res.json({msg: "Success!"});
+		newPost.save()
+			.then(post => res.json(post))
+			.catch(err => console.log(err));
 	} else {
 		return res.json({
 			msg: "You don't have permission to post that."

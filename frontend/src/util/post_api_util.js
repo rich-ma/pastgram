@@ -13,5 +13,6 @@ export const getUserPosts = userId => {
 }
 
 export const createPost = data => {
-	return axios.post('/api/posts', data);
+	console.log('api util', data);
+	return axios.post('/api/posts/', data);
 }

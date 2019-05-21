@@ -16,6 +16,7 @@ const PostsReducer = (state = {all:{}, user:{}, new: undefined, post:{}}, action
 			newState.user = action.posts.data;
 			return newState;
 		case RECEIVE_NEW_POST:
+			console.log('in reducer', action);
 			newState.new = action.post.data;
 			return newState;
 		default:
