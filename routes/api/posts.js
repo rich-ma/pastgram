@@ -11,7 +11,6 @@ router.get('/test', (req, res) => {
 
 router.post('/', passport.authenticate('jwt', {session: false}), 
 (req, res) => {
-	console.log(req.body);
 	const post = req.body.post;
 	const user = req.body.user;
 

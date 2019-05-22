@@ -16,7 +16,6 @@ class SessionForm extends React.Component {
 	};
 
   componentWillReceiveProps(nextProps) {
-
 			if (nextProps.currentUser === true) {
 				this.props.history.push('/');
 			}
@@ -24,7 +23,6 @@ class SessionForm extends React.Component {
 			this.setState({
 				errors: nextProps.errors
 			})
-		
   }
 
 	handleSubmit(e){

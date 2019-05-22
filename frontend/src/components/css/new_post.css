@@ -61,7 +61,7 @@
 .new-post-image-container{
 	overflow: hidden;
 	width: 100%;
-	max-height: 500px;
+	max-height: 450px;
 	display: flex;
 	flex-direction: column;
 	justify-content: center;

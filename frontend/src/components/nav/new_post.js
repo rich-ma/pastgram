@@ -10,6 +10,7 @@ class NewPost extends React.Component{
 			currentUser: this.props.currentUser,
 			errors: this.props.errors,
 			text: '',
+			newPost: this.props.newPost,
 			photoUrl: null,
 			photoFile: null
 		}
@@ -33,8 +34,15 @@ class NewPost extends React.Component{
 		document.removeEventListener('keydown', this.handleKeyPress, false);
 	}
 
-	componentWillReceiveProps(newProps){
-		this.setState({errors: {post: newProps.errors.post}});
+	componentWillReceiveProps(nextProps){
+		if(nextProps.errors.post){
+			this.setState({errors: {post: nextProps.errors.post}});
+		};
+
+		if(nextProps.newPost){
+			this.props.closeModal();
+			this.props.history.push(`/posts/${nextProps.newPost._id}`);
+		}
 	}
 
 	handleSubmit(e){
