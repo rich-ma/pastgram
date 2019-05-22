@@ -5,7 +5,7 @@ import SignupFormContainer from '../../components/session/signup_form_container'
 import NavbarContainer from '../nav/navbar_container';
 import '../css/homepage.css';
 import ProfileContainer from './profile_container';
-// import PostContainer from './post_container';
+import PostShowContainer from './post_show_container';
 
 
 class Homepage extends React.Component {
@@ -32,8 +32,6 @@ class Homepage extends React.Component {
 		this.props.logout();
 		this.props.history.push('/');
 	};
-				// <Route exact path='/posts.:postId' component={PostContainer} />
-
 
 	render() {
 		const loggedIn = () => (
@@ -41,6 +39,7 @@ class Homepage extends React.Component {
 				<Route path='/' component={NavbarContainer} />
 				<Switch>
 				<ProtectedRoute exact path='/users/:userId' component={ProfileContainer} />
+				<Route exact path='/posts.:postId' component={PostShowContainer} />
 				</Switch>
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
 			</div>
