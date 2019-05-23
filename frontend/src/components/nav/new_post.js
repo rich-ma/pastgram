@@ -125,7 +125,7 @@ class NewPost extends React.Component{
 				{this.renderPostErrors()}
 				<div className='new-post-upper'>
 					<div className='new-post-avatar-box'>
-						<img src={this.state.currentUser.avatarUrl} className='new-post-profile' />
+						<img src={this.state.currentUser.avatarUrl} className='new-post-profile' alt={`${this.state.currentUser.username}'s avatar`}/>
 					</div>
 					<textarea className='new-post-input' type='text' placeholder='Write a caption...' onChange={e => this.updateText(e)} value={this.state.text} ></textarea>
 				</div>

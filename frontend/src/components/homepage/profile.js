@@ -23,7 +23,7 @@ class Profile extends React.Component {
 			<div className='user-info'>
 				<div className='user-info-upper'>
 					<div className='avatar-box'>
-						<img src={this.state.currentUser.avatarUrl} className='user-avatar' />
+						<img src={this.state.currentUser.avatarUrl} className='user-avatar' alt='user-avatar'/>
 					</div>
 					<div className='user-info-container'>
 						<div className='user-mobile'>

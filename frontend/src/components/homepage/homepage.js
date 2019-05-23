@@ -39,7 +39,7 @@ class Homepage extends React.Component {
 				<Route path='/' component={NavbarContainer} />
 				<Switch>
 				<ProtectedRoute exact path='/users/:userId' component={ProfileContainer} />
-				<Route exact path='/posts.:postId' component={PostShowContainer} />
+				<Route exact path='/posts/:postId' component={PostShowContainer} />
 				</Switch>
 				{this.state.currentUser ? <button onClick={this.handleLogout}>Log Out</button> : null}
 			</div>

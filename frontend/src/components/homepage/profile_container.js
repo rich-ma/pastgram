@@ -18,5 +18,5 @@ const mDTP = dispatch => ({
 })
 
 // export default withRouter(connect(mSTP, mDTP)(Profile));
-export default withRouter(connect(mSTP, {})(Profile));
+export default withRouter(connect(mSTP, mDTP)(Profile));
 
