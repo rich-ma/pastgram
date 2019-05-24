@@ -1,0 +1,28 @@
+.post-show-container{
+	width: 100vw;
+}
+
+.post-show-mobile{
+	display: flex;
+	flex-direction: column;
+	
+}
+
+.post-show-desktop{
+	display: none;
+}
+
+@media(min-width: 725px){
+	.post-show-container{
+		max-width: 935px;
+	}
+
+	.post-show-mobile{
+		display: none;
+	}
+
+	.post-show-desktop{
+		display: flex;
+		flex-direction: row;
+	}
+}
