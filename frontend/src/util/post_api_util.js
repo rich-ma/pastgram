@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-export const getPost = postId => {
+export const getPostShow = postId => {
 	return axios.get(`/api/posts/${postId}`);
 }
 

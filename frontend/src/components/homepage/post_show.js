@@ -13,6 +13,10 @@ class PostShow extends React.Component {
 		this.addComment = this.addComment.bind(this);
 	}
 
+	componentWillMount(){
+		this.props.getPostShow(this.props.postId);
+	}
+
 	toggleLike(){
 
 	}

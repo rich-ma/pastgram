@@ -22,6 +22,12 @@ router.get('/current', passport.authenticate('jwt', {
 	});
 })
 
+router.get('/:id', (req, res) => {
+	User.findById(req.params.id)
+		.then(user => res.json(user))
+		.catch(err => res.status(404).json({nouserfound: 'No user found with that ID.'}))
+})
+
 router.post('/register', (req, res) => {
 	const { errors, isValid } = validateRegisterInput(req.body);
 
@@ -78,6 +84,10 @@ router.post('/register', (req, res) => {
 	})
 });
 
+router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) => {
+
+});
+
 router.post('/login', (req, res) => {
 	const { errors, isValid } = validateLoginInput(req.body);
 
@@ -116,4 +126,6 @@ router.post('/login', (req, res) => {
 				})
 		})
 })
+
+router.get
 module.exports = router;

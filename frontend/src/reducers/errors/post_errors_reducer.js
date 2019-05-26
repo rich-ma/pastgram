@@ -1,5 +1,4 @@
 import { RECEIVE_POST_ERRORS, RECEIVE_NEW_POST } from '../../actions/post_actions';
-import SessionErrorsReducer from './session_errors_reducer';
 
 
 const _nullErrors = {};

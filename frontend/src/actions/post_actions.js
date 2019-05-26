@@ -1,6 +1,6 @@
-import { getPosts, getUserPosts, createPost, getPost } from '../util/post_api_util';
+import { getPosts, getUserPosts, createPost, getPostShow } from '../util/post_api_util';
 
-export const RECEIVE_POST = 'RECEIVE_POST'
+export const RECEIVE_POST_SHOW = 'RECEIVE_POST_SHOW'
 export const RECEIVE_POSTS = 'RECEIVE_POSTS'
 export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST'
 export const RECEIVE_USER_POSTS = 'RECEIVE_USER_POSTS'
@@ -12,9 +12,9 @@ export const receiveErrors = errors => ({
 });
 
 
-export const receivePost = post => ({
-	type: RECEIVE_POST,
-	post
+export const receivePostShow = data => ({
+	type: RECEIVE_POST_SHOW,
+	data
 })
 
 export const receivePosts = posts => ({
@@ -32,9 +32,9 @@ export const receiveUserPosts = posts => ({
 	posts
 })
 
-export const fetchPost = postId => dispatch =>{
-	getPost(postId)
-		.then(post => receivePost(post))
+export const fetchPostShow = postId => dispatch =>{
+	getPostShow(postId)
+		.then(post => receivePostShow(post))
 		.catch(err => dispatch(receiveErrors(err.response.data)));
 }
 

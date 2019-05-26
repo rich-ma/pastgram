@@ -1,25 +1,28 @@
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
+import { getPostShow } from '../../util/post_api_util';
+import { getUser } from '../../actions/user_actions';
 import PostShow from './post_show';
 
 //Write comments, add like
 
 const mSTP = (state, ownProps) => {
-	console.log(ownProps);
-	//check if link is the new post, or write selector for specific post of it isnt
-	const post = state.posts.new;
-	//check if user is current user, or write selector for that user
-	const user = state.session.user;
+	const postId = ownProps.match.params.postId;
 
 	return({
-		post,
-		user
+		postId,
+		post: null,
+		user: null
 	})
 }
 
-//like post, add comment?
-const mDTP = dispatch => {
+		// user: Object.values(state.users.user)[0],
+		// post: Object.values(state.posts.post)[0],
 
-}
+//like post, add comment?
+const mDTP = dispatch => ({
+	getPostShow: (id) => dispatch(getPostShow(id)),
+	getUser: (id) => dispatch(getUser(id))
+})
 
 export default withRouter(connect(mSTP, mDTP)(PostShow))
