@@ -5,7 +5,29 @@
 .post-show-mobile{
 	display: flex;
 	flex-direction: column;
-	
+}
+
+.post-profile{
+	display: flex;
+	flex-direction: row;
+	height: 60px;
+	align-items: center;
+}
+
+.post-profile-img-container{
+	width: 32px;
+	height: 32px;
+	padding: 16px;
+}
+
+.post-profile-name{
+	font-size: 14px;
+}
+
+
+.post-profile-img-container > img {
+		height: 100%;
+		width: auto;
 }
 
 .post-show-desktop{

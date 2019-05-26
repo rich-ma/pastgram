@@ -6,7 +6,8 @@ class PostShow extends React.Component {
 		super(props);
 		this.state = {
 			user: this.props.user,
-			post: this.props.post
+			post: this.props.post,
+			loading: true
 		}
 
 		this.toggleLike = this.toggleLike.bind(this);
@@ -14,7 +15,14 @@ class PostShow extends React.Component {
 	}
 
 	componentWillMount(){
-		this.props.getPostShow(this.props.postId);
+		console.log('in componentwillmount');
+		this.props.fetchPostShow(this.props.postId);
+	}
+
+	componentWillReceiveProps(newProps){
+		console.log('in componentwillreceiveprops');
+		console.log(newProps);
+		this.setState({user: newProps.user, post: newProps.post, loading: false});
 	}
 
 	toggleLike(){
@@ -26,21 +34,22 @@ class PostShow extends React.Component {
 	}
 
 	render(){
+		if(this.state.loading) return null;
 		const { post, user } = this.state;
 		const profile = (
 			<div className='post-profile'>
 				<div className='post-profile-img-container'>
 					<img src={user.avatarUrl} alt='user-avatar'/>
 				</div>
-				<h3>{user.avatarUrl}</h3>
+				<h2 className='post-profile-name'>{user.username}</h2>
 			</div>
 		)
 
 		const postInfo = (
 			<div className='post-info'>
 				<div className=''>
-					<i class="far fa-heart"></i>
-					<i class="far fa-comment"></i>
+					<i className="far fa-heart"></i>
+					<i className="far fa-comment"></i>
 				</div>
 				<h3>{post.likes.length}</h3>
 				<h4>date here</h4>

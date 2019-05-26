@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Post = require('../../models/Post');
+const User = require('../../models/User');
 const jwt = require('jsonwebtoken');
 const passport = require('passport');
 const validatePostInput = require('../../validation/newPost');
@@ -55,10 +56,11 @@ router.get('/user/:user_id', (req, res) => {
 router.get('/:id', (req, res) => {
 	Post.findById(req.params.id)
 		.then(post => {
-			console.log(post);
-			// const userId = 
-			
-			res.json(post);
+			User.findById(post.userId + '')
+				.then(user => {
+
+					return res.json({post, user});
+				});
 		})
 		.catch(err => res.status(404).json({ nopostfound: "No post found with that ID."}));
 });
