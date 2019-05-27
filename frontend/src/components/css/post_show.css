@@ -34,6 +34,20 @@
 	display: none;
 }
 
+.post-show-img-container{
+	height: 100vw;
+	width: 100vw;
+	overflow: hidden;
+	display: flex;
+	flex-direction: row;
+	width: fit-content;
+	align-self: center;
+}
+
+.post-show-img-container > img {
+	height: 100%;
+}
+
 @media(min-width: 725px){
 	.post-show-container{
 		max-width: 935px;
@@ -43,8 +57,13 @@
 		display: none;
 	}
 
+	.post-show-img-container{
+	}
+
 	.post-show-desktop{
 		display: flex;
 		flex-direction: row;
 	}
+
+
 }

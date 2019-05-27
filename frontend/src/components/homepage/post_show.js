@@ -56,16 +56,24 @@ class PostShow extends React.Component {
 			</div>
 		)
 
+		const imageContainer = (
+			<div className='post-show-img-container'>
+				<img src={this.state.post.url} alt='post' />
+			</div>
+		)
+
 		//need to add comments, add input for comments
 		return(
 			<div className='post-show-container'>
 				<div className='post-show-mobile'>
 					{profile}
-					<img src={this.state.post.url} alt='post' />
+					{imageContainer}
 					{postInfo}
 				</div>
 				<div className='post-show-desktop'>
-					<img src={this.state.post.url} alt='post' />
+					<div className='post-show-desktop-left'>
+						{imageContainer}
+					</div>
 					<div className='post-show-desktop-right'>
 						{profile}
 						<div>
