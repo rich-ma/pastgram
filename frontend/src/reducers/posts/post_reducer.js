@@ -12,14 +12,12 @@ const PostsReducer = (state = {
 
 	let newState = Object.assign({}, state);
 
-	console.log('in post reducer', action);
 
 	switch(action.type){
 		case RECEIVE_POSTS:
 			newState.all = action.posts.data;
 			return newState;
 		case RECEIVE_POST_SHOW:
-			console.log('in post reducer case', action);
 			newState.post = action.data.post;
 			newState.user = action.data.user;
 			return newState;

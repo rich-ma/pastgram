@@ -38,10 +38,8 @@ export const receiveUserPosts = posts => ({
 })
 
 export const fetchPostShow = postId => dispatch =>{
-	console.log('in fetch post show')
 	return getPostShow(postId)
 		.then(data => {
-			console.log('after getPostShow', data.data);
 			dispatch(receivePostShow(data.data))
 		})
 		.catch(err => dispatch(receiveErrors(err.response.data)));

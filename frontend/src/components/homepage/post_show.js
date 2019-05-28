@@ -8,7 +8,8 @@ class PostShow extends React.Component {
 		this.state = {
 			user: this.props.user,
 			post: this.props.post,
-			loading: true
+			loading: true,
+			like: false
 		}
 
 		this.toggleLike = this.toggleLike.bind(this);
@@ -16,14 +17,13 @@ class PostShow extends React.Component {
 	}
 
 	componentWillMount(){
-		console.log('in componentwillmount');
 		this.props.fetchPostShow(this.props.postId);
 	}
 
 	componentWillReceiveProps(newProps){
-		console.log('in componentwillreceiveprops');
-		console.log(newProps);
 		this.setState({user: newProps.user, post: newProps.post, loading: false});
+		const like = newProps.post.likes.includes(newProps.currentUserId);
+		console.log(newProps.post.likes);
 	}
 
 	toggleLike(){
@@ -43,8 +43,6 @@ class PostShow extends React.Component {
 		const profileContainer = profile(user);
 		const postInfoContainer = postInfo(post);
 		const imageContainer = postImage(post);
-
-
 
 		//need to add comments, add input for comments
 		return(

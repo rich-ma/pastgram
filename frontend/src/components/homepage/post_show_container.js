@@ -10,6 +10,7 @@ const mSTP = (state, ownProps) => {
 
 	return({
 		postId,
+		currentUserId: state.session.user.id,
 		post: state.posts.post,
 		user: state.posts.user
 	})
