@@ -1,4 +1,4 @@
-import { RECEIVE_POST_SHOW, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS } from '../../actions/post_actions';
+import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS } from '../../actions/post_actions';
 
 const PostsReducer = (state = {
 		all:{}, 
@@ -26,6 +26,9 @@ const PostsReducer = (state = {
 			return newState;
 		case RECEIVE_NEW_POST:
 			newState.new = action.post.data;
+			return newState;
+		case RECEIVE_POST:
+			newState.post = action.post;
 			return newState;
 		default:
 			return state;

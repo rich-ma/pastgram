@@ -2,20 +2,22 @@ import {
 	getPosts,
 	getUserPosts,
 	createPost,
-	getPostShow
+	getPostShow,
+	addLike,
+	removeLike
 } from '../util/post_api_util';
 
-export const RECEIVE_POST_SHOW = 'RECEIVE_POST_SHOW'
-export const RECEIVE_POSTS = 'RECEIVE_POSTS'
-export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST'
-export const RECEIVE_USER_POSTS = 'RECEIVE_USER_POSTS'
-export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS'
+export const RECEIVE_POST_SHOW = 'RECEIVE_POST_SHOW';
+export const RECEIVE_POSTS = 'RECEIVE_POSTS';
+export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
+export const RECEIVE_USER_POSTS = 'RECEIVE_USER_POSTS';
+export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS';
+export const RECEIVE_POST = 'RECEIVE_POST';
 
 export const receiveErrors = errors => ({
 	type: RECEIVE_POST_ERRORS,
 	errors
 });
-
 
 export const receivePostShow = (data) => ({
 	type: RECEIVE_POST_SHOW,
@@ -35,6 +37,11 @@ export const receiveNewPost = post => ({
 export const receiveUserPosts = posts => ({
 	type: RECEIVE_USER_POSTS,
 	posts
+})
+
+export const receivePost = post => ({
+	type: RECEIVE_POST,
+	post
 })
 
 export const fetchPostShow = postId => dispatch =>{
@@ -61,4 +68,16 @@ export const writePost = data => dispatch =>{
 	return createPost(data).then(post => (
 		dispatch(receiveNewPost(post))))
 		.catch(err => dispatch(receiveErrors(err)))
-	};
+};
+
+export const likePost = data => dispatch => (
+	addLike(data)
+	.then(post => dispatch(receivePost(post)))
+	.catch(err => dispatch(receiveErrors(err)))
+)
+
+export const unlikePost = data => dispatch => (
+	removeLike(data)
+	.then(post => dispatch(receivePost(post)))
+	.catch(err => dispatch(receiveErrors(err)))
+)

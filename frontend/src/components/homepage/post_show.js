@@ -9,7 +9,8 @@ class PostShow extends React.Component {
 			user: this.props.user,
 			post: this.props.post,
 			loading: true,
-			like: false
+			like: false,
+			likeLoading: false
 		}
 
 		this.toggleLike = this.toggleLike.bind(this);
@@ -21,13 +22,29 @@ class PostShow extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps){
-		this.setState({user: newProps.user, post: newProps.post, loading: false});
-		const like = newProps.post.likes.includes(newProps.currentUserId);
-		console.log(newProps.post.likes);
+		this.setState({post: newProps.post, loading: false});
+		if(newProps.user) this.setState({user: newProps.user});
+		const likeStatus = newProps.post.likes.includes(newProps.currentUserId);
+		this.setState({like: likeStatus});
 	}
 
 	toggleLike(){
-
+		this.setState({likeLoading: true});
+		if(this.state.like){
+			this.props.unlikePost({
+				userId: this.props.currentUserId,
+				postId: this.state.post.id
+			}).then( () => {
+				this.setState({like: true, likeLoading: false});
+			})
+		} else {
+			this.props.unlikePost({
+				userId: this.props.currentUserId,
+				postId: this.state.post.id
+			}).then(() => {
+				this.setState({like: false, likeLoading: false})
+			})
+		}
 	}
 
 	addComment(){

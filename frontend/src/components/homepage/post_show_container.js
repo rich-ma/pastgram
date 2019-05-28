@@ -1,6 +1,6 @@
 import {connect} from 'react-redux';
 import { withRouter } from 'react-router-dom';
-import { fetchPostShow } from '../../actions/post_actions';
+import { fetchPostShow, likePost, unlikePost } from '../../actions/post_actions';
 import PostShow from './post_show';
 
 //Write comments, add like
@@ -21,7 +21,9 @@ const mSTP = (state, ownProps) => {
 
 //like post, add comment?
 const mDTP = dispatch => ({
-	fetchPostShow: (id) => dispatch(fetchPostShow(id))
+	fetchPostShow: (id) => dispatch(fetchPostShow(id)),
+	likePost: (data) => dispatch(likePost(data)),
+	unlikePost: (data) => dispatch(unlikePost(data))
 })
 
 export default withRouter(connect(mSTP, mDTP)(PostShow))
