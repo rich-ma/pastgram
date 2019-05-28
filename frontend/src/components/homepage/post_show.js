@@ -13,7 +13,6 @@ class PostShow extends React.Component {
 			likeLoading: false
 		}
 
-		this.toggleLike = this.toggleLike.bind(this);
 		this.addComment = this.addComment.bind(this);
 	}
 
@@ -28,24 +27,6 @@ class PostShow extends React.Component {
 		this.setState({like: likeStatus});
 	}
 
-	toggleLike(){
-		this.setState({likeLoading: true});
-		if(this.state.like){
-			this.props.unlikePost({
-				userId: this.props.currentUserId,
-				postId: this.state.post.id
-			}).then( () => {
-				this.setState({like: true, likeLoading: false});
-			})
-		} else {
-			this.props.unlikePost({
-				userId: this.props.currentUserId,
-				postId: this.state.post.id
-			}).then(() => {
-				this.setState({like: false, likeLoading: false})
-			})
-		}
-	}
 
 	addComment(){
 
