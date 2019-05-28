@@ -1,5 +1,6 @@
 import React from 'react';
-import { getDate, profile, postInfo, postImage } from '../../util/post_util';
+import { profile, postImage } from '../../util/post_util';
+import PostInfo from './post_info';
 import '../css/post_show.css';
 
 class PostShow extends React.Component {
@@ -12,7 +13,6 @@ class PostShow extends React.Component {
 			like: false,
 			likeLoading: false
 		}
-
 		this.addComment = this.addComment.bind(this);
 	}
 
@@ -36,19 +36,16 @@ class PostShow extends React.Component {
 		if(this.state.loading) return null;
 
 		const { post, user } = this.state;
-		const date = getDate(new Date(post.date));
 
 		const profileContainer = profile(user);
-		const postInfoContainer = postInfo(post);
 		const imageContainer = postImage(post);
 
-		//need to add comments, add input for comments
 		return(
 			<div className='post-show-container'>
 				<div className='post-show-mobile'>
 					{profileContainer}
 					{imageContainer}
-					{postInfoContainer}
+					<PostInfo loading={this.state.loading} likePost={this.props.likePost} unlikePost={this.props.unlikePost} post={post} currentUserId={this.props.currentUserId} />
 				</div>
 				<div className='post-show-desktop'>
 					<div className='post-show-desktop-left'>
@@ -59,7 +56,7 @@ class PostShow extends React.Component {
 						<div>
 						Comments
 						</div>
-						{postInfoContainer}
+						<PostInfo post={post} likePost={this.props.likePost} unlikePost={this.props.unlikePost} loading={this.state.loading} currentUserId={this.props.currentUserId} />
 					</div>
 				</div>
 			</div>

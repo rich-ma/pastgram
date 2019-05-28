@@ -70,14 +70,16 @@ export const writePost = data => dispatch =>{
 		.catch(err => dispatch(receiveErrors(err)))
 };
 
-export const likePost = data => dispatch => (
-	addLike(data)
-	.then(post => dispatch(receivePost(post)))
-	.catch(err => dispatch(receiveErrors(err)))
-)
+export const likePost = data => dispatch => {
+	console.log('in like post')
+	// addLike(data)
+	// .then(post => dispatch(receivePost(post)))
+	// .catch(err => dispatch(receiveErrors(err)))
+}
 
-export const unlikePost = data => dispatch => (
-	removeLike(data)
-	.then(post => dispatch(receivePost(post)))
-	.catch(err => dispatch(receiveErrors(err)))
-)
+export const unlikePost = data => dispatch => {
+	console.log('in unlike post');
+	// removeLike(data)
+	// .then(post => dispatch(receivePost(post)))
+	// .catch(err => dispatch(receiveErrors(err)))
+}

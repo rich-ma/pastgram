@@ -37,24 +37,7 @@ export const profile = (user) => (
 				<h2 className='post-profile-name'>{user.username}</h2>
 			</div>
 		)
-
-		export const postInfo = (post) => {
-			const date = getDate(new Date(post.date));
-
-			return(
-			<div className='post-info'>
-				<div className='post-likes-comments'>
-					<i className="post-info-icon far fa-heart"></i>
-					<i className="post-info-icon far fa-comment"></i>
-				</div>
-					<div className='post-likes-container'>
-						Liked by <h3 className='post-likes'>{post.likes.length}</h3>{post.likes.length === 1 ? 'person' : 'people'}
-					</div>
-				<h4 className='post-date'>{date}</h4>
-			</div>
-			)
-		}
-
+		
 		export const postImage = (post) => (
 			<div className='post-show-img-container'>
 				<img src={post.url} alt='post' />
