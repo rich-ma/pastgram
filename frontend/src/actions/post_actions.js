@@ -34,9 +34,9 @@ export const receiveNewPost = post => ({
 	post
 })
 
-export const receiveUserPosts = posts => ({
+export const receiveUserPosts = data => ({
 	type: RECEIVE_USER_POSTS,
-	posts
+	data
 })
 
 export const receivePost = post => ({
@@ -58,9 +58,9 @@ export const fetchPosts = () => dispatch =>(
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 )
 
-export const fetchUserPosts = id => dispatch => (
-	getUserPosts(id)
-	.then(posts => dispatch(receiveUserPosts(posts)))
+export const fetchUserPosts = userId => dispatch => (
+	getUserPosts(userId)
+	.then(data => dispatch(receiveUserPosts(data.data)))
 	.catch(err => dispatch(receiveErrors(err.response.data)))
 );
 

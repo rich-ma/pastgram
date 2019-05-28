@@ -45,8 +45,6 @@
 	align-self: center;
 }
 
-
-
 .post-show-img-container > img {
 	height: 100%;
 }
@@ -81,7 +79,11 @@
 
 @media(min-width: 725px){
 	.post-show-container{
-		max-width: 935px;
+		width: 100vw;
+		display:flex;
+		flex-direction: row;
+		justify-content: center;
+		background-color: red;
 	}
 
 	.post-show-mobile{
@@ -89,11 +91,26 @@
 	}
 
 	.post-show-img-container{
+		height: 100%;
 	}
 
 	.post-show-desktop{
 		display: flex;
 		flex-direction: row;
+		justify-content: center;
+	}
+
+	 .post-show-desktop-left{
+		 width: 90%;
+		 max-width: 600px;
+		 max-height: 600px;
+		 display: flex;
+		 flex-direction: row;
+		 justify-content: center;
+	 }
+
+	.post-show-desktop-right{
+		width: 350px;
 	}
 
 

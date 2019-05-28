@@ -20,7 +20,7 @@ const PostSchema = new Schema({
 		type: String,
 		required: true
 	},
-	likes: [Schema.Types.ObjectId],
+	likes: [String],
   comments: [
     {
       userId: {

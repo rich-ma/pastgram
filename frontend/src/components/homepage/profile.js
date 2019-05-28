@@ -4,53 +4,77 @@ class Profile extends React.Component {
 	constructor(props){
 		super(props);
 		this.state = {
-			currentUser: this.props.currentUser
+			currentUser: this.props.currentUser,
+			user: this.props.user,
+			posts: this.props.posts,
+			userId: this.props.userId,
+			loading: true
 		}
 
 	}
 
-	componentWillReceiveProps(nextProps){
-		if(nextProps.currentUser){
-			this.setState({currentUser: nextProps.currentUser});
-		} else {
-			this.setState({currentUser: null});
-		}
+	componentWillMount(){
+		this.setState({loading: true});
+		console.log(this.props.userId);
+		this.props.fetchUserPosts(this.props.userId);
+	}
+
+	componentWillReceiveProps(newProps){
+		this.setState({
+			user: newProps.user,
+			posts: newProps.posts,
+			loading: false
+		})
 	}
 
 	render(){
+		if(this.state.loading) return null;
+
+		const { posts, user, currentUser } = this.state;
 		// const button = //button that changes, if profile is current users, edit account, otherwise, follow/unfollow
 		return (
-			<div className='user-info'>
-				<div className='user-info-upper'>
-					<div className='avatar-box'>
-						<img src={this.state.currentUser.avatarUrl} className='user-avatar' alt='user-avatar'/>
+			<div className='profile-container'>
+				<div className='user-info'>
+					<div className='user-info-upper'>
+						<div className='avatar-box'>
+							<img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>
+						</div>
+						<div className='user-info-container'>
+							<div className='user-mobile'>
+								<h3 className='username'>{user.username}</h3>
+								<button className='profile-button'>Nothing</button>
+							</div>
+							<div className='user-desktop'>
+								<ul className='user-data'>
+									<li>posts desktop</li>
+									<li>followers</li>
+									<li>following</li>
+								</ul>
+								<h3>Users real name</h3>
+								<h4>Followed by ...</h4>
+							</div>
+						</div>
 					</div>
-					<div className='user-info-container'>
-						<div className='user-mobile'>
-							<h3 className='username'>{this.state.currentUser.username}</h3>
-							<button className='profile-button'>Nothing</button>
-						</div>
-						<div className='user-desktop'>
-							<ul className='user-data'>
-								<li>posts desktop</li>
-								<li>followers</li>
-								<li>following</li>
-							</ul>
-							<h3>Users real name</h3>
-							<h4>Followed by ...</h4>
-						</div>
+					<div className='user-mobile'>
+						<h3 className='user-realname'>{user.name}</h3>
+						<h4 className='mobile-followers'>Followed by ...</h4>
+						<ul className='user-data'>
+							<li>posts</li>
+							<li>followers</li>
+							<li>following</li>
+						</ul>
 					</div>
 				</div>
-				<div className='user-mobile'>
-					<h3 className='user-realname'>Users real name</h3>
-					<h4 className='mobile-followers'>Followed by ...</h4>
-					<ul className='user-data'>
-						<li>posts</li>
-						<li>followers</li>
-						<li>following</li>
-					</ul>
-				</div>
+				<ul className='user-posts'>
+					{posts.map( post => {
+						return (
+							<li key={post.id}><img src={post.url} alt='post.text'/></li>
+						)
+					})}
+				</ul>
+
 			</div>
+
 		)
 	}
 

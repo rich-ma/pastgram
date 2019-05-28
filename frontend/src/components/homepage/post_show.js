@@ -1,5 +1,5 @@
 import React from 'react';
-import { profile, postImage } from '../../util/post_util';
+import { profile, postImage, getDate } from '../../util/post_util';
 import PostInfo from './post_info';
 import '../css/post_show.css';
 
@@ -14,6 +14,7 @@ class PostShow extends React.Component {
 			likeLoading: false
 		}
 		this.addComment = this.addComment.bind(this);
+		this.toggleLike = this.toggleLike.bind(this);
 	}
 
 	componentWillMount(){
@@ -22,9 +23,29 @@ class PostShow extends React.Component {
 
 	componentWillReceiveProps(newProps){
 		this.setState({post: newProps.post, loading: false});
+			if(newProps.post.likes.includes(this.props.currentUserId)){
+				this.setState({like: true})
+			} else {
+				this.setState({like: false})
+			}
 		if(newProps.user) this.setState({user: newProps.user});
-		// const likeStatus = newProps.post.likes.includes(newProps.currentUserId);
-		// this.setState({like: likeStatus});
+	}
+
+	toggleLike(){
+		this.setState({loading: true});
+		const data = {
+			userId: this.props.currentUserId,
+			postId: this.state.post._id
+		}
+		if(this.state.like){
+			this.props.unlikePost(data).then(() => {
+				this.setState({like: false, loading: false});
+			})
+		} else {
+			this.props.likePost(data).then(() => {
+				this.setState({like: true, loading: false})
+			})
+		}
 	}
 
 
@@ -40,12 +61,27 @@ class PostShow extends React.Component {
 		const profileContainer = profile(user);
 		const imageContainer = postImage(post);
 
+		const date = getDate(new Date(post.date));
+
+		const postInfo = ( 
+		<div className='post-info'>
+			<div className='post-likes-comments'>
+				<i onClick={this.toggleLike} className="post-info-icon far fa-heart"></i>
+				<i className="post-info-icon far fa-comment"></i>
+			</div>
+				<div className='post-likes-container'>
+					Liked by <h3 className='post-likes'>{this.state.post.likes.length}</h3>{this.state.post.likes.length === 1 ? 'person' : 'people'}
+				</div>
+			<h4 className='post-date'>{date}</h4>
+		</div>
+		)
+
 		return(
 			<div className='post-show-container'>
 				<div className='post-show-mobile'>
 					{profileContainer}
 					{imageContainer}
-					<PostInfo loading={this.state.loading} likePost={this.props.likePost} unlikePost={this.props.unlikePost} post={this.state.post} currentUserId={this.state.currentUserId} />
+					{postInfo}
 				</div>
 				<div className='post-show-desktop'>
 					<div className='post-show-desktop-left'>
@@ -56,7 +92,7 @@ class PostShow extends React.Component {
 						<div>
 						Comments
 						</div>
-						<PostInfo post={this.state.post} likePost={this.props.likePost} unlikePost={this.props.unlikePost} loading={this.state.loading} currentUserId={this.state.currentUserId} />
+						{postInfo}
 					</div>
 				</div>
 			</div>

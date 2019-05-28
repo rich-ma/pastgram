@@ -48,7 +48,13 @@ router.get('/', (req, res) => {
 //get all posts from a specific user
 router.get('/user/:user_id', (req, res) => {
 	Post.find({userId: req.params.user_id})
-		.then(posts => res.json(posts))
+		.sort({date: -1})
+		.then(posts => (
+			User.findById(posts[0].userId + '')
+				.then(user => {
+					return res.json({posts, user});
+				})		
+		))
 		.catch(err => res.status(404).json({ nopostsfound: "No posts found from that user."}));
 });
 
@@ -58,7 +64,6 @@ router.get('/:id', (req, res) => {
 		.then(post => {
 			User.findById(post.userId + '')
 				.then(user => {
-
 					return res.json({post, user});
 				});
 		})
@@ -71,15 +76,13 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
   (req, res) => {
 		Post.findById(req.params.id)
 			.then(post => {
-				if(post.likes.includes(req.userId)) {
+				if(post.likes.includes(req.body.userId)) {
 					return res
 						.status(400)
 						.json({ alreadyliked: 'User already liked this post' });
 				}
 				// Add user id to likes array
-				console.log('like router userId', req.userId);
-				post.likes.unshift(req.userId);
-				console.log('router posts likes',posts.like);
+				post.likes.push(req.body.userId);
 
 				post.save().then(post => res.json(post));
 			})
@@ -91,19 +94,14 @@ router.post('/unlike/:id',
   (req, res) => {
       Post.findById(req.params.id)
         .then(post => {
-          if (
-            post.likes.filter(like => like.user.toString() === req.userId)
-              .length === 0
-          ) {
+          if(post.likes.includes(req.userId)){
             return res
               .status(400)
               .json({ notliked: 'You have not yet liked this post' });
           }
 
           // Get remove index
-          const removeIndex = post.likes
-            .map(item => item.user.toString())
-            .indexOf(req.userId);
+          const removeIndex = post.likes.indexOf(req.userId);
 
           // Splice out of array
           post.likes.splice(removeIndex, 1);

@@ -15,20 +15,22 @@ const PostsReducer = (state = {
 
 	switch(action.type){
 		case RECEIVE_POSTS:
-			newState.all = action.posts.data;
+			newState.all = action.data.posts;
 			return newState;
 		case RECEIVE_POST_SHOW:
 			newState.post = action.data.post;
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
-			newState.user = action.posts.data;
+			console.log(action.data);
+			newState.user = action.data.user;
+			newState.posts = action.data.posts;
 			return newState;
 		case RECEIVE_NEW_POST:
 			newState.new = action.post.data;
 			return newState;
 		case RECEIVE_POST:
-			newState.post = action.post;
+			newState.post = action.post.data;
 			return newState;
 		default:
 			return state;
