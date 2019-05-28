@@ -1,5 +1,6 @@
 .post-show-container{
 	width: 100vw;
+	overflow: hidden;
 }
 
 .post-show-mobile{
@@ -44,8 +45,37 @@
 	align-self: center;
 }
 
+
+
 .post-show-img-container > img {
 	height: 100%;
+}
+
+.post-info-icon {
+	font-size: 24px;
+	padding: 10px;
+}
+
+.post-likes-container{
+	font-size: 14px;
+	display: inline-flex;
+	padding-left: 10px;
+}
+
+.post-likes{
+	padding: 0px 4px;
+	color: black;
+	font-size: 14px;
+}
+
+.post-date{
+	font-size: 10px;
+	letter-spacing: .2px;
+	line-height: 18px;
+	color: #999;
+	margin: 5px 0px 5px 10px;
+	text-transform: uppercase;
+	
 }
 
 @media(min-width: 725px){

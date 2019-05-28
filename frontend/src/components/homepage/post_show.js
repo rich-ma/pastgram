@@ -35,7 +35,38 @@ class PostShow extends React.Component {
 
 	render(){
 		if(this.state.loading) return null;
+
 		const { post, user } = this.state;
+		console.log(post);
+
+		const postDate = new Date(post.date);
+		const now = new Date();
+		const minDiff = ((now.getTime() - postDate.getTime())/60000);
+		const hourDiff = Math.floor(minDiff/60);
+		const dayDiff = now.getDate() - postDate.getDate();
+		const yearsDiff = now.getFullYear() - postDate.getFullYear();
+		const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
+		let date;
+
+		if(yearsDiff > 0){
+			date = months[Date.getMonth()] + ' ' + postDate.getDate() + ',' + postDate.getFullYear();
+		} else if (hourDiff < 1){
+			date = Math.ceil(minDiff) + ' minutes ago';
+			if(Math.ceil(minDiff) === 1) date = 'a minute ago';
+		} else if (hourDiff < now.getHours() && hourDiff === 1){
+			date = 'an hour ago';
+		} else if (hourDiff < now.getHours() && hourDiff > 1){
+			date = hourDiff + ' hours ago';
+		}else if (dayDiff === 1){
+			date = 'yesterday';
+		} else if (dayDiff < 7){
+			date = dayDiff + ' days ago';
+		}	else {
+			date = months[postDate.getMonth()] + ' ' + postDate.getDate();
+		}
+
+		console.log(minDiff, hourDiff);
+
 		const profile = (
 			<div className='post-profile'>
 				<div className='post-profile-img-container'>
@@ -47,12 +78,14 @@ class PostShow extends React.Component {
 
 		const postInfo = (
 			<div className='post-info'>
-				<div className=''>
-					<i className="far fa-heart"></i>
-					<i className="far fa-comment"></i>
+				<div className='post-likes-comments'>
+					<i className="post-info-icon far fa-heart"></i>
+					<i className="post-info-icon far fa-comment"></i>
 				</div>
-				<h3>{post.likes.length}</h3>
-				<h4>date here</h4>
+					<div className='post-likes-container'>
+						Liked by <h3 className='post-likes'>{post.likes.length}</h3>{post.likes.length === 1 ? 'person' : 'people'}
+					</div>
+				<h4 className='post-date'>{date}</h4>
 			</div>
 		)
 

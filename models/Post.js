@@ -20,12 +20,37 @@ const PostSchema = new Schema({
 		type: String,
 		required: true
 	},
-	likes: {
-		type: [Schema.Types.ObjectId] //UserIds
-	},
-	comments: {
-		type: [String]
-	}
+	likes: [
+    {
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      }
+    }
+  ],
+  comments: [
+    {
+      userId: {
+        type: Schema.Types.ObjectId,
+        ref: 'users'
+      },
+      text: {
+        type: String,
+        required: true
+      },
+      username: {
+        type: String
+      },
+      avatarUrl: {
+        type: String
+      },
+      date: {
+        type: Date,
+        default: Date.now
+      }
+    }
+  ],
+	
 });
 
 const Post = mongoose.model('posts', PostSchema);
