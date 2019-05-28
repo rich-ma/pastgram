@@ -23,8 +23,8 @@ class PostShow extends React.Component {
 	componentWillReceiveProps(newProps){
 		this.setState({post: newProps.post, loading: false});
 		if(newProps.user) this.setState({user: newProps.user});
-		const likeStatus = newProps.post.likes.includes(newProps.currentUserId);
-		this.setState({like: likeStatus});
+		// const likeStatus = newProps.post.likes.includes(newProps.currentUserId);
+		// this.setState({like: likeStatus});
 	}
 
 
@@ -45,7 +45,7 @@ class PostShow extends React.Component {
 				<div className='post-show-mobile'>
 					{profileContainer}
 					{imageContainer}
-					<PostInfo loading={this.state.loading} likePost={this.props.likePost} unlikePost={this.props.unlikePost} post={post} currentUserId={this.props.currentUserId} />
+					<PostInfo loading={this.state.loading} likePost={this.props.likePost} unlikePost={this.props.unlikePost} post={this.state.post} currentUserId={this.state.currentUserId} />
 				</div>
 				<div className='post-show-desktop'>
 					<div className='post-show-desktop-left'>
@@ -56,7 +56,7 @@ class PostShow extends React.Component {
 						<div>
 						Comments
 						</div>
-						<PostInfo post={post} likePost={this.props.likePost} unlikePost={this.props.unlikePost} loading={this.state.loading} currentUserId={this.props.currentUserId} />
+						<PostInfo post={this.state.post} likePost={this.props.likePost} unlikePost={this.props.unlikePost} loading={this.state.loading} currentUserId={this.state.currentUserId} />
 					</div>
 				</div>
 			</div>

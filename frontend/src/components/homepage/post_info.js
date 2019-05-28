@@ -10,29 +10,40 @@ class PostInfo extends React.Component {
 			post: this.props.post,
 			currentUserId: this.props.currentUserId
 		}
+
 		this.toggleLike = this.toggleLike.bind(this);
+	}
+
+	componentWillMount(){
+		// this.props.post.likes.forEach(like => console.log(like));
+		// this.setState({like: likeStatus});
+	}
+
+	componentWillReceiveProps(newProps){
+		this.setState({post: newProps.post})
 	}
 
 	toggleLike(){
 		this.setState({loading: true});
-		if(this.state.like){
-			this.props.unlikePost({
+		// if(this.state.like){
+		// 	this.props.unlikePost({
+		// 		userId: this.props.currentUserId,
+		// 		postId: this.state.post.id
+		// 	}).then(() => {
+		// 		this.setState({like: true, loading: false});
+		// 	})
+		// } else {
+			this.props.likePost({
 				userId: this.props.currentUserId,
-				postId: this.state.post.id
+				postId: this.state.post._id
 			}).then(() => {
-				this.setState({like: true, loading: false});
+				this.setState({like: true, loading: false})
 			})
-		} else {
-			this.props.unlikePost({
-				userId: this.props.currentUserId,
-				postId: this.state.post.id
-			}).then(() => {
-				this.setState({like: false, loading: false})
-			})
-		}
+		// }
 	}
 
 	render(){
+
 		const post = this.state.post;
 		const date = getDate(new Date(post.date));
 

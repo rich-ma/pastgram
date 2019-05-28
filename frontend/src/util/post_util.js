@@ -13,7 +13,8 @@ export const getDate = (postDate) => {
 		date = months[Date.getMonth()] + ' ' + postDate.getDate() + ',' + postDate.getFullYear();
 	} else if (hourDiff < 1) {
 		date = Math.ceil(minDiff) + ' minutes ago';
-		if (Math.ceil(minDiff) === 1) date = 'a minute ago';
+		if (Math.floor(minDiff) === 1) date = 'a minute ago';
+		if(Math.floor(minDiff) === 0) date = 'just now';
 	} else if (hourDiff < now.getHours() && hourDiff === 1) {
 		date = 'an hour ago';
 	} else if (hourDiff < now.getHours() && hourDiff > 1) {

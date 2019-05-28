@@ -71,25 +71,22 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
   (req, res) => {
 		Post.findById(req.params.id)
 			.then(post => {
-				if(
-					post.likes.filter(like => like.user.toString() === req.userId)
-						.length > 0
-				) {
+				if(post.likes.includes(req.userId)) {
 					return res
 						.status(400)
 						.json({ alreadyliked: 'User already liked this post' });
 				}
-
 				// Add user id to likes array
-				post.likes.unshift({ user: req.userId });
+				console.log('like router userId', req.userId);
+				post.likes.unshift(req.userId);
+				console.log('router posts likes',posts.like);
 
 				post.save().then(post => res.json(post));
 			})
 			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));
 });
 
-router.post(
-  '/unlike/:id',
+router.post('/unlike/:id',
   passport.authenticate('jwt', { session: false }),
   (req, res) => {
       Post.findById(req.params.id)
