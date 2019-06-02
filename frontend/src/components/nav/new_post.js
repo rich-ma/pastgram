@@ -16,22 +16,7 @@ class NewPost extends React.Component{
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.handleFile = this.handleFile.bind(this);
-		this.handleKeyPress = this.handleKeyPress.bind(this);
 		this.imagePreview = this.imagePreview.bind(this);
-	}
-
-	handleKeyPress(e){
-		if (e.keyCode === 27) {
-			this.props.closeModal();
-		}
-	}
-
-	componentDidMount(){
-		document.addEventListener('keydown', this.handleKeyPress, false);
-	}
-
-	componentWillUnmount(){
-		document.removeEventListener('keydown', this.handleKeyPress, false);
 	}
 
 	componentWillReceiveProps(nextProps){

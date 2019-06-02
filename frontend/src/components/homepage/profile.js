@@ -1,5 +1,7 @@
 import React from 'react';
 import '../css/profile.css';
+
+
 class Profile extends React.Component {
 	constructor(props){
 		super(props);
@@ -10,7 +12,6 @@ class Profile extends React.Component {
 			userId: this.props.userId,
 			loading: true
 		}
-
 	}
 
 	componentWillMount(){
@@ -27,10 +28,13 @@ class Profile extends React.Component {
 		})
 	}
 
+
+
 	render(){
 		if(this.state.loading) return null;
 
 		const { posts, user, currentUser } = this.state;
+		const openModal = this.props.openModal;
 		// const button = //button that changes, if profile is current users, edit account, otherwise, follow/unfollow
 		return (
 			<div className='profile-container'>
@@ -68,7 +72,7 @@ class Profile extends React.Component {
 				<ul className='user-posts'>
 					{posts.map( post => {
 						return (
-							<li key={post.id}><img src={post.url} alt='post.text'/></li>
+							<li key={post.id}><img src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt='post.text'/></li>
 						)
 					})}
 				</ul>

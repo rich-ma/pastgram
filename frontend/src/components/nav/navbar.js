@@ -38,7 +38,7 @@ class NavBar extends React.Component {
 					</Link>
 					<input className='nav-search' type="text" placeholder="Search.." />
 					<div className='nav-right'>
-						<i className="far fa-plus-square" onClick={() => openModal('newPost')}></i>
+						<i className="far fa-plus-square" onClick={() => openModal({modal: 'newPost'})}></i>
 						<Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
 					</div>
 				</div>

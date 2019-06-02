@@ -24,26 +24,28 @@ class PostShow extends React.Component {
 	componentWillReceiveProps(newProps){
 		this.setState({post: newProps.post, loading: false});
 			if(newProps.post.likes.includes(this.props.currentUserId)){
-				this.setState({like: true})
+				this.setState({like: true});
 			} else {
-				this.setState({like: false})
+				this.setState({like: false});
 			}
 		if(newProps.user) this.setState({user: newProps.user});
 	}
 
 	toggleLike(){
-		this.setState({loading: true});
+		this.setState({likeLoading: true});
 		const data = {
 			userId: this.props.currentUserId,
 			postId: this.state.post._id
 		}
 		if(this.state.like){
 			this.props.unlikePost(data).then(() => {
-				this.setState({like: false, loading: false});
+				this.setState({like: false, likeLoading: false});
+				console.log(this.state);
 			})
 		} else {
 			this.props.likePost(data).then(() => {
-				this.setState({like: true, loading: false})
+				this.setState({like: true, likeLoading: false});
+				console.log(this.state);
 			})
 		}
 	}
@@ -58,6 +60,8 @@ class PostShow extends React.Component {
 
 		const { post, user } = this.state;
 
+		let likeClassName = this.state.like ? 'post-info-icon liked-heart fas fa-heart' : 'post-info-icon far fa-heart';
+
 		const profileContainer = profile(user);
 		const imageContainer = postImage(post);
 
@@ -66,7 +70,7 @@ class PostShow extends React.Component {
 		const postInfo = ( 
 		<div className='post-info'>
 			<div className='post-likes-comments'>
-				<i onClick={this.toggleLike} className="post-info-icon far fa-heart"></i>
+				<i onClick={this.state.likeLoading ? null : this.toggleLike} id='like' className={likeClassName}></i>
 				<i className="post-info-icon far fa-comment"></i>
 			</div>
 				<div className='post-likes-container'>
