@@ -40,8 +40,7 @@ class Profile extends React.Component {
 		);
 
 		const editUser = (
-			<div>
-			</div>
+			<button onClick={e => this.props.openModal({modal: 'editUser', data: currentUser})} >Edit Profile</button>
 		)
 
 		const button = currentUser.id === userId ? editUser : toggleFollow;
