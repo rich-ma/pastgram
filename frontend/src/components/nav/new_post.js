@@ -15,7 +15,6 @@ class NewPost extends React.Component{
 			photoFile: null
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
-		this.handleFile = this.handleFile.bind(this);
 		this.imagePreview = this.imagePreview.bind(this);
 	}
 

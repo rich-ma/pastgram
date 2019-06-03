@@ -6,7 +6,8 @@ import { withRouter } from 'react-router-dom';
 import EditUser from './edit_user';
 
 const mSTP = (state, ownProps) => ({
-	user: ownProps.user
+	user: ownProps.user,
+	errors: state.errors.user
 })
 
 const mDTP = dispatch => ({

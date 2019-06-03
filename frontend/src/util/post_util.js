@@ -4,7 +4,7 @@ export const getDate = (postDate) => {
 	const now = new Date();
 	const minDiff = ((now.getTime() - postDate.getTime()) / 60000);
 	const hourDiff = Math.floor(minDiff / 60);
-	const dayDiff = now.getDate() - postDate.getDate();
+	const dayDiff = Math.floor(hourDiff/24);
 	const yearsDiff = now.getFullYear() - postDate.getFullYear();
 	const months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	let date;

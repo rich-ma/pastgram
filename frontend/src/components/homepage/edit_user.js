@@ -44,11 +44,24 @@ class EditUser extends React.Component{
 	}
 
 	render(){
+		const user = this.props.user;
 
 
 		return(
 			<div className='edit-user-container'>
-			
+				<div className='edit-user-profile'>
+					<label for='edit-avatar-img' className='edit-profile-avatar'>
+						<img alt='user-avatar' src={this.state.photoUrl ? this.state.photoUrl : user.avatarUrl} />
+						<input type='file' accept='image/*' id='edit-avatar-img' onChange={e => this.imagePreview(e)} />
+					</label>
+					<div className='edit-profile-name'>
+						<h3 className='edit-profile-username'>{user.username}</h3>
+						<label for='edit-avatar-text'>
+							<h3 className='edit-profile-avatar-button'>Change Profile Photo</h3>
+							<input type='file' id='edit-avatar-text' accept='image/*' onChange={e => this.imagePreview(e)} />
+						</label>
+					</div>
+				</div>
 			
 			</div>
 		)
