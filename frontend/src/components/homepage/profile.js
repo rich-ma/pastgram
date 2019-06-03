@@ -33,7 +33,19 @@ class Profile extends React.Component {
 	render(){
 		if(this.state.loading) return null;
 
-		const { posts, user, currentUser } = this.state;
+		const { posts, user, currentUser, userId } = this.state;
+
+		const toggleFollow = (
+			<button>{}</button>
+		);
+
+		const editUser = (
+			<div>
+			</div>
+		)
+
+		const button = currentUser.id === userId ? editUser : toggleFollow;
+
 		const openModal = this.props.openModal;
 		// const button = //button that changes, if profile is current users, edit account, otherwise, follow/unfollow
 		return (
@@ -46,7 +58,7 @@ class Profile extends React.Component {
 						<div className='user-info-container'>
 							<div className='user-mobile'>
 								<h3 className='username'>{user.username}</h3>
-								<button className='profile-button'>Nothing</button>
+								{button}
 							</div>
 							<div className='user-desktop'>
 								<ul className='user-data'>

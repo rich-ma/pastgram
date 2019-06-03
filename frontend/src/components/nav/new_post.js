@@ -63,10 +63,6 @@ class NewPost extends React.Component{
 		this.setState({photoFile: file});
 	}
 
-	handleFile(){
-		
-	}
-
 	updateText(e){
 		e.preventDefault();
 		this.setState({text: e.currentTarget.value});

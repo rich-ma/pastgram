@@ -112,6 +112,7 @@
 }
 
 .user-posts{
-	display: flex;
-	flex-direction: column;
+	display: grid;
+	max-width: 100vw;
+	overflow: hidden;
 }

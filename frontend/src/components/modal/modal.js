@@ -3,7 +3,7 @@ import { connect } from 'react-redux';
 import { closeModal } from '../../actions/modal_actions';
 import NewPostContainer from '../nav/new_post_container';
 import PostShowContainer from '../homepage/post_show_container';
-// import EditUserContainer from '../homepage/edit_user_container';
+import EditUserContainer from '../homepage/edit_user_container';
 import '../css/modal.css';
 
 class Modal extends React.Component{
@@ -44,9 +44,9 @@ class Modal extends React.Component{
 			case 'postShow':
 				component = <PostShowContainer post={modal.data} />;
 				break;
-			// case 'editUser':
-			//   component = <EditUserFormContainer />;
-			//   break;
+			case 'editUser':
+			  component = <EditUserContainer user={modal.data} />;
+			  break;
 			default:
 				return null;
 		}
