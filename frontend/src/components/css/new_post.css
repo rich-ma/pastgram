@@ -105,6 +105,7 @@
 .submit-disable{
 	pointer-events: none;
 	cursor: default;
+	opacity: .3;
 }
 
 @media (min-width: 425px) {

@@ -20,6 +20,7 @@ class EditUser extends React.Component{
 		this.imagePreview = this.imagePreview.bind(this);
 		this.updateField = this.updateField.bind(this);
 		this.renderErrors = this.renderErrors.bind(this);
+		this.logout = this.logout.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -57,6 +58,11 @@ class EditUser extends React.Component{
 			}
 		}
 	};
+
+	logout(){
+		this.props.closeModal();
+		this.props.logout();
+	}
 
 	imagePreview(e){
 		e.preventDefault();
@@ -118,7 +124,7 @@ class EditUser extends React.Component{
 					</div>
 					<div className='edit-user-buttons'>
 						<button className='edit-user-submit submit-void' id='edit-submit' onClick={this.handleSubmit} >Submit</button>
-						<button className='logout' onClick={this.props.logout}>Logout</button>
+						<button className='logout' onClick={this.logout}>Logout</button>
 					</div>
 					</form>
 			</div>
