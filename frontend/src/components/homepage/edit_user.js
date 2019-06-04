@@ -11,7 +11,8 @@ class EditUser extends React.Component{
 			bio: user.bio,
 			photoUrl: null,
 			photoFile: null,
-			errors: null
+			errors: null,
+			edited: false
 		}
 		//allow user to change password later on
 
@@ -45,9 +46,16 @@ class EditUser extends React.Component{
 	}
 
 	updateField(field){
-		return(e) => this.setState({
-			[field] : e.currentTarget.value
-		})
+		return (e) => {
+			this.setState({
+				[field] : e.currentTarget.value
+			});
+			if(this.state[field] !== this.props.user[field]){
+				this.setState({edited: true});
+				const submit = document.getElementById('edit-submit');
+				submit.classList.remove('submit-void');
+			}
+		}
 	};
 
 	imagePreview(e){
@@ -69,6 +77,11 @@ class EditUser extends React.Component{
 
 		return(
 			<div className='edit-user-container'>
+				<div className='edit-user-header'>
+					<i className="fas fa-times" onClick={this.props.closeModal}></i>
+					<h3>Edit Profile</h3>
+					<div className='placeholder'>히</div>
+				</div>
 				<div className='edit-user-profile'>
 					<label htmlFor='edit-avatar-img' className='edit-profile-avatar'>
 						<img alt='user-avatar' src={this.state.photoUrl ? this.state.photoUrl : user.avatarUrl} />
@@ -83,22 +96,24 @@ class EditUser extends React.Component{
 					</div>
 				</div>
 				{this.renderErrors()}
-				<form action='' onSubmit={this.handleSubmit}>
-					<label>
+				<form className='edit-user-form' action='' onSubmit={this.handleSubmit}>
+					<div className='edit-user-input'>
 						<h3>Name</h3>
 						<input type='text' value={this.state.name} onChange={this.updateField('name')} />
-					</label>
-					<label>
+					</div>
+					<div className='edit-user-input'>
 						<h3>Username</h3>
 						<input type='text' value={this.state.username} onChange={this.updateField('username')} />
-					</label>
-					<label>
+					</div>
+					<div className='edit-user-input'>
 						<h3>Bio</h3>
 						<textarea type='text' value={this.state.bio} onChange={this.updateField('bio')} />
-					</label>
-					<button className='edit-user-submit' onClick={this.handleSubmit} >Submit</button>
-					<button className='logout' onClick={this.props.logout}>Logout</button>
-				</form>
+					</div>
+					<div className='edit-user-buttons'>
+						<button className='edit-user-submit submit-void' id='edit-submit' onClick={this.handleSubmit} >Submit</button>
+						<button className='logout' onClick={this.props.logout}>Logout</button>
+					</div>
+					</form>
 			</div>
 		)
 	}
