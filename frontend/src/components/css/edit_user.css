@@ -40,10 +40,16 @@
 	width: 42px;
 	height: 42px;
 	padding-right: 32px;
-
 }
 
-.edit-profile-avatar > img {
+.edit-avatar-container{
+	width: 42px;
+	height: 42px;
+	border-radius: 50%;
+	overflow: hidden;
+}
+
+.edit-avatar-container > img {
 	width: 100%;
 }
 
@@ -81,7 +87,7 @@
 	padding-bottom: 20px;
 }
 .edit-user-input > input {
-	width: calc(100% - 43px);
+	width: calc(100% - 53px);
 	background: 0 0;
 	border: 1px solid #efefef;
 	border-radius: 3px;
@@ -92,7 +98,7 @@
 }
 
 .edit-user-input > textarea {
-	width: calc(100% - 43px);
+	width: calc(100% - 53px);
 	height: 60px;
 	padding: 6px 10px;
 	resize: vertical;

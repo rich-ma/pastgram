@@ -63,13 +63,18 @@ class EditUser extends React.Component{
 		const reader = new FileReader();
 		const file = e.currentTarget.files[0];
 		reader.onloadend = () =>
-      this.setState({ photoUrl: reader.result, photoFile: file });
+      this.setState({
+      	photoUrl: reader.result,
+      	photoFile: file
+      });
     if (file) {
       reader.readAsDataURL(file);
     } else {
       this.setState({ PhotoUrl: "" , PhotoFile: null });
 		}
-		this.setState({photoFile: file});
+		this.setState({photoFile: file, edited: true});
+		const submit = document.getElementById('edit-submit');
+		submit.classList.remove('submit-void');
 	}
 
 	render(){
@@ -84,7 +89,9 @@ class EditUser extends React.Component{
 				</div>
 				<div className='edit-user-profile'>
 					<label htmlFor='edit-avatar-img' className='edit-profile-avatar'>
-						<img alt='user-avatar' src={this.state.photoUrl ? this.state.photoUrl : user.avatarUrl} />
+						<div className='edit-avatar-container'>
+							<img alt='user-avatar' src={this.state.photoUrl ? this.state.photoUrl : user.avatarUrl} />
+						</div>	
 						<input type='file' accept='image/*' id='edit-avatar-img' onChange={e => this.imagePreview(e)} />
 					</label>
 					<div className='edit-profile-name'>
