@@ -12,7 +12,8 @@ class NewPost extends React.Component{
 			text: '',
 			newPost: this.props.newPost,
 			photoUrl: null,
-			photoFile: null
+			photoFile: null,
+			edited: false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.imagePreview = this.imagePreview.bind(this);
@@ -60,11 +61,15 @@ class NewPost extends React.Component{
       this.setState({ PhotoUrl: "" , PhotoFile: null });
 		}
 		this.setState({photoFile: file});
+		const submit = document.getElementById('new-post-submit');
+		submit.classList.remove('submit-disable')
 	}
 
 	updateText(e){
 		e.preventDefault();
-		this.setState({text: e.currentTarget.value});
+		this.setState({text: e.currentTarget.value, edited: true});
+		const submit = document.getElementById('new-post-submit');
+		submit.classList.remove('submit-disable')
 	}
 
 	renderPostErrors(){
@@ -99,7 +104,7 @@ class NewPost extends React.Component{
 				<div className='new-post-header'>
 					<i className="fas fa-times" onClick={this.props.closeModal}></i>
 					<h3 className='new-post-title'>New Photo Post</h3>
-					<h3 className='new-post-submit' onClick={this.handleSubmit}>Share</h3>
+					<h3 className='new-post-submit submit-disable' id='new-post-submit' onClick={this.handleSubmit}>Share</h3>
 				</div>
 				{this.renderImageErrors()}
 				{this.renderPostErrors()}
