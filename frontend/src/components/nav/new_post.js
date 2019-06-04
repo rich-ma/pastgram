@@ -11,8 +11,8 @@ class NewPost extends React.Component{
 			errors: this.props.errors,
 			text: '',
 			newPost: this.props.newPost,
-			photoUrl: null,
-			photoFile: null,
+			photoUrl: undefined,
+			photoFile: undefined,
 			edited: false
 		}
 		this.handleSubmit = this.handleSubmit.bind(this);
@@ -56,20 +56,26 @@ class NewPost extends React.Component{
 		reader.onloadend = () =>
       this.setState({ photoUrl: reader.result, photoFile: file });
     if (file) {
-      reader.readAsDataURL(file);
+			reader.readAsDataURL(file);
+			if (this.state.text !== '') {
+				this.setState({edited: true});
+				const submit = document.getElementById('new-post-submit');
+				submit.classList.remove('submit-disable');
+			};
     } else {
       this.setState({ PhotoUrl: "" , PhotoFile: null });
 		}
 		this.setState({photoFile: file});
-		const submit = document.getElementById('new-post-submit');
-		submit.classList.remove('submit-disable')
 	}
 
 	updateText(e){
 		e.preventDefault();
-		this.setState({text: e.currentTarget.value, edited: true});
-		const submit = document.getElementById('new-post-submit');
-		submit.classList.remove('submit-disable')
+		this.setState({text: e.currentTarget.value});
+		if(this.state.photoFile){
+			this.setState({edited: true});
+			const submit = document.getElementById('new-post-submit');
+			submit.classList.remove('submit-disable');
+		}
 	}
 
 	renderPostErrors(){

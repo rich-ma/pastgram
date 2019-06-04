@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 
 export const getDate = (postDate) => {
 	const now = new Date();
@@ -35,7 +36,7 @@ export const profile = (user) => (
 				<div className='post-profile-img-container'>
 					<img src={user.avatarUrl} alt='user-avatar'/>
 				</div>
-				<h2 className='post-profile-name'>{user.username}</h2>
+				<Link to={`/users/${user._id}`} className='post-profile-name'>{user.username}</Link>
 			</div>
 		)
 		
