@@ -167,7 +167,7 @@
 	opacity: .3;
 }
 
-@media(min-width: 450px){
+@media(min-width: 425px){
 	.edit-user-container{
 		width: 100vw;
 		max-width: 550px;

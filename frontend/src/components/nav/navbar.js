@@ -15,7 +15,7 @@ class NavBar extends React.Component {
 
 	componentWillReceiveProps(nextProps){
 		console.log(nextProps.modal);
-		if(nextProps.modal.modalType === 'newPost'){
+		if(nextProps.modal && nextProps.modal.modalType === 'newPost'){
 			const button = document.getElementsByClassName('fa-plus-square');
 			button[0].classList.remove('far');
 			button[0].classList.add('fas');
