@@ -9,8 +9,11 @@ import EditUser from './edit_user';
 const mSTP = (state, ownProps) => {
 	console.log(ownProps);
 	return({
-	user: ownProps.user,
-	errors: state.errors.user
+		user: ownProps.user,
+		errors: {
+			user: state.errors.user,
+			image: state.errors.image,
+		}
 	});
 }
 

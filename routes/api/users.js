@@ -7,6 +7,7 @@ const keys = require('../../config/keys');
 const passport = require('passport');
 const validateRegisterInput = require('../../validation/register');
 const validateLoginInput = require('../../validation/login');
+const validateUpdateUser = require('../../validation/updateUser');
 
 router.get('/test', (req, res) => res.json({msg: 'This is the users route'}));
 
@@ -85,7 +86,29 @@ router.post('/register', (req, res) => {
 });
 
 router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) => {
+	const { errors, isValid } = validateUpdateUser(req.body.user);	
 
+	if(!isValid) return res.status(400).json(errors);
+
+	User.findById(req.userId)
+		.then(user => {
+			if(user.username !== req.user.username){
+				User.findOne({username: req.user.username})
+					.then(usernameUser => {
+						return res.status(400).json({
+							username: "A User is already registered with that username"
+						});
+					})	
+			}
+
+			user.username = req.user.username;
+			user.bio = req.user.bio;
+			user.name = req.user.name;
+			user.avatarUrl = req.user.avatarUrl;
+			user.save()
+				.then(user => res.json(user))
+				.catch(err => console.log(err));
+		});
 });
 
 router.post('/login', (req, res) => {

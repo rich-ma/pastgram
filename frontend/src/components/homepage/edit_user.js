@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import '../css/edit_user.css';
 class EditUser extends React.Component{
 	constructor(props){
@@ -11,7 +12,7 @@ class EditUser extends React.Component{
 			bio: user.bio,
 			photoUrl: null,
 			photoFile: null,
-			errors: null,
+			errors: this.props.errors,
 			edited: false
 		}
 		//allow user to change password later on
@@ -24,9 +25,13 @@ class EditUser extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-		this.setState({
-			errors: nextProps.errors
-		})
+		if(nextProps.errors){
+			this.setState({
+				errors: nextProps.errors
+			});
+		} else {
+
+		}
 	}
 
 		renderErrors(){
@@ -44,6 +49,38 @@ class EditUser extends React.Component{
 
 	handleSubmit(e){
 		e.preventDefault();
+		this.setState({errors: {post: null, user: null}});
+
+		if(this.state.photoUrl){
+			const data = new FormData();
+			axios.post('/api/image-upload/new', data).then(res => {
+				const data = {
+					user: {
+						username: this.state.username,
+						bio: this.state.bio,
+						avatarUrl: res.data.imageUrl,
+						name: this.state.name
+					},
+					userId: this.props.user.id
+				};
+				this.props.updateUser(data).then(() => {
+					this.props.history.push(`/users/${this.props.user.id}`);
+				})
+			}).catch(err => this.setState({'errors': {image: err.response.data}}))		
+		} else {
+			const data = {
+				user: {
+					username: this.state.username,
+					bio: this.state.bio,
+					name: this.state.name
+				},
+				userId: this.props.user.id
+			};
+
+			this.props.updateUser(data).then(() => {
+				this.props.history.push(`/users/${this.props.user.id}`);
+			})
+		}
 	}
 
 	updateField(field){

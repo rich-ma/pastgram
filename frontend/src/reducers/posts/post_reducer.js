@@ -5,7 +5,8 @@ const PostsReducer = (state = {
 		users:{}, 
 		user: undefined, 
 		new: undefined, 
-		post: undefined
+		post: undefined,
+		posts: {}
 	}, 
 	action) => {
 	Object.freeze(state);

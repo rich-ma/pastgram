@@ -15,6 +15,7 @@ class Profile extends React.Component {
 	}
 
 	componentWillMount(){
+		this.props.closeModal();
 		this.setState({loading: true});
 		console.log(this.props.userId);
 		this.props.fetchUserPosts(this.props.userId);
@@ -83,7 +84,7 @@ class Profile extends React.Component {
 				<ul className='user-posts'>
 					{posts.map( post => {
 						return (
-							<li key={post.id}><img src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt='post.text'/></li>
+							<li key={post._id}><img src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt='post.text'/></li>
 						)
 					})}
 				</ul>

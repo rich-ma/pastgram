@@ -1,5 +1,5 @@
 import { logout } from '../../actions/session_actions';
-import { openModal } from '../../actions/modal_actions';
+import { openModal, closeModal } from '../../actions/modal_actions';
 import { fetchUserPosts } from '../../actions/post_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
@@ -19,7 +19,8 @@ const mSTP = (state, ownProps) => {
 const mDTP = dispatch => ({
 	logout: () => dispatch(logout()),
 	fetchUserPosts: (data) => dispatch(fetchUserPosts(data)),
-	openModal: (modal) => dispatch(openModal(modal))
+	openModal: (modal) => dispatch(openModal(modal)),
+	closeModal: () => dispatch(closeModal())
 })
 
 // export default withRouter(connect(mSTP, mDTP)(Profile));
