@@ -25,7 +25,8 @@ class Profile extends React.Component {
 			user: newProps.user,
 			posts: newProps.posts,
 			loading: false
-		})
+		});
+		this.props.closeModal();
 	}
 
 
@@ -71,7 +72,8 @@ class Profile extends React.Component {
 						</div>
 					</div>
 					<div className='user-mobile'>
-						<h3 className='user-realname'>{user.name}</h3>
+						<h3 className='user-realname-mobile'>{user.name}</h3>
+						<p className='user-bio-mobile' >{user.bio}</p>
 						<h4 className='mobile-followers'>Followed by ...</h4>
 						<ul className='user-data'>
 							<li>posts</li>

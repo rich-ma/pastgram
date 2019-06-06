@@ -20,7 +20,9 @@
 .post-profile-img-container{
 	width: 32px;
 	height: 32px;
-	padding: 16px;
+	border-radius: 50%;
+	overflow: hidden;
+	margin-left: 20px;
 }
 
 .post-profile-name{
@@ -29,8 +31,8 @@
 
 
 .post-profile-img-container > img {
-		height: 100%;
-		width: auto;
+	height: 100%;
+	width: auto;
 }
 
 .post-show-desktop{

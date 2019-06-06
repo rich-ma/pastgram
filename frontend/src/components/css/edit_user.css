@@ -198,6 +198,7 @@
 
 	.edit-user-input > textarea{
 		width: calc(100% - 160px);
+		font-family: Arial;
 	}
 
 	.edit-user-submit{

@@ -29,8 +29,8 @@ export const getUser = id => dispatch => (
 export const updateUser = data => dispatch => (
 	UserAPIUtil.updateUser(data)
 		.then(user => {
-			dispatch(receiveUser(user));
-			dispatch(receiveUserUpdate(user));
+			dispatch(receiveUser(user.data));
+			dispatch(receiveUserUpdate(user.data));
 		})
 		.catch(err => dispatch(receiveErrors(err)))
 );
