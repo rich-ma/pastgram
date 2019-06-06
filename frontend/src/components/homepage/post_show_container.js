@@ -7,7 +7,6 @@ import PostShow from './post_show';
 
 const mSTP = (state, ownProps) => {
 	const postId = ownProps.post ? ownProps.post._id : ownProps.match.params.postId;
-	console.log(ownProps.post);
 	return({
 		postId,
 		currentUserId: state.session.user.id,

@@ -17,7 +17,6 @@ class Profile extends React.Component {
 	componentWillMount(){
 		this.props.closeModal();
 		this.setState({loading: true});
-		console.log(this.props.userId);
 		this.props.fetchUserPosts(this.props.userId);
 	}
 

@@ -23,7 +23,6 @@ const PostsReducer = (state = {
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
-			console.log(action.data);
 			newState.user = action.data.user;
 			newState.posts = action.data.posts;
 			return newState;

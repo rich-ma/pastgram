@@ -86,14 +86,17 @@ router.post('/register', (req, res) => {
 });
 
 router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) => {
-	const { errors, isValid } = validateUpdateUser(req.body.user);	
+	const reqUser = req.body.user;
+	const { errors, isValid } = validateUpdateUser(reqUser);	
 
+	console.log('before err');
 	if(!isValid) return res.status(400).json(errors);
+	console.log('after error');
 
-	User.findById(req.userId)
+	User.findById(req.body.userId)
 		.then(user => {
-			if(user.username !== req.user.username){
-				User.findOne({username: req.user.username})
+			if(user.username !== reqUser.username){
+				User.findOne({username: reqUser.username})
 					.then(usernameUser => {
 						return res.status(400).json({
 							username: "A User is already registered with that username"
@@ -101,10 +104,10 @@ router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) 
 					})	
 			}
 
-			user.username = req.user.username;
-			user.bio = req.user.bio;
-			user.name = req.user.name;
-			user.avatarUrl = req.user.avatarUrl;
+			user.username = reqUser.username;
+			user.bio = reqUser.bio;
+			user.name = reqUser.name;
+			user.avatarUrl = reqUser.avatarUrl;
 			user.save()
 				.then(user => res.json(user))
 				.catch(err => console.log(err));

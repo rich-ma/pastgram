@@ -20,7 +20,7 @@ class EditUser extends React.Component{
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.imagePreview = this.imagePreview.bind(this);
 		this.updateField = this.updateField.bind(this);
-		this.renderErrors = this.renderErrors.bind(this);
+		// this.renderErrors = this.renderErrors.bind(this);
 		this.logout = this.logout.bind(this);
 	}
 
@@ -34,18 +34,18 @@ class EditUser extends React.Component{
 		}
 	}
 
-		renderErrors(){
-		if(!this.state.errors) return null;
-		return (
-			<ul className='edit-user-errors'>
-				{Object.keys(this.state.errors).map((error, i) => (
-					<li key={`error-${i}`}>
-						{this.state.errors[error]}
-					</li>
-				))}
-			</ul>
-		);
-	};
+	// 	renderErrors(){
+	// 	if(!this.state.errors) return null;
+	// 	return (
+	// 		<ul className='edit-user-errors'>
+	// 			{Object.keys(this.state.errors).map((error, i) => (
+	// 				<li key={`edit-user-error-${i}`}>
+	// 					{this.state.errors[error]}
+	// 				</li>
+	// 			))}
+	// 		</ul>
+	// 	);
+	// };
 
 	handleSubmit(e){
 		e.preventDefault();
@@ -53,6 +53,7 @@ class EditUser extends React.Component{
 
 		if(this.state.photoUrl){
 			const data = new FormData();
+			data.append('image', this.state.photoFile);
 			axios.post('/api/image-upload/new', data).then(res => {
 				const data = {
 					user: {
@@ -63,16 +64,21 @@ class EditUser extends React.Component{
 					},
 					userId: this.props.user.id
 				};
-				this.props.updateUser(data).then(() => {
-					this.props.history.push(`/users/${this.props.user.id}`);
-				})
-			}).catch(err => this.setState({'errors': {image: err.response.data}}))		
+				this.props.updateUser(data)
+			}).then(() => {
+				this.props.history.push(`/users/${this.props.user.id}`);
+			}).catch(err => this.setState({
+				'errors': {
+					image: err.response.data
+				}
+			}))
 		} else {
 			const data = {
 				user: {
 					username: this.state.username,
 					bio: this.state.bio,
-					name: this.state.name
+					name: this.state.name,
+					avatarUrl: this.state.avatarUrl
 				},
 				userId: this.props.user.id
 			};
@@ -145,7 +151,6 @@ class EditUser extends React.Component{
 						</label>
 					</div>
 				</div>
-				{this.renderErrors()}
 				<form className='edit-user-form' action='' onSubmit={this.handleSubmit}>
 					<div className='edit-user-input'>
 						<h3>Name</h3>

@@ -40,12 +40,10 @@ class PostShow extends React.Component {
 		if(this.state.like){
 			this.props.unlikePost(data).then(() => {
 				this.setState({like: false, likeLoading: false});
-				console.log(this.state);
 			})
 		} else {
 			this.props.likePost(data).then(() => {
 				this.setState({like: true, likeLoading: false});
-				console.log(this.state);
 			})
 		}
 	}
