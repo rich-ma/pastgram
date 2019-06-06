@@ -89,12 +89,11 @@ router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) 
 	const reqUser = req.body.user;
 	const { errors, isValid } = validateUpdateUser(reqUser);	
 
-	console.log('before err');
 	if(!isValid) return res.status(400).json(errors);
-	console.log('after error');
-
+	
 	User.findById(req.body.userId)
 		.then(user => {
+			
 			if(user.username !== reqUser.username){
 				User.findOne({username: reqUser.username})
 					.then(usernameUser => {

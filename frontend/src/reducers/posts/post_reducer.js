@@ -2,8 +2,6 @@ import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, 
 
 const PostsReducer = (state = {
 		all:{}, 
-		users:{}, 
-		user: undefined, 
 		new: undefined, 
 		post: undefined,
 		posts: {}
@@ -23,8 +21,7 @@ const PostsReducer = (state = {
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
-			newState.user = action.data.user;
-			newState.posts = action.data.posts;
+			newState.posts = action.posts;
 			return newState;
 		case RECEIVE_NEW_POST:
 			newState.new = action.post.data;

@@ -6,6 +6,7 @@ import {
 	addLike,
 	removeLike
 } from '../util/post_api_util';
+import { receiveUser } from './user_actions';
 
 export const RECEIVE_POST_SHOW = 'RECEIVE_POST_SHOW';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -34,9 +35,9 @@ export const receiveNewPost = post => ({
 	post
 })
 
-export const receiveUserPosts = data => ({
+export const receiveUserPosts = posts => ({
 	type: RECEIVE_USER_POSTS,
-	data
+	posts
 })
 
 export const receivePost = post => ({
@@ -60,8 +61,10 @@ export const fetchPosts = () => dispatch =>(
 
 export const fetchUserPosts = userId => dispatch => (
 	getUserPosts(userId)
-	.then(data => dispatch(receiveUserPosts(data.data)))
-	.catch(err => dispatch(receiveErrors(err.response.data)))
+	.then(data => {
+		dispatch(receiveUserPosts(data.data.posts));
+		dispatch(receiveUser(data.data.user));
+	}).catch(err => dispatch(receiveErrors(err.response.data)))
 );
 
 export const writePost = data => dispatch =>{

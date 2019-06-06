@@ -30,7 +30,13 @@ class EditUser extends React.Component{
 				errors: nextProps.errors
 			});
 		} else {
-
+			const user = nextProps.user;
+			this.setState({
+				username: user.username,
+				name: user.name,
+				avatarUrl: user.avatarUrl,
+				bio: user.bio
+			})
 		}
 	}
 
@@ -62,11 +68,9 @@ class EditUser extends React.Component{
 						avatarUrl: res.data.imageUrl,
 						name: this.state.name
 					},
-					userId: this.props.user.id
+					userId: this.props.user._id
 				};
 				this.props.updateUser(data)
-			}).then(() => {
-				this.props.history.push(`/users/${this.props.user.id}`);
 			}).catch(err => this.setState({
 				'errors': {
 					image: err.response.data
@@ -77,15 +81,13 @@ class EditUser extends React.Component{
 				user: {
 					username: this.state.username,
 					bio: this.state.bio,
-					name: this.state.name,
-					avatarUrl: this.state.avatarUrl
+					avatarUrl: this.state.avatarUrl,
+					name: this.state.name
 				},
-				userId: this.props.user.id
+				userId: this.props.user._id
 			};
 
-			this.props.updateUser(data).then(() => {
-				this.props.history.push(`/users/${this.props.user.id}`);
-			})
+			this.props.updateUser(data);
 		}
 	}
 

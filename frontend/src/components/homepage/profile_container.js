@@ -8,10 +8,11 @@ import Profile from './profile';
 //find user with the id we're going to
 const mSTP = (state, ownProps) => {
 	const userId = ownProps.match.params.userId;
+
 	return({
 		userId,
 		currentUser: state.session.user,
-		user: state.posts.user,
+		user: state.users.user,
 		posts: state.posts.posts
 	})
 }

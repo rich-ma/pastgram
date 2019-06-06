@@ -1,7 +1,8 @@
 import { 
 	RECEIVE_USER_LOGOUT, 
 	RECEIVE_CURRENT_USER, 
-	RECEIVE_USER_SIGN_IN } 
+	RECEIVE_USER_SIGN_IN, 
+	RECEIVE_CURRENT_USER_UPDATE} 
 	from '../../actions/session_actions';
 
 const initialState = {
@@ -11,6 +12,8 @@ const initialState = {
 
 const SessionReducer = (state = initialState, action) => {
 	Object.freeze(state);
+
+	let newState = Object.assign({}, state);
 
 	switch(action.type){
 		case RECEIVE_USER_LOGOUT:
@@ -30,6 +33,9 @@ const SessionReducer = (state = initialState, action) => {
 				isAuthenticated: true,
 				user: action.user
 			}
+		case RECEIVE_CURRENT_USER_UPDATE:
+			newState.user = action.user;
+			return newState;
 		default:
 			return state;
 	}

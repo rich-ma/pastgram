@@ -31,7 +31,7 @@ class Profile extends React.Component {
 
 
 	render(){
-		if(this.state.loading) return null;
+		if(this.state.loading || this.state.user === undefined) return null;
 
 		const { posts, user, currentUser, userId } = this.state;
 
@@ -40,7 +40,7 @@ class Profile extends React.Component {
 		);
 
 		const editUser = (
-			<button onClick={e => this.props.openModal({modal: 'editUser', data: currentUser})} >Edit Profile</button>
+			<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
 		)
 
 		const button = currentUser.id === userId ? editUser : toggleFollow;
