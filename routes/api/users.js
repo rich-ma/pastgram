@@ -85,7 +85,7 @@ router.post('/register', (req, res) => {
 	})
 });
 
-router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) => {
+router.patch('/:id', passport.authenticate('jwt',{ session: false }), (req, res) => {
 	const reqUser = req.body.user;
 	const { errors, isValid } = validateUpdateUser(reqUser);	
 
@@ -93,23 +93,33 @@ router.patch('/:id', passport.authenticate('jwt',{ session: false}), (req, res) 
 	
 	User.findById(req.body.userId)
 		.then(user => {
+			console.log(user.username, reqUser.username);
 			
-			if(user.username !== reqUser.username){
+			if(user.username !== reqUser.username){ //changing username
 				User.findOne({username: reqUser.username})
 					.then(usernameUser => {
-						return res.status(400).json({
+						if(usernameUser){ 
+							return res.status(400).json({
 							username: "A User is already registered with that username"
 						});
-					})	
-			}
-
-			user.username = reqUser.username;
-			user.bio = reqUser.bio;
-			user.name = reqUser.name;
-			user.avatarUrl = reqUser.avatarUrl;
-			user.save()
+						} else {
+							user.username = reqUser.username;
+							user.bio = reqUser.bio;
+							user.name = reqUser.name;
+							user.avatarUrl = reqUser.avatarUrl;
+							user.save()
+								.then(user => res.json(user))
+								.catch(err => console.log(err));
+						}
+					})
+			} else { //not changing username
+				user.bio = reqUser.bio;
+				user.name = reqUser.name;
+				user.avatarUrl = reqUser.avatarUrl;
+				user.save()
 				.then(user => res.json(user))
 				.catch(err => console.log(err));
+			}
 		});
 });
 

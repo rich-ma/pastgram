@@ -44,6 +44,22 @@ class Profile extends React.Component {
 			<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
 		)
 
+		const postsFollow = (
+				<ul className='user-data'>
+					<li><h3>{posts.length}</h3> posts</li>
+					<li><h3>{posts.length}</h3> followers</li>
+					<li><h3>{posts.length}</h3> following</li>
+				</ul>
+		)
+
+		const userInfo = (
+			<div className='username-bio-followers'>
+				<h3 className='user-realname'>{user.name}</h3>
+				<p className='user-bio' >{user.bio}</p>
+				<h4 className='followers'>Followed by ...</h4>
+			</div>
+		)
+
 		const button = currentUser.id === userId ? editUser : toggleFollow;
 
 		const openModal = this.props.openModal;
@@ -56,30 +72,19 @@ class Profile extends React.Component {
 							<img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>
 						</div>
 						<div className='user-info-container'>
-							<div className='user-mobile'>
+							<div className='username-button'>
 								<h3 className='username'>{user.username}</h3>
 								{button}
 							</div>
 							<div className='user-desktop'>
-								<ul className='user-data'>
-									<li>posts desktop</li>
-									<li>followers</li>
-									<li>following</li>
-								</ul>
-								<h3>Users real name</h3>
-								<h4>Followed by ...</h4>
+								{postsFollow}
+								{userInfo}
 							</div>
 						</div>
 					</div>
 					<div className='user-mobile'>
-						<h3 className='user-realname-mobile'>{user.name}</h3>
-						<p className='user-bio-mobile' >{user.bio}</p>
-						<h4 className='mobile-followers'>Followed by ...</h4>
-						<ul className='user-data'>
-							<li>posts</li>
-							<li>followers</li>
-							<li>following</li>
-						</ul>
+						{userInfo}
+						{postsFollow}
 					</div>
 				</div>
 				<ul className='user-posts'>

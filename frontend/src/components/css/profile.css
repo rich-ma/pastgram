@@ -1,7 +1,6 @@
 .user-info-upper{
 	display: flex;
 	flex-direction: row;
-	width: 100%;
 	margin: 30px 16px 24px 16px;
 
 }
@@ -87,23 +86,24 @@
 	flex-direction: column;
 }
 
-.user-realname-mobile{
+.username-bio-followers{
+	padding-left: 15px;
+}
+
+.user-realname{
 	margin: 0px;
 	display: inline;
 	font-weight: 600;
 	color: rgb(0,0,0);
 	font-size: 14px;
-	margin-left: 15px;
 }
 
-.mobile-followers{
-	margin-left: 15px;
+.followers{
 	color: #999;
 	display: block;
 	font-size: 12px;
 	line-height: 14px;
 	margin-top: 14px;
-	margin-left: 15px;
 }
 
 .user-data{
@@ -113,9 +113,8 @@
 	justify-content: space-evenly;
 }
 
-.user-bio-mobile{
+.user-bio{
 	margin: 0px;
-	margin-left: 15px;
 }
 
 .user-posts{
@@ -138,13 +137,101 @@ button{
 	width: fit-content;
 }
 
+.user-data > li{
+	color: #999;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+}
+
+.user-data > li > h3{
+	color: #262626;
+	font-weight: 600;
+	font-size: 14px;
+}
+
 @media(min-width: 735px){
 	.user-mobile{
 		display: none;
 	}
 
-	.user-desktop{
+	.user-info-container{
+		display: flex;
+		flex-direction: column;
+	}
+
+	.username-button{
 		display: flex;
 		flex-direction: row;
+		align-content: center;
 	}
+
+	.username{
+		margin: 0px;
+
+	}
+
+	button{
+		margin-left: 20px;
+	}
+
+	.username-bio-followers{
+		padding: 0px;
+		font-size: 16px;
+	}
+
+	.user-realname{
+		font-size: 16px;
+		margin-bottom: 5px;
+	}
+
+	.user-bio{
+		margin-top: 5px;
+	}
+
+	.followers{
+		font-size: 16px;
+	}
+
+	.user-desktop{
+		display: flex;
+		flex-direction: column;
+	}
+
+	.avatar-box{
+		width: 166px;
+		height: 166px;
+	}
+
+	.user-avatar{
+		max-height: 100%;
+	}
+
+	.user-data{
+		margin-top: 30px;
+		border: none;
+		justify-content: left;
+		font-size: 16px;
+	}
+
+	.user-data > li{
+		display: flex;
+		flex-direction: row;
+		margin-right: 40px;
+		color: black;
+	}
+
+	.user-data >li > h3{
+		font-size: 16px;
+		margin-right: 5px;
+	}
+
+	.user-posts{
+		border-top: 1px solid rgb(239, 239, 239);
+		width: 90%;
+		max-width: 935px;
+		justify-content: center;
+	}
+
+	
 }
