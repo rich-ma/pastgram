@@ -22,14 +22,14 @@ class EditUser extends React.Component{
 		this.handleSubmit = this.handleSubmit.bind(this);
 		this.imagePreview = this.imagePreview.bind(this);
 		this.updateField = this.updateField.bind(this);
-		// this.renderErrors = this.renderErrors.bind(this);
 		this.logout = this.logout.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps){
-		if(nextProps.errors){
+		console.log(nextProps.errors);
+		if(nextProps.errors.user){
 			this.setState({
-				errors: nextProps.errors
+				errors: {user: nextProps.errors.user}
 			});
 		} else {
 			const user = nextProps.user;
@@ -42,18 +42,7 @@ class EditUser extends React.Component{
 		}
 	}
 
-	// 	renderErrors(){
-	// 	if(!this.state.errors) return null;
-	// 	return (
-	// 		<ul className='edit-user-errors'>
-	// 			{Object.keys(this.state.errors).map((error, i) => (
-	// 				<li key={`edit-user-error-${i}`}>
-	// 					{this.state.errors[error]}
-	// 				</li>
-	// 			))}
-	// 		</ul>
-	// 	);
-	// };
+		
 
 	handleSubmit(e){
 		e.preventDefault();
@@ -133,6 +122,23 @@ class EditUser extends React.Component{
 
 	render(){
 		const user = this.props.user;
+		console.log(this.state.errors);
+
+		let renderErrors = this.state.errors.user || this.state.errors.image ? (
+			<ul className='edit-user-errors-object'>
+				{Object.keys(this.state.errors).map((error, i) => (
+					<li key={`error-type-${i}`}>
+						<ul className='edit-user-errors'>
+							{Object.keys(error).map((innerError, j) => (
+									<li key={`errpr-${j}`}>
+										{innerError}
+									</li>
+								))}
+								</ul>
+					</li>
+				))}
+			</ul>
+			) : null;
 
 		return(
 			<div className='edit-user-container'>
@@ -157,6 +163,7 @@ class EditUser extends React.Component{
 					</div>
 				</div>
 				<form className='edit-user-form' action='' onSubmit={this.handleSubmit}>
+					{renderErrors}
 					<div className='edit-user-input'>
 						<h3>Name</h3>
 						<input type='text' value={this.state.name} onChange={this.updateField('name')} />

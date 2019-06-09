@@ -13,7 +13,7 @@ const UserErrorsReducer = (state = _nullErrors, action) => {
 		case RECEIVE_USER:
 			return _nullErrors;
 		case RECEIVE_USER_ERRORS:
-			console.log(action);
+			console.log('user errors', action.errors);
 			return action.errors;
 		case CLEAR_USER_ERRORS:
 			return _nullErrors;

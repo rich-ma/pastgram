@@ -32,7 +32,7 @@ export const updateUser = data => dispatch => (
 			dispatch(receiveUser(user.data));
 			dispatch(receiveUserUpdate(user.data));
 		})
-		.catch(err => dispatch(receiveErrors(err)))
+		.catch(err => dispatch(receiveErrors(err.response.data)))
 );
 
 export const clearUserErrors = () => dispatch => (
