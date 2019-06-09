@@ -23,6 +23,7 @@ class EditUser extends React.Component{
 		this.imagePreview = this.imagePreview.bind(this);
 		this.updateField = this.updateField.bind(this);
 		this.logout = this.logout.bind(this);
+		this.renderErrors = this.renderErrors.bind(this);
 	}
 
 	componentWillReceiveProps(nextProps){
@@ -119,26 +120,29 @@ class EditUser extends React.Component{
 		const submit = document.getElementById('edit-submit');
 		submit.classList.remove('submit-void');
 	}
+	
+	renderErrors(){
+		if(!this.state.errors.user && !this.state.errors.image) return null;
+
+		return(
+			<ul className='edit-user-errors'>
+				{ this.state.errors.image ? Object.keys(this.state.errors.image).map((error, i) => (
+					<li key={`edit-user-error-${i}`}>
+						{this.state.errors.image[error]}
+					</li>
+				)) : null }
+				{ this.state.errors.user ? Object.keys(this.state.errors.user).map((error, i) => (
+					<li key={`edit-user-error-${i}`}>
+						{this.state.errors.user[error]}
+					</li>
+				)) : null }
+			</ul>
+			);
+	}
 
 	render(){
 		const user = this.props.user;
-		console.log(this.state.errors);
-
-		let renderErrors = this.state.errors.user || this.state.errors.image ? (
-			<ul className='edit-user-errors-object'>
-				{Object.keys(this.state.errors).map((error, i) => (
-					<li key={`error-type-${i}`}>
-						<ul className='edit-user-errors'>
-							{Object.keys(error).map((innerError, j) => (
-									<li key={`errpr-${j}`}>
-										{innerError}
-									</li>
-								))}
-								</ul>
-					</li>
-				))}
-			</ul>
-			) : null;
+		console.log('stateerrors',this.state.errors);
 
 		return(
 			<div className='edit-user-container'>
@@ -163,7 +167,7 @@ class EditUser extends React.Component{
 					</div>
 				</div>
 				<form className='edit-user-form' action='' onSubmit={this.handleSubmit}>
-					{renderErrors}
+					{this.renderErrors()}
 					<div className='edit-user-input'>
 						<h3>Name</h3>
 						<input type='text' value={this.state.name} onChange={this.updateField('name')} />
