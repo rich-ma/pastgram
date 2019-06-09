@@ -122,8 +122,6 @@ class EditUser extends React.Component{
 	}
 	
 	renderErrors(){
-		if(!this.state.errors.user && !this.state.errors.image) return null;
-
 		return(
 			<ul className='edit-user-errors'>
 				{ this.state.errors.image ? Object.keys(this.state.errors.image).map((error, i) => (

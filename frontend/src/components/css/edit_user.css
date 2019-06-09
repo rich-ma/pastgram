@@ -5,6 +5,10 @@
 	flex-direction: column;
 }
 
+.edit-user-errors{
+	color: red;
+}
+
 .edit-user-header{
 	display: flex;
 	flex-direction: row;
@@ -118,6 +122,8 @@
 
 .edit-user-errors{
 	min-height: 20px;
+	color: red;
+	margin: 0px;
 }
 
 .edit-user-buttons{
