@@ -93,7 +93,6 @@ router.patch('/:id', passport.authenticate('jwt',{ session: false }), (req, res)
 	
 	User.findById(req.body.userId)
 		.then(user => {
-			console.log(user.username, reqUser.username);
 			
 			if(user.username !== reqUser.username){ //changing username
 				User.findOne({username: reqUser.username})

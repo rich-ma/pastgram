@@ -44,7 +44,10 @@ class Homepage extends React.Component {
 			</div>
 		)
 		const splash = () => (
-			<div>
+			<div className='splash-container'>
+				<div className='splash-img-container'>
+					<img className='splash-img' alt='splash-welcome' src='https://i.imgur.com/4io4tE5.png'/>
+				</div>
 				<Switch>
 					<Route path='/' component={SignupFormContainer} />	
 				</Switch>

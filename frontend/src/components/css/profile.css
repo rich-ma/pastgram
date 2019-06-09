@@ -30,7 +30,8 @@
 }
 
 .user-info{
-	display: block;
+	display: flex;
+	flex-direction: column;
 	width: 100%;
 }
 
@@ -151,6 +152,10 @@ button{
 }
 
 @media(min-width: 735px){
+	.user-info{
+		flex-direction: row;
+		justify-content: center;
+	}
 	.user-mobile{
 		display: none;
 	}

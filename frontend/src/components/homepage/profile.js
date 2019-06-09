@@ -61,7 +61,7 @@ class Profile extends React.Component {
 		)
 
 		const button = currentUser.id === userId ? editUser : toggleFollow;
-
+ 
 		const openModal = this.props.openModal;
 		// const button = //button that changes, if profile is current users, edit account, otherwise, follow/unfollow
 		return (

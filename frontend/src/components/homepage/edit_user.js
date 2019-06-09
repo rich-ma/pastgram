@@ -1,6 +1,8 @@
 import React from 'react';
 import axios from 'axios';
 import '../css/edit_user.css';
+
+
 class EditUser extends React.Component{
 	constructor(props){
 		super(props);
@@ -96,7 +98,7 @@ class EditUser extends React.Component{
 			this.setState({
 				[field] : e.currentTarget.value
 			});
-			if(this.state[field] !== this.props.user[field]){
+			if(e.currentTarget.value !== this.props.user[field]){
 				this.setState({edited: true});
 				const submit = document.getElementById('edit-submit');
 				submit.classList.remove('submit-void');
@@ -107,6 +109,7 @@ class EditUser extends React.Component{
 	logout(){
 		this.props.closeModal();
 		this.props.logout();
+		this.props.history.push('/');
 	}
 
 	imagePreview(e){
