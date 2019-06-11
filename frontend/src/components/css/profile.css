@@ -15,18 +15,11 @@
 	overflow: hidden;
 	border-radius: 50%;
 }
+
 .user-avatar{
-	background-color: #fafafa;
-	-webkit-box-sizing: border-box;
-	box-sizing: border-box;
-	display: block;
-	-webkit-box-flex: 0;
-	-webkit-flex: 0 0 auto;
-	-ms-flex: 0 0 auto;
-	flex: 0 0 auto;
-	position: relative;
-	max-height: 77px;
-	width: auto;
+	height: 100%;
+	width: 100%;
+	object-fit: cover;
 }
 
 .user-info{

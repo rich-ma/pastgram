@@ -31,8 +31,9 @@
 
 
 .post-profile-img-container > img {
-	height: auto;
+	height: 100%;
 	width: 100%;
+	object-fit: cover;
 }
 
 .post-show-desktop{
@@ -95,10 +96,9 @@
 @media(min-width: 725px){
 	.post-show-container{
 		align-self: center;
-		margin: 40px 0px;
 		width: auto;
 		min-height: 450px;
-		max-width: 815px;
+		max-width: 950px;
 		display:flex;
 		flex-direction: row;
 		background-color: #fff;
@@ -126,9 +126,11 @@
 	}
 
 	.post-show-img{
-		max-width: 100%;
+		width: calc(90vw - 350px);
+		object-fit: contain;
+		max-width: calc(950px - 350px);
 	}
-	
+
 	/*.post-show-img-container{
 		width: 100%;
 		height: 100%;
@@ -136,8 +138,6 @@
 		flex-direction: column;
 		justify-content: center;
 	} */
-
-	
 
 	.post-show-desktop-right{
 		width: 325px;

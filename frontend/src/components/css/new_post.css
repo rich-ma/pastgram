@@ -70,25 +70,26 @@
 
 .post-preview{
 	width: 100%;
-	
-}
-
-.new-post-profile{
-	width: 100%;
 }
 
 .new-post-avatar-box{
 	width: 50px;
 	height: 50px;
-	overflow: hidden;
 	border-radius: 50%;
+	overflow: hidden;
 	margin: 10px 0px 10px 10px;
 }
 
+.new-post-profile {
+	width: 100%;
+	height: 100%;
+	object-fit: cover;
+}
 
 .new-post-input{
 	height: 60px;
-	width: 100%;
+	width: calc(100% - 84px);
+	border-radius: 3px;
 	overflow: scroll;
 	margin: 10px;
 	resize: none;
