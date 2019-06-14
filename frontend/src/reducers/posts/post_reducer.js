@@ -4,7 +4,9 @@ const PostsReducer = (state = {
 		all:{}, 
 		new: undefined, 
 		post: undefined,
-		posts: {}
+		profile: {
+			currentPage: 
+		}
 	}, 
 	action) => {
 	Object.freeze(state);
@@ -21,7 +23,9 @@ const PostsReducer = (state = {
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
-			newState.posts = action.posts;
+			newState.profile.posts = action.data.posts;
+			newState.profile.currentPage = action.data.currentPage;
+			newState.profile.totalPages = action.data.totalPages;
 			return newState;
 		case RECEIVE_NEW_POST:
 			newState.new = action.post.data;

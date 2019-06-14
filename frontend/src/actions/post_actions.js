@@ -4,7 +4,8 @@ import {
 	createPost,
 	getPostShow,
 	addLike,
-	removeLike
+	removeLike,
+	fetchUserPosts
 } from '../util/post_api_util';
 import { receiveUser } from './user_actions';
 
@@ -35,9 +36,9 @@ export const receiveNewPost = post => ({
 	post
 })
 
-export const receiveUserPosts = posts => ({
+export const receiveUserPosts = data => ({
 	type: RECEIVE_USER_POSTS,
-	posts
+	data
 })
 
 export const receivePost = post => ({
@@ -55,17 +56,34 @@ export const fetchPostShow = postId => dispatch =>{
 
 export const fetchPosts = () => dispatch =>(
 	getPosts()
-		.then(posts => receivePosts(posts))
+		.then(posts => dispatch(receivePosts(posts)))
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 )
 
-export const fetchUserPosts = userId => dispatch => (
-	getUserPosts(userId)
-	.then(data => {
-		dispatch(receiveUserPosts(data.data.posts));
-		dispatch(receiveUser(data.data.user));
-	}).catch(err => dispatch(receiveErrors(err.response.data)))
-);
+// export const fetchAllUserPosts = userId => dispatch => (
+// 	getUserPosts(userId)
+// 	.then(data => {
+// 		dispatch(receiveUserPosts(data.data.posts));
+// 		dispatch(receiveUser(data.data.user));
+// 	}).catch(err => dispatch(receiveErrors(err.response.data)))
+// );
+
+//get more posts for user profile page.
+// data contains (user(boolean), userId, currentpostpage, totalPages)
+export const loadUserPosts = reqData => dispatch => {
+	if(reqData.user){
+		return fetchUserPosts(reqData)
+			.then(response => dispatch(receiveUserPosts(response.data.posts)))
+			.catch(err => dispatch(receiveErrors(err.response.data)))
+	} else {
+		return fetchUserPosts(reqData)
+		.then(response => {
+			dispatch(receiveUserPosts(response.data.posts));
+			dispatch(receiveUser(response.data.user));
+		})
+		.catch(err => dispatch(receiveErrors(err.response.data)))
+	}
+};
 
 export const writePost = data => dispatch =>{
 	return createPost(data).then(post => (

@@ -9,24 +9,37 @@ class Profile extends React.Component {
 			currentUser: this.props.currentUser,
 			user: this.props.user,
 			posts: this.props.posts,
+			currentPage: this.props.currentPage,
+			totalPages: null,
 			userId: this.props.userId,
-			loading: true
+			loading: true,
+
 		}
 	}
 
 	componentWillMount(){
 		this.props.closeModal();
 		this.setState({loading: true});
-		this.props.fetchUserPosts(this.props.userId);
+		this.props.fetchUserPosts({
+			user: this.state.user ? true : false,
+			userId: this.props.userId,
+			currentPage: this.state.currentPage,
+			
+		});
 	}
 
 	componentWillReceiveProps(newProps){
 		this.setState({
+			currentPage: newProps.currentPage,
 			user: newProps.user,
 			posts: newProps.posts,
 			loading: false
 		});
 		this.props.closeModal();
+	}
+
+	loadPosts(){
+
 	}
 
 
@@ -88,7 +101,9 @@ class Profile extends React.Component {
 					</div>
 				</div>
 				<ul className='user-posts'>
-					{posts.map( post => {
+					<ul>
+					
+					</ul>{posts.map( post => {
 						return (
 							<li key={post._id}><img src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt='post.text'/></li>
 						)
