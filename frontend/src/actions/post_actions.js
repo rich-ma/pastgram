@@ -1,6 +1,5 @@
 import {
 	getPosts,
-	getUserPosts,
 	createPost,
 	getPostShow,
 	addLike,

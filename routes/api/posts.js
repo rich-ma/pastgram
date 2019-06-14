@@ -49,13 +49,35 @@ router.get('/', (req, res) => {
 router.get('/user/:user_id', (req, res) => {
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
-		.then(posts => (
-			User.findById(posts[0].userId + '')
+		.then(posts => {
+			if(req.body.user){
+				const data = {
+					profile:{
+						currentPage: req.body.currentPage + 1,
+						totalPages: req.body.totalPages,
+						posts: posts
+					}
+				};
+				return res.json(data);
+			} else {
+				User.findById(posts[0].userId + '')
 				.then(user => {
-					return res.json({posts, user});
-				})		
-		))
-		.catch(err => res.status(404).json({ nopostsfound: "No posts found from that user."}));
+					const data = {
+						user: user,
+						profile: {
+							currentPage: req.body.currentPage + 1,
+							totalPages: req.body.totalPages,
+							posts: posts
+						}
+					};
+					return res.json(data);
+				})
+				// .catch(err => res.status(404).json({ nouserfound: 'No user found with that id'}))
+			}
+		})
+		.catch(err => res.status(404).json({
+			nopostsfound: "No posts found from that user."
+		}));
 });
 
 //get specific post and user

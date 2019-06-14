@@ -1,22 +1,27 @@
 import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS } from '../../actions/post_actions';
 
 const PostsReducer = (state = {
-		all:{}, 
+		all:{
+			currentPage: 0,
+			totalPages: undefined,
+			posts: {}
+		}, 
 		new: undefined, 
 		post: undefined,
 		profile: {
-			currentPage: 
+			currentPage: 0,
+			totalPages: undefined
 		}
 	}, 
 	action) => {
 	Object.freeze(state);
-
 	let newState = Object.assign({}, state);
-
 
 	switch(action.type){
 		case RECEIVE_POSTS:
-			newState.all = action.data.posts;
+			newState.all.currentPage = action.data.profile.currentPage;
+			newState.all.totalPages = action.data.profile.totalPages; //can drop this concept
+			newState.all.posts = action.data.profile.posts; //might want to concat new posts onto old ones, or can do it in the react component
 			return newState;
 		case RECEIVE_POST_SHOW:
 			newState.post = action.data.post;
