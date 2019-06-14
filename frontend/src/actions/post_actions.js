@@ -72,12 +72,12 @@ export const fetchPosts = () => dispatch =>(
 export const loadUserPosts = reqData => dispatch => {
 	if(reqData.user){
 		return fetchUserPosts(reqData)
-			.then(response => dispatch(receiveUserPosts(response.data.posts)))
+			.then(response => dispatch(receiveUserPosts(response.data.profile)))
 			.catch(err => dispatch(receiveErrors(err.response.data)))
 	} else {
 		return fetchUserPosts(reqData)
 		.then(response => {
-			dispatch(receiveUserPosts(response.data.posts));
+			dispatch(receiveUserPosts(response.data.profile));
 			dispatch(receiveUser(response.data.user));
 		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))

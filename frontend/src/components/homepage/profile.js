@@ -10,7 +10,7 @@ class Profile extends React.Component {
 			user: this.props.user,
 			posts: this.props.posts,
 			currentPage: this.props.currentPage,
-			totalPages: null,
+			totalPages: this.props.totalPages,
 			userId: this.props.userId,
 			loading: true,
 
@@ -20,11 +20,10 @@ class Profile extends React.Component {
 	componentWillMount(){
 		this.props.closeModal();
 		this.setState({loading: true});
-		this.props.fetchUserPosts({
+		this.props.loadUserPosts({
 			user: this.state.user ? true : false,
 			userId: this.props.userId,
-			currentPage: this.state.currentPage,
-			
+			currentPage: this.state.currentPage
 		});
 	}
 

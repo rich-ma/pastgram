@@ -51,23 +51,28 @@ router.get('/user/:user_id', (req, res) => {
 		.sort({date: -1})
 		.then(posts => {
 			if(req.body.user){
+				let currentPage = req.body.currentPage;
+				const newPosts = posts.slice(15 * currentPage, 15 * (currentPage + 1));
 				const data = {
 					profile:{
 						currentPage: req.body.currentPage + 1,
 						totalPages: req.body.totalPages,
-						posts: posts
+						posts: newPosts
 					}
 				};
 				return res.json(data);
 			} else {
+				const newPosts = posts.slice(0, 15);
+				const totalPages = Math.ceil(posts.length/15);
+				const currentPage = 1;
 				User.findById(posts[0].userId + '')
 				.then(user => {
 					const data = {
 						user: user,
 						profile: {
-							currentPage: req.body.currentPage + 1,
-							totalPages: req.body.totalPages,
-							posts: posts
+							currentPage,
+							totalPages,
+							posts: newPosts
 						}
 					};
 					return res.json(data);

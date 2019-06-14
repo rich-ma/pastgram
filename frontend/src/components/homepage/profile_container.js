@@ -1,6 +1,6 @@
 import { logout } from '../../actions/session_actions';
 import { openModal, closeModal } from '../../actions/modal_actions';
-import { fetchUserPosts } from '../../actions/post_actions';
+import { loadUserPosts } from '../../actions/post_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Profile from './profile';
@@ -14,14 +14,14 @@ const mSTP = (state, ownProps) => {
 		currentUser: state.session.user,
 		user: state.users.user,
 		posts: state.posts.profile.posts,
-		currentPage: state.profile.currentPage,
-		totalPages: state.profile.totalPages
+		currentPage: state.posts.profile.currentPage,
+		totalPages: state.posts.profile.totalPages
 	})
 }
 
 const mDTP = dispatch => ({
 	logout: () => dispatch(logout()),
-	fetchUserPosts: (data) => dispatch(fetchUserPosts(data)),
+	loadUserPosts: (data) => dispatch(loadUserPosts(data)),
 	openModal: (modal) => dispatch(openModal(modal)),
 	closeModal: () => dispatch(closeModal())
 })
