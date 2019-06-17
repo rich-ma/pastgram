@@ -1,5 +1,6 @@
 import React from 'react';
 import '../css/profile.css';
+import { runInNewContext } from 'vm';
 
 
 class Profile extends React.Component {
@@ -28,6 +29,7 @@ class Profile extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps){
+		let newPosts = this.state.posts.concat(newProps.posts);
 		this.setState({
 			currentPage: newProps.currentPage,
 			user: newProps.user,
@@ -55,6 +57,27 @@ class Profile extends React.Component {
 		const editUser = (
 			<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
 		)
+
+		const postGrid = (
+		<ul className='user-posts'>
+			{posts.map((post, i) => {
+				if(i % 3 === 0){
+					let list = posts.slice(i, i + 2);
+					return (
+						<ul>
+							{list.map(innerPost => {
+								return (
+									<li key={innerPost._id}><img src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/></li>
+								)
+							})}
+						</ul>
+						)
+				} else {
+					return null;
+				}
+			})}
+		</ul>
+		);
 
 		const postsFollow = (
 				<ul className='user-data'>
@@ -99,16 +122,7 @@ class Profile extends React.Component {
 						{postsFollow}
 					</div>
 				</div>
-				<ul className='user-posts'>
-					<ul>
-					
-					</ul>{posts.map( post => {
-						return (
-							<li key={post._id}><img src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt='post.text'/></li>
-						)
-					})}
-				</ul>
-
+				{postGrid}
 			</div>
 
 		)

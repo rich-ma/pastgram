@@ -10,7 +10,8 @@ const PostsReducer = (state = {
 		post: undefined,
 		profile: {
 			currentPage: 0,
-			totalPages: undefined
+			totalPages: undefined,
+			posts: []
 		}
 	}, 
 	action) => {

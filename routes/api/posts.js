@@ -47,12 +47,13 @@ router.get('/', (req, res) => {
 
 //get all posts from a specific user
 router.get('/user/:user_id', (req, res) => {
+	let postPP = 15;
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
 		.then(posts => {
 			if(req.body.user){
 				let currentPage = req.body.currentPage;
-				const newPosts = posts.slice(15 * currentPage, 15 * (currentPage + 1));
+				const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
 				const data = {
 					profile:{
 						currentPage: req.body.currentPage + 1,
@@ -62,8 +63,8 @@ router.get('/user/:user_id', (req, res) => {
 				};
 				return res.json(data);
 			} else {
-				const newPosts = posts.slice(0, 15);
-				const totalPages = Math.ceil(posts.length/15);
+				const newPosts = posts.slice(0, postPP);
+				const totalPages = Math.ceil(posts.length/postPP);
 				const currentPage = 1;
 				User.findById(posts[0].userId + '')
 				.then(user => {
