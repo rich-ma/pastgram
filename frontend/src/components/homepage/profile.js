@@ -59,15 +59,17 @@ class Profile extends React.Component {
 		)
 
 		const postGrid = (
-		<ul className='user-posts'>
+		<div className='post-grid-container'>
 			{posts.map((post, i) => {
 				if(i % 3 === 0){
-					let list = posts.slice(i, i + 2);
+					let list = posts.slice(i, i + 3);
 					return (
-						<ul>
-							{list.map(innerPost => {
+						<ul key={i} className='post-grid-ul'>
+							{list.map((innerPost, j) => {
 								return (
-									<li key={innerPost._id}><img src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/></li>
+									<li key={innerPost._id} >
+										<img src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/>
+									</li>
 								)
 							})}
 						</ul>
@@ -76,7 +78,7 @@ class Profile extends React.Component {
 					return null;
 				}
 			})}
-		</ul>
+		</div>
 		);
 
 		const postsFollow = (
