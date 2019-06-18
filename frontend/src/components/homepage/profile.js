@@ -68,7 +68,7 @@ class Profile extends React.Component {
 							{list.map((innerPost, j) => {
 								return (
 									<li key={innerPost._id} >
-										<img src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/>
+										<img className='profile-post-img' src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/>
 									</li>
 								)
 							})}

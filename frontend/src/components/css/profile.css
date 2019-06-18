@@ -153,16 +153,52 @@ button{
 	width: 100%;
 	display: flex;
 	flex-direction: row;
-	justify-content: space-evenly;
+	justify-content: space-between;
+	margin: 5px 0px;
 }
 
 .post-grid-ul li {
-	width: 32%;
-	height: 30vw;
+	width: 33.3%;
+	height: 32vw;
 	overflow: hidden;
+	display: flex;
+	align-items: center;
+	background-color: #efefef;
+	margin-right: 5px;
 }
 
+.post-grid-ul li:last-child {
+	margin-right: 0px;
+}
+
+.profile-post-img{
+	object-fit: cover;
+	width: 100%;
+}
+
+
 @media(min-width: 735px){
+	.post-grid-container{
+		max-width: 935px;
+		margin: 0 auto;
+		border-top: 1px solid #efefef;
+		padding-top: 40px;
+	}
+
+	.post-grid-ul{
+		max-width: 935px;
+		margin: 0;
+		margin-bottom: 28px;
+	}
+
+	.post-grid-ul li {
+
+		margin-right: 28px;
+		height: 30vw;
+		max-width: 285px;
+		max-height: 285px;
+	}
+
 	.user-info{
 		flex-direction: row;
 		justify-content: center;
