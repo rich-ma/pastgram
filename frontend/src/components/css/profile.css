@@ -156,7 +156,11 @@ button{
 	justify-content: space-evenly;
 }
 
-
+.post-grid-ul li {
+	width: 32%;
+	height: 30vw;
+	overflow: hidden;
+}
 
 @media(min-width: 735px){
 	.user-info{
