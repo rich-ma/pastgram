@@ -47,7 +47,7 @@ router.get('/', (req, res) => {
 
 //get all posts from a specific user
 router.get('/user/:user_id', (req, res) => {
-	let postPP = 15;
+	let postPP = 6;
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
 		.then(posts => {

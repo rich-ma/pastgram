@@ -14,8 +14,9 @@ class Profile extends React.Component {
 			totalPages: this.props.totalPages,
 			userId: this.props.userId,
 			loading: true,
-
 		}
+
+		this.loadPosts = this.loadPosts.bind(this);
 	}
 
 	componentWillMount(){
@@ -40,7 +41,11 @@ class Profile extends React.Component {
 	}
 
 	loadPosts(){
-
+		this.props.loadUserPosts({
+			user: this.state.user ? true : false,
+			userId: this.props.userId,
+			currentPage: this.state.currentPage
+		});
 	}
 
 
@@ -69,6 +74,7 @@ class Profile extends React.Component {
 								return (
 									<li key={innerPost._id} >
 										<img className='profile-post-img' src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/>
+										{ i >= posts.length * 75 ? <span className='sentinel'></span> : null}
 									</li>
 								)
 							})}

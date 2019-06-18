@@ -192,9 +192,9 @@ button{
 	}
 
 	.post-grid-ul li {
-
 		margin-right: 28px;
-		height: 30vw;
+		width: 32vw;
+		height: 32vw;
 		max-width: 285px;
 		max-height: 285px;
 	}

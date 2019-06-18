@@ -6,6 +6,7 @@ import NavbarContainer from '../nav/navbar_container';
 import '../css/homepage.css';
 import ProfileContainer from './profile_container';
 import PostShowContainer from './post_show_container';
+import PostIndexContainer from './post_index_container';
 
 
 class Homepage extends React.Component {
@@ -40,6 +41,7 @@ class Homepage extends React.Component {
 				<Switch>
 				<ProtectedRoute exact path='/users/:userId' component={ProfileContainer} />
 				<Route exact path='/posts/:postId' component={PostShowContainer} />
+				<Route exact path='/' component={PostIndexContainer} />
 				</Switch>
 			</div>
 		)
