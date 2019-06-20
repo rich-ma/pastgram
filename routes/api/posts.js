@@ -46,7 +46,10 @@ router.get('/', (req, res) => {
 })
 
 //get all posts from a specific user
-router.get('/user/:user_id', (req, res) => {
+router.post('/user/:user_id', passport.authenticate('jwt', {
+			session: false
+		}), (req, res) => {
+	console.log('req is', req.body);
 	let postPP = 6;
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})

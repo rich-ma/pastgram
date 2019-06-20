@@ -25,5 +25,6 @@ export const removeLike = data => {
 }
 
 export const fetchUserPosts = data => {
-	return axios.get(`/api/posts/user/${data.userId}`, data);
+	console.log('post api util',data);
+	return axios.post(`/api/posts/user/${data.userId}`, data);
 }
