@@ -51,7 +51,7 @@ router.get('/user/:user_id', (req, res) => {
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
 		.then(posts => {
-			if(req.body.user){
+			if(req.body.loaded){
 				let currentPage = req.body.currentPage;
 				const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
 				const data = {

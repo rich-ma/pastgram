@@ -1,5 +1,4 @@
 import { connect } from 'react-redux';
-import { withRouter } from 'react-router-dom';
 import { likePost, unlikePost, fetchPosts } from '../../actions/post_actions';
 //add comment, delete comment
 
@@ -22,4 +21,4 @@ const mDTP = dispatch => ({
 	unlikePost: (data) => dispatch(unlikePost(data))
 })
 
-export default withRouter(connect(mSTP, mDTP)(PostIndex))
+export default connect(mSTP, mDTP)(PostIndex);

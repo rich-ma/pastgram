@@ -23,18 +23,18 @@ class Profile extends React.Component {
 		this.props.closeModal();
 		this.setState({loading: true});
 		this.props.loadUserPosts({
-			user: this.state.user ? true : false,
+			loaded: this.state.user ? true : false,
 			userId: this.props.userId,
 			currentPage: this.state.currentPage
 		});
 	}
 
 	componentWillReceiveProps(newProps){
-		let newPosts = this.state.posts.concat(newProps.posts);
+		let posts = this.state.posts.concat(newProps.posts);
 		this.setState({
 			currentPage: newProps.currentPage,
 			user: newProps.user,
-			posts: newProps.posts,
+			posts,
 			loading: false
 		});
 		this.props.closeModal();
@@ -42,7 +42,7 @@ class Profile extends React.Component {
 
 	loadPosts(){
 		this.props.loadUserPosts({
-			user: this.state.user ? true : false,
+			loaded: this.state.user ? true : false,
 			userId: this.props.userId,
 			currentPage: this.state.currentPage
 		});
@@ -130,6 +130,7 @@ class Profile extends React.Component {
 						{postsFollow}
 					</div>
 				</div>
+				<button onClick={this.loadPosts}> load posts</button>
 				{postGrid}
 			</div>
 
