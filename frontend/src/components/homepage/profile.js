@@ -30,7 +30,11 @@ class Profile extends React.Component {
 	}
 
 	componentWillReceiveProps(newProps){
-		let posts = this.state.posts.concat(newProps.posts);
+		let posts = this.state.posts;
+		if(this.state.currentPage !== newProps.currentPage){
+			posts = this.state.posts.concat(newProps.posts);
+		} 
+
 		this.setState({
 			currentPage: newProps.currentPage,
 			user: newProps.user,
