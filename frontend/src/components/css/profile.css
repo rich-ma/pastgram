@@ -176,6 +176,17 @@ button{
 	width: 100%;
 }
 
+.test-list{
+	display: flex;
+	flex-direction: column;
+	width: 400px;
+}
+
+.profile-observer{
+	height: 300px;
+	background-color: red;
+}
+
 
 @media(min-width: 735px){
 	.post-grid-container{

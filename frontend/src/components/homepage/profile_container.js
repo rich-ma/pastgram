@@ -15,7 +15,8 @@ const mSTP = (state, ownProps) => {
 		user: state.users.user,
 		posts: state.posts.profile.posts,
 		currentPage: state.posts.profile.currentPage,
-		totalPages: state.posts.profile.totalPages
+		totalPages: state.posts.profile.totalPages,
+		totalPosts: state.posts.profile.totalPosts
 	})
 }
 

@@ -49,11 +49,11 @@ router.get('/', (req, res) => {
 router.post('/user/:user_id', passport.authenticate('jwt', {
 			session: false
 		}), (req, res) => {
-	console.log('req is', req.body);
 	let postPP = 6;
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
 		.then(posts => {
+			let totalPosts = posts.length; 
 			if(req.body.loaded){
 				let currentPage = req.body.currentPage;
 				const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
@@ -61,7 +61,8 @@ router.post('/user/:user_id', passport.authenticate('jwt', {
 					profile:{
 						currentPage: req.body.currentPage + 1,
 						totalPages: req.body.totalPages,
-						posts: newPosts
+						posts: newPosts,
+						totalPosts
 					}
 				};
 				return res.json(data);
@@ -76,7 +77,8 @@ router.post('/user/:user_id', passport.authenticate('jwt', {
 						profile: {
 							currentPage,
 							totalPages,
-							posts: newPosts
+							posts: newPosts,
+							totalPosts
 						}
 					};
 					return res.json(data);

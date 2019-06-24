@@ -11,6 +11,7 @@ const PostsReducer = (state = {
 		profile: {
 			currentPage: 0,
 			totalPages: undefined,
+			totalPosts: 0,
 			posts: []
 		}
 	}, 
@@ -29,10 +30,10 @@ const PostsReducer = (state = {
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
-			console.log(action.data);
 			newState.profile.posts = action.data.posts;
 			newState.profile.currentPage = action.data.currentPage;
 			newState.profile.totalPages = action.data.totalPages;
+			newState.profile.totalPosts = action.data.totalPosts;
 			return newState;
 		case RECEIVE_NEW_POST:
 			newState.new = action.post.data;

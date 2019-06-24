@@ -1,6 +1,5 @@
 import React from 'react';
 import '../css/profile.css';
-import { runInNewContext } from 'vm';
 
 
 class Profile extends React.Component {
@@ -12,10 +11,11 @@ class Profile extends React.Component {
 			posts: this.props.posts,
 			currentPage: this.props.currentPage,
 			totalPages: this.props.totalPages,
+			totalPosts: this.props.totalPosts,
 			userId: this.props.userId,
 			loading: true,
 		}
-
+		this.element = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
 	}
 
@@ -29,6 +29,7 @@ class Profile extends React.Component {
 		});
 	}
 
+
 	componentWillReceiveProps(newProps){
 		let posts = this.state.posts;
 		if(this.state.currentPage !== newProps.currentPage){
@@ -39,9 +40,11 @@ class Profile extends React.Component {
 			currentPage: newProps.currentPage,
 			user: newProps.user,
 			posts,
+			totalPosts: newProps.totalPosts,
 			loading: false
 		});
 		this.props.closeModal();
+
 	}
 
 	loadPosts(){
@@ -52,11 +55,26 @@ class Profile extends React.Component {
 		});
 	}
 
+	getPosts(page) {
+		this.setState({
+			loading: true
+		});
+		axios
+			.get(`https://api.github.com/users?since=${page}&per_page=100`)
+			.then(res => {
+				this.setState({
+					users: [...this.state.users, ...res.data]
+				});
+				this.setState({
+					loading: false
+				});
+			});
+	}
+
 
 
 	render(){
 		if(this.state.loading || this.state.user === undefined) return null;
-
 		const { posts, user, currentUser, userId } = this.state;
 
 		const toggleFollow = (
@@ -91,11 +109,23 @@ class Profile extends React.Component {
 		</div>
 		);
 
+		const postList = (
+			<ul className='test-list'>
+				{posts.map((post, i) => {
+					return (
+						<li>
+							<img className='profile-post-img' src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt={post.text}/>
+						</li>
+					)
+				})}
+			</ul>
+		)
+
 		const postsFollow = (
 				<ul className='user-data'>
-					<li><h3>{posts.length}</h3> posts</li>
-					<li><h3>{posts.length}</h3> followers</li>
-					<li><h3>{posts.length}</h3> following</li>
+					<li><h3>{this.state.totalPosts}</h3> posts</li>
+					<li><h3>{this.state.totalPosts}</h3> followers</li>
+					<li><h3>{this.state.totalPosts}</h3> following</li>
 				</ul>
 		)
 
@@ -135,7 +165,8 @@ class Profile extends React.Component {
 					</div>
 				</div>
 				<button onClick={this.loadPosts}> load posts</button>
-				{postGrid}
+				{postList}
+				<div className='profile-observer' ref={this.element}></div>
 			</div>
 
 		)
