@@ -15,15 +15,63 @@ class Profile extends React.Component {
 			totalPosts: this.props.totalPosts,
 			userId: this.props.userId,
 			loading: true,
+			loadingPosts: false,
+			prevY: 0
 		}
-		this.element = React.createRef();
+		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
 	}
 
 	componentWillMount(){
+		console.log('component will mount');
 		this.props.closeModal();
 		this.setState({loading: true});
-		this.loadPosts();
+		axios.post(`/api/posts/user/${this.state.userId}`, {
+				loaded: this.state.user ? true : false,
+				userId: this.props.userId,
+				currentPage: this.state.currentPage
+			}).then(res => {
+					console.log(res);
+					let posts = this.state.posts.concat(res.data.profile.posts);
+					this.setState({
+						user: res.data.user,
+						currentPage: res.data.profile.currentPage,
+						posts,
+						totalPosts: res.data.profile.totalPosts,
+						totalPages: res.data.profile.totalPages,
+						loading: false,
+						loadingPosts: false
+					});
+			});
+	}
+
+	componentDidMount() {
+		console.log('component did mount');
+
+		// Options
+		var options = {
+			root: null, // Page as root
+			rootMargin: '0px',
+			threshold: 0
+		};
+		// Create an observer
+		this.observer = new IntersectionObserver(
+			this.handleObserver.bind(this), //callback
+			options
+		);
+		//Observ the `loadingRef`
+		this.observer.observe(this.loadingRef);
+	}
+
+	handleObserver(entities, observer) {
+		console.log('handle observer');
+		const y = entities[0].boundingClientRect.y;
+		if (this.state.prevY > y) {
+			this.getPosts();
+		}
+		this.setState({
+			prevY: y
+		});
 	}
 
 
@@ -45,6 +93,7 @@ class Profile extends React.Component {
 	// }
 
 	loadPosts(){ 
+		this.setState({loadingPosts: true});
 		axios.post(`/api/posts/user/${this.state.userId}`, {
 			loaded: this.state.user ? true : false,
 			userId: this.props.userId,
@@ -58,7 +107,8 @@ class Profile extends React.Component {
 					posts,
 					totalPosts: res.data.profile.totalPosts,
 					totalPages: res.data.profile.totalPages,
-					loading: false
+					loading: false,
+					loadingPosts: false
 				});
 			} else {
 				this.setState({
@@ -66,14 +116,16 @@ class Profile extends React.Component {
 					posts,
 					totalPosts: res.data.profile.totalPosts,
 					totalPages: res.data.profile.totalPages,
-					loading: false
+					loading: false,
+					loadingPosts: false
 				});
 			}
 		});
 	}
 
 	render(){
-		if(this.state.loading || this.state.user === undefined) return null;
+		console.log('render', this.state);
+		// if(this.state.loading || this.state.user === undefined) return null;
 		const { posts, user, currentUser, userId } = this.state;
 
 		const toggleFollow = (
@@ -120,7 +172,7 @@ class Profile extends React.Component {
 			</ul>
 		)
 
-		const postsFollow = (
+		const postsFollow = this.state.loading ? null : (
 				<ul className='user-data'>
 					<li><h3>{this.state.totalPosts}</h3> posts</li>
 					<li><h3>{this.state.totalPosts}</h3> followers</li>
@@ -128,7 +180,7 @@ class Profile extends React.Component {
 				</ul>
 		)
 
-		const userInfo = (
+		const userInfo = this.state.loading ? null : (
 			<div className='username-bio-followers'>
 				<h3 className='user-realname'>{user.name}</h3>
 				<p className='user-bio' >{user.bio}</p>
@@ -145,11 +197,11 @@ class Profile extends React.Component {
 				<div className='user-info'>
 					<div className='user-info-upper'>
 						<div className='avatar-box'>
-							<img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>
+							{this.state.loading ? null : <img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>}
 						</div>
 						<div className='user-info-container'>
 							<div className='username-button'>
-								<h3 className='username'>{user.username}</h3>
+								{ this.state.loading ? null : <h3 className='username'>{user.username}</h3>}
 								{button}
 							</div>
 							<div className='user-desktop'>
@@ -165,7 +217,7 @@ class Profile extends React.Component {
 				</div>
 				<button onClick={this.loadPosts}> load posts</button>
 				{postList}
-				<div className='profile-observer' ref={this.element}></div>
+				<div className='profile-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
 
 		)
