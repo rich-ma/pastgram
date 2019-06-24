@@ -1,4 +1,5 @@
 import React from 'react';
+import axios from 'axios';
 import '../css/profile.css';
 
 
@@ -22,56 +23,54 @@ class Profile extends React.Component {
 	componentWillMount(){
 		this.props.closeModal();
 		this.setState({loading: true});
-		this.props.loadUserPosts({
+		this.loadPosts();
+	}
+
+
+	// componentWillReceiveProps(newProps){
+	// 	let posts = this.state.posts;
+	// 	if(this.state.currentPage !== newProps.currentPage){
+	// 		posts = this.state.posts.concat(newProps.posts);
+	// 	} 
+
+	// 	this.setState({
+	// 		currentPage: newProps.currentPage,
+	// 		user: newProps.user,
+	// 		posts,
+	// 		totalPosts: newProps.totalPosts,
+	// 		loading: false
+	// 	});
+	// 	this.props.closeModal();
+
+	// }
+
+	loadPosts(){ 
+		axios.post(`/api/posts/user/${this.state.userId}`, {
 			loaded: this.state.user ? true : false,
 			userId: this.props.userId,
 			currentPage: this.state.currentPage
-		});
-	}
-
-
-	componentWillReceiveProps(newProps){
-		let posts = this.state.posts;
-		if(this.state.currentPage !== newProps.currentPage){
-			posts = this.state.posts.concat(newProps.posts);
-		} 
-
-		this.setState({
-			currentPage: newProps.currentPage,
-			user: newProps.user,
-			posts,
-			totalPosts: newProps.totalPosts,
-			loading: false
-		});
-		this.props.closeModal();
-
-	}
-
-	loadPosts(){
-		this.props.loadUserPosts({
-			loaded: this.state.user ? true : false,
-			userId: this.props.userId,
-			currentPage: this.state.currentPage
-		});
-	}
-
-	getPosts(page) {
-		this.setState({
-			loading: true
-		});
-		axios
-			.get(`https://api.github.com/users?since=${page}&per_page=100`)
-			.then(res => {
+		}).then(res => {
+			let posts = this.state.posts.concat(res.data.profile.posts);
+			if(!this.state.user){
 				this.setState({
-					users: [...this.state.users, ...res.data]
-				});
-				this.setState({
+					user: res.data.user,
+					currentPage: res.data.profile.currentPage,
+					posts,
+					totalPosts: res.data.profile.totalPosts,
+					totalPages: res.data.profile.totalPages,
 					loading: false
 				});
-			});
+			} else {
+				this.setState({
+					currentPage: res.data.profile.currentPage,
+					posts,
+					totalPosts: res.data.profile.totalPosts,
+					totalPages: res.data.profile.totalPages,
+					loading: false
+				});
+			}
+		});
 	}
-
-
 
 	render(){
 		if(this.state.loading || this.state.user === undefined) return null;
@@ -113,7 +112,7 @@ class Profile extends React.Component {
 			<ul className='test-list'>
 				{posts.map((post, i) => {
 					return (
-						<li>
+						<li key={'post' + i}>
 							<img className='profile-post-img' src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt={post.text}/>
 						</li>
 					)
@@ -140,7 +139,7 @@ class Profile extends React.Component {
 		const button = currentUser.id === userId ? editUser : toggleFollow;
  
 		const openModal = this.props.openModal;
-		// const button = //button that changes, if profile is current users, edit account, otherwise, follow/unfollow
+
 		return (
 			<div className='profile-container'>
 				<div className='user-info'>
