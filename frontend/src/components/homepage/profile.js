@@ -20,29 +20,14 @@ class Profile extends React.Component {
 		}
 		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
+		this.handleObserver = this.handleObserver.bind(this);
 	}
 
 	componentWillMount(){
 		console.log('component will mount');
 		this.props.closeModal();
 		this.setState({loading: true});
-		axios.post(`/api/posts/user/${this.state.userId}`, {
-				loaded: this.state.user ? true : false,
-				userId: this.props.userId,
-				currentPage: this.state.currentPage
-			}).then(res => {
-					console.log(res);
-					let posts = this.state.posts.concat(res.data.profile.posts);
-					this.setState({
-						user: res.data.user,
-						currentPage: res.data.profile.currentPage,
-						posts,
-						totalPosts: res.data.profile.totalPosts,
-						totalPages: res.data.profile.totalPages,
-						loading: false,
-						loadingPosts: false
-					});
-			});
+		this.loadPosts();
 	}
 
 	componentDidMount() {
@@ -67,30 +52,16 @@ class Profile extends React.Component {
 		console.log('handle observer');
 		const y = entities[0].boundingClientRect.y;
 		if (this.state.prevY > y) {
-			this.getPosts();
+			if(this.state.loadingPosts){
+				return null;
+			} else {
+				this.loadPosts();
+			}
 		}
 		this.setState({
 			prevY: y
 		});
 	}
-
-
-	// componentWillReceiveProps(newProps){
-	// 	let posts = this.state.posts;
-	// 	if(this.state.currentPage !== newProps.currentPage){
-	// 		posts = this.state.posts.concat(newProps.posts);
-	// 	} 
-
-	// 	this.setState({
-	// 		currentPage: newProps.currentPage,
-	// 		user: newProps.user,
-	// 		posts,
-	// 		totalPosts: newProps.totalPosts,
-	// 		loading: false
-	// 	});
-	// 	this.props.closeModal();
-
-	// }
 
 	loadPosts(){ 
 		this.setState({loadingPosts: true});
