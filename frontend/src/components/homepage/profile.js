@@ -23,14 +23,51 @@ class Profile extends React.Component {
 		this.handleObserver = this.handleObserver.bind(this);
 	}
 
+	// componentWillMount(){
+	// 	this.props.closeModal();
+	// 	this.setState({loading: true});
+	// 	this.loadPosts();
+	// }
+
 	componentWillMount(){
 		this.props.closeModal();
-		this.setState({loading: true});
-		this.loadPosts();
+		this.setState({
+			loading: true
+		});
+		this.props.loadUserPosts({
+			loaded: this.state.user ? true : false,
+			userId: this.props.userId,
+			currentPage: this.state.currentPage
+		});
 	}
 
-	componentWillReceiveProps(){
-		
+	componentWillReceiveProps(newProps) {
+		console.log(newProps);
+		let posts;
+		if(newProps.currentPage === 1){
+			posts = newProps.posts;
+		} else {
+			posts = [...this.state.posts, ...newProps.posts];
+		}
+		this.setState({
+			currentPage: newProps.currentPage,
+			totalPages: newProps.totalPages,
+			totalPosts: newProps.totalPosts,
+			user: newProps.user,
+			posts,
+			loading: false,
+			loadingPosts: false
+
+		});
+		// this.props.closeModal();
+	}
+
+	loadPosts() {
+		this.props.loadUserPosts({
+			loaded: this.state.user ? true : false,
+			userId: this.props.userId,
+			currentPage: this.state.currentPage
+		});
 	}
 
 	componentDidMount() {
@@ -61,39 +98,38 @@ class Profile extends React.Component {
 		});
 	}
 
-	loadPosts(){ 
-		this.setState({loadingPosts: true});
-		axios.post(`/api/posts/user/${this.state.userId}`, {
-			loaded: this.state.user ? true : false,
-			userId: this.props.userId,
-			currentPage: this.state.currentPage
-		}).then(res => {
-			let posts = this.state.posts.concat(res.data.profile.posts);
-			if(!this.state.user){
-				this.setState({
-					user: res.data.user,
-					currentPage: res.data.profile.currentPage,
-					posts,
-					totalPosts: res.data.profile.totalPosts,
-					totalPages: res.data.profile.totalPages,
-					loading: false,
-					loadingPosts: false
-				});
-			} else {
-				this.setState({
-					currentPage: res.data.profile.currentPage,
-					posts,
-					totalPosts: res.data.profile.totalPosts,
-					totalPages: res.data.profile.totalPages,
-					loading: false,
-					loadingPosts: false
-				});
-			}
-		});
-	}
+	// loadPosts(){ 
+	// 	this.setState({loadingPosts: true});
+	// 	axios.post(`/api/posts/user/${this.state.userId}`, {
+	// 		loaded: this.state.user ? true : false,
+	// 		userId: this.props.userId,
+	// 		currentPage: this.state.currentPage
+	// 	}).then(res => {
+	// 		let posts = this.state.posts.concat(res.data.profile.posts);
+	// 		if(!this.state.user){
+	// 			this.setState({
+	// 				user: res.data.user,
+	// 				currentPage: res.data.profile.currentPage,
+	// 				posts,
+	// 				totalPosts: res.data.profile.totalPosts,
+	// 				totalPages: res.data.profile.totalPages,
+	// 				loading: false,
+	// 				loadingPosts: false
+	// 			});
+	// 		} else {
+	// 			this.setState({
+	// 				currentPage: res.data.profile.currentPage,
+	// 				posts,
+	// 				totalPosts: res.data.profile.totalPosts,
+	// 				totalPages: res.data.profile.totalPages,
+	// 				loading: false,
+	// 				loadingPosts: false
+	// 			});
+	// 		}
+	// 	});
+	// }
 
 	render(){
-		// if(this.state.loading || this.state.user === undefined) return null;
 		const { posts, user, currentUser, userId } = this.state;
 
 		const toggleFollow = (
@@ -140,7 +176,7 @@ class Profile extends React.Component {
 			</ul>
 		)
 
-		const postsFollow = this.state.loading ? null : (
+		const postsFollow = !this.state.user ? null : (
 				<ul className='user-data'>
 					<li><h3>{this.state.totalPosts}</h3> posts</li>
 					<li><h3>{this.state.totalPosts}</h3> followers</li>
@@ -148,7 +184,7 @@ class Profile extends React.Component {
 				</ul>
 		)
 
-		const userInfo = this.state.loading ? null : (
+		const userInfo = !this.state.user ? null : (
 			<div className='username-bio-followers'>
 				<h3 className='user-realname'>{user.name}</h3>
 				<p className='user-bio' >{user.bio}</p>
@@ -162,7 +198,7 @@ class Profile extends React.Component {
 
 		return (
 			<div className='profile-container'>
-				{this.state.loading ? null : 
+				{!this.state.user ? null : 
 					<div className='user-info'>
 						<div className='user-info-upper'>
 							<div className='avatar-box'>
@@ -185,7 +221,7 @@ class Profile extends React.Component {
 						</div>
 					</div> 
 				}
-				{postGrid}
+				{postList}
 				<div className='profile-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
 		)
