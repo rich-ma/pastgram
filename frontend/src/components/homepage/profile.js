@@ -24,32 +24,26 @@ class Profile extends React.Component {
 	}
 
 	componentWillMount(){
-		console.log('component will mount');
 		this.props.closeModal();
 		this.setState({loading: true});
 		this.loadPosts();
 	}
 
 	componentDidMount() {
-		console.log('component did mount');
-
-		// Options
 		var options = {
-			root: null, // Page as root
+			root: null, 
 			rootMargin: '0px',
 			threshold: 0
 		};
-		// Create an observer
+
 		this.observer = new IntersectionObserver(
-			this.handleObserver.bind(this), //callback
+			this.handleObserver.bind(this), 
 			options
 		);
-		//Observ the `loadingRef`
 		this.observer.observe(this.loadingRef);
 	}
 
 	handleObserver(entities, observer) {
-		console.log('handle observer');
 		const y = entities[0].boundingClientRect.y;
 		if (this.state.prevY > y) {
 			if(this.state.loadingPosts){
@@ -95,7 +89,6 @@ class Profile extends React.Component {
 	}
 
 	render(){
-		console.log('render', this.state);
 		// if(this.state.loading || this.state.user === undefined) return null;
 		const { posts, user, currentUser, userId } = this.state;
 
@@ -165,29 +158,29 @@ class Profile extends React.Component {
 
 		return (
 			<div className='profile-container'>
-				<div className='user-info'>
-					<div className='user-info-upper'>
-						<div className='avatar-box'>
-							{this.state.loading ? null : <img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>}
-						</div>
-						<div className='user-info-container'>
-							<div className='username-button'>
-								{ this.state.loading ? null : <h3 className='username'>{user.username}</h3>}
-								{button}
+				{this.state.loading ? null : 
+					<div className='user-info'>
+						<div className='user-info-upper'>
+							<div className='avatar-box'>
+								<img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>
 							</div>
-							<div className='user-desktop'>
-								{postsFollow}
-								{userInfo}
+							<div className='user-info-container'>
+								<div className='username-button'>
+									<h3 className='username'>{user.username}</h3>
+									{ button }
+								</div>
+								<div className='user-desktop'>
+									{postsFollow}
+									{userInfo}
+								</div>
 							</div>
 						</div>
-					</div>
-					<div className='user-mobile'>
-						{userInfo}
-						{postsFollow}
-					</div>
-				</div>
-				<button onClick={this.loadPosts}> load posts</button>
-				{postList}
+						<div className='user-mobile'>
+							{userInfo}
+							{postsFollow}
+						</div>
+					</div> }
+				{postGrid}
 				<div className='profile-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
 

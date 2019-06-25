@@ -183,8 +183,9 @@ button{
 }
 
 .profile-observer{
-	height: 300px;
-	background-color: red;
+	height: 20px;
+	position: relative;
+	bottom: 50px;
 }
 
 
