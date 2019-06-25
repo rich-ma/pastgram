@@ -16,7 +16,7 @@ class PostIndex extends React.Component{
 	render(){
 		const { posts, currentUser } = this.state;
 
-		const index = (
+		const index = ( 
 			<div className='index-container'>
 				<ul className='index-ul'>
 				

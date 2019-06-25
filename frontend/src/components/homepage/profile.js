@@ -29,6 +29,10 @@ class Profile extends React.Component {
 		this.loadPosts();
 	}
 
+	componentWillReceiveProps(){
+		
+	}
+
 	componentDidMount() {
 		var options = {
 			root: null, 
@@ -179,14 +183,13 @@ class Profile extends React.Component {
 							{userInfo}
 							{postsFollow}
 						</div>
-					</div> }
+					</div> 
+				}
 				{postGrid}
 				<div className='profile-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
-
 		)
 	}
-
 }
 
 export default Profile;
