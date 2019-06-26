@@ -42,7 +42,7 @@ class Modal extends React.Component{
 				component = <NewPostContainer />;
 				break;
 			case 'postShow':
-				component = <PostShowContainer post={modal.data} />;
+				component = <PostShowContainer post={modal.data.post} user={modal.data.user} />;
 				break;
 			case 'editUser':
 			  component = <EditUserContainer user={modal.data} />;

@@ -9,6 +9,7 @@ class PostIndex extends React.Component{
 			totalPages: this.props.totalPages,
 			currentUser: this.props.currentUser,
 			posts: this.props.posts,
+			users: this.props.users,
 			loading: true
 		}
 	}

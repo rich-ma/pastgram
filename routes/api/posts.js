@@ -62,27 +62,20 @@ router.get('/', (req, res) => {
 						});
 					}
 				})
-				User.find()
-					.then(user => {
-						let users = {}
-						user.forEach(u => users[u._id] = {
-							avatarUrl: u.avatarUrl,
-							username: u.username
-						});
-						const data = {
-							users,
-							all: {
-								currentPage,
-								totalPages,
-								posts: newPosts,
-								totalPosts
-							}
-						};
-						return res.json(data);
-					})
-			}
-		})
-		.catch(err => res.status(404).json({ nopostsfound: "No posts found." }))
+
+				const data = {
+					users,
+					all: {
+						currentPage,
+						totalPages,
+						posts: newPosts,
+						totalPosts
+					}
+				};
+
+				return res.json(data);
+			})
+			.catch(err => res.status(404).json({ nopostsfound: "No posts found." }))
 })
 
 //get all posts from a specific user

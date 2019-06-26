@@ -7,11 +7,16 @@ import PostShow from './post_show';
 
 const mSTP = (state, ownProps) => {
 	const postId = ownProps.post ? ownProps.post._id : ownProps.match.params.postId;
+	const post = ownProps.post ? ownProps.post : state.posts.post;
+	const user = ownProps.user ? ownProps.user : state.users.user;
+	const isPostShow = ownProps.post ? false : true;
+
 	return({
 		postId,
 		currentUserId: state.session.user.id,
-		post: state.posts.post,
-		user: state.posts.user
+		post,
+		user,
+		isPostShow
 	})
 }
 

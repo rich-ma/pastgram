@@ -18,7 +18,22 @@ class PostShow extends React.Component {
 	}
 
 	componentWillMount(){
-		this.props.fetchPostShow(this.props.postId);
+		console.log(this.state);
+		if(this.props.isPostShow){
+			this.props.fetchPostShow(this.props.postId);
+		} else {
+			if (this.props.post.likes.includes(this.props.currentUserId)) {
+				this.setState({
+					like: true,
+					loading: false
+				});
+			} else {
+				this.setState({
+					like: false,
+					loading: false
+				});
+			}
+		}
 	}
 
 	componentWillReceiveProps(newProps){

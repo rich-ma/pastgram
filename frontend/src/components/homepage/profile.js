@@ -148,9 +148,13 @@ class Profile extends React.Component {
 					return (
 						<ul key={i} className='post-grid-ul'>
 							{list.map((innerPost, j) => {
+								let data = {
+									post: innerPost,
+									user
+								}
 								return (
 									<li key={innerPost._id} >
-										<img className='profile-post-img' src={innerPost.url} onClick={() => openModal({modal: 'postShow', data: innerPost})} alt={innerPost.text}/>
+										<img className='profile-post-img' src={innerPost.url} onClick={() => openModal({modal: 'postShow', data})} alt={innerPost.text}/>
 										{ i >= posts.length * 75 ? <span className='sentinel'></span> : null}
 									</li>
 								)
