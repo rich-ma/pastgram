@@ -6,7 +6,7 @@ import {
 	removeLike,
 	fetchUserPosts
 } from '../util/post_api_util';
-import { receiveUser } from './user_actions';
+import { receiveUser, receiveUsers } from './user_actions';
 
 export const RECEIVE_POST_SHOW = 'RECEIVE_POST_SHOW';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';
@@ -25,9 +25,9 @@ export const receivePostShow = (data) => ({
 	data
 })
 
-export const receivePosts = posts => ({
+export const receivePosts = data => ({
 	type: RECEIVE_POSTS,
-	posts
+	data
 })
 
 export const receiveNewPost = post => ({
@@ -53,11 +53,16 @@ export const fetchPostShow = postId => dispatch =>{
 		.catch(err => dispatch(receiveErrors(err.response.data)));
 }
 
-export const fetchPosts = () => dispatch =>(
-	getPosts()
-		.then(posts => dispatch(receivePosts(posts)))
+
+//need to pingpong users object to minimize hitting the db for user objects every time
+export const fetchPosts = reqData => dispatch =>{
+	return getPosts(reqData)
+		.then(response => {
+			dispatch(receiveUserPosts(response.data.all));
+			dispatch(receiveUsers(response.data.users));
+		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))
-)
+}
 
 // export const fetchAllUserPosts = userId => dispatch => (
 // 	getUserPosts(userId)

@@ -1,4 +1,4 @@
-import { RECEIVE_USER } from '../../actions/user_actions';
+import { RECEIVE_USER, RECEIVE_USERS } from '../../actions/user_actions';
 
 const UsersReducer = (state = {all: {}, user: undefined}, action) => {
 	Object.freeze(state);
@@ -8,6 +8,9 @@ const UsersReducer = (state = {all: {}, user: undefined}, action) => {
 	switch(action.type){
 		case RECEIVE_USER:
 			newState.user = action.user;
+			return newState;
+		case RECEIVE_USERS:
+			newState.all = action.data.users;
 			return newState;
 		default:
 			return state;

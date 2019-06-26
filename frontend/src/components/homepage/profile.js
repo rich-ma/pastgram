@@ -1,5 +1,5 @@
 import React from 'react';
-import axios from 'axios';
+// import axios from 'axios';
 import '../css/profile.css';
 
 
@@ -221,7 +221,7 @@ class Profile extends React.Component {
 						</div>
 					</div> 
 				}
-				{postList}
+				{postGrid}
 				<div className='profile-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
 		)

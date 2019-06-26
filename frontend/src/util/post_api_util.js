@@ -4,8 +4,8 @@ export const getPostShow = postId => {
 	return axios.get(`/api/posts/${postId}`);
 }
 
-export const getPosts = () => {
-	return axios.get('/api/posts');
+export const getPosts = reqData => {
+	return axios.post('/api/posts/', reqData);
 }
 
 // export const getUserPosts = userId => {
@@ -13,7 +13,7 @@ export const getPosts = () => {
 // }
 
 export const createPost = data => {
-	return axios.post('/api/posts/', data);
+	return axios.post('/api/posts/new', data);
 }
 
 export const addLike = data => {

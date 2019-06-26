@@ -10,7 +10,8 @@ router.get('/test', (req, res) => {
 	return res.json({msg: 'This is the posts route'});
 });
 
-router.post('/', passport.authenticate('jwt', {session: false}), 
+//post new post
+router.post('/new', passport.authenticate('jwt', {session: false}), 
 (req, res) => {
 	const post = req.body.post;
 	const user = req.body.user;
@@ -38,10 +39,49 @@ router.post('/', passport.authenticate('jwt', {session: false}),
 })
 
 //index posts
+//grab all posts, grab all users with posts
+//might be easier to just implement with following  
 router.get('/', (req, res) => {
+	let users = req.body.users;
+	let postPP = 15;
 	Post.find()
 		.sort({date: -1})
-		.then(posts => res.json(posts))
+		.then(posts => {
+			let totalPosts = posts.length;
+				let currentPage = req.body.currentPage;
+				const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
+				const totalPages = Math.ceil(posts.length / postPP);
+
+				newPosts.forEach(post => {
+					if(users[post.userId]){
+						//user already exists
+					} else {
+						User.find(post.userId).then(user => users[user._id] == {
+						avatarUrl: u.avatarUrl,
+						username: u.username
+						});
+					}
+				})
+				User.find()
+					.then(user => {
+						let users = {}
+						user.forEach(u => users[u._id] = {
+							avatarUrl: u.avatarUrl,
+							username: u.username
+						});
+						const data = {
+							users,
+							all: {
+								currentPage,
+								totalPages,
+								posts: newPosts,
+								totalPosts
+							}
+						};
+						return res.json(data);
+					})
+			}
+		})
 		.catch(err => res.status(404).json({ nopostsfound: "No posts found." }))
 })
 

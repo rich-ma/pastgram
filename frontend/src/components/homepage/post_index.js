@@ -18,14 +18,18 @@ class PostIndex extends React.Component{
 
 		const index = ( 
 			<div className='index-container'>
+			<button onClick={this.props.fetchPosts}>Fetch</button>
 				<ul className='index-ul'>
-				
 				</ul>
 			</div>
 		)
 
 		return(
-			<h1>test</h1>
+			<div className='index-container'>
+			<button onClick={this.props.fetchPosts}>Fetch</button>
+				<ul className='index-ul'>
+				</ul>
+			</div>
 		)
 	}
 
