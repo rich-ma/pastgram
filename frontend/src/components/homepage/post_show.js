@@ -93,7 +93,16 @@ class PostShow extends React.Component {
 		</div>
 		)
 
-		return(
+		if(this.props.isIndex){
+			return (
+				<div className='post-show-index'>
+					{profileContainer}
+					{imageContainer}
+					{postInfo}
+				</div>
+			)
+		} else {
+			return(
 			<div className='post-show-container'>
 				<div className='post-show-mobile'>
 					{profileContainer}
@@ -114,6 +123,7 @@ class PostShow extends React.Component {
 				</div>
 			</div>
 		)
+		}
 	}
 }
 

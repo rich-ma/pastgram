@@ -1,5 +1,5 @@
 import React from 'react';
-import PostIndexItemContainer from './post_index_item_container';
+import postShowContainer from '../homepage/post_show_container';
 
 class PostIndex extends React.Component{
 	constructor(props){
@@ -11,6 +11,30 @@ class PostIndex extends React.Component{
 			posts: this.props.posts,
 			users: this.props.users,
 			loading: true
+		}
+
+		this.props.fetchPosts({
+			users: this.state.users,
+			currentPage: this.state.currentPage
+		});
+	}
+
+
+	static getDerivedStateFromProps(newProps, state){
+		console.log('new props' , newProps);
+		console.log('state', state);
+		if(newProps.currentPage !== state.currentPage){
+			let posts = state.posts.concat(newProps.posts);
+			return({
+				currentPage: newProps.currentPage,
+				totalPages: newProps.currentPage,
+				users: newProps.users,
+
+				posts,
+				loading: false
+			})
+		} else {
+			return state;
 		}
 	}
 

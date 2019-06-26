@@ -61,7 +61,10 @@ export const fetchPosts = reqData => dispatch =>{
 			dispatch(receiveUserPosts(response.data.all));
 			dispatch(receiveUsers(response.data.users));
 		})
-		.catch(err => dispatch(receiveErrors(err.response.data)))
+		.catch(err => {
+			console.log('fetch posts err', err);
+			dispatch(receiveErrors(err.response.data));
+		})
 }
 
 // export const fetchAllUserPosts = userId => dispatch => (

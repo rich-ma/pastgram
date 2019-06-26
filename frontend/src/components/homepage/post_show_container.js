@@ -10,13 +10,15 @@ const mSTP = (state, ownProps) => {
 	const post = ownProps.post ? ownProps.post : state.posts.post;
 	const user = ownProps.user ? ownProps.user : state.users.user;
 	const isPostShow = ownProps.post ? false : true;
+	const isIndex = ownProps.isIndex ? true : false;
 
 	return({
 		postId,
 		currentUserId: state.session.user.id,
 		post,
 		user,
-		isPostShow
+		isPostShow,
+		isIndex
 	})
 }
 

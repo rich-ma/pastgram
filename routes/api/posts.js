@@ -41,7 +41,7 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //index posts
 //grab all posts, grab all users with posts
 //might be easier to just implement with following  
-router.get('/', (req, res) => {
+router.post('/', (req, res) => {
 	let users = req.body.users;
 	let postPP = 15;
 	Post.find()
@@ -57,8 +57,8 @@ router.get('/', (req, res) => {
 						//user already exists
 					} else {
 						User.find(post.userId).then(user => users[user._id] == {
-						avatarUrl: u.avatarUrl,
-						username: u.username
+						avatarUrl: user.avatarUrl,
+						username: user.username
 						});
 					}
 				})

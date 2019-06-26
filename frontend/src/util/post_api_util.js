@@ -5,6 +5,7 @@ export const getPostShow = postId => {
 }
 
 export const getPosts = reqData => {
+	console.log('post api util', reqData);
 	return axios.post('/api/posts/', reqData);
 }
 
