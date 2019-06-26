@@ -58,7 +58,7 @@ export const fetchPostShow = postId => dispatch =>{
 export const fetchPosts = reqData => dispatch =>{
 	return getPosts(reqData)
 		.then(response => {
-			dispatch(receiveUserPosts(response.data.all));
+			dispatch(receivePosts(response.data.all));
 			dispatch(receiveUsers(response.data.users));
 		})
 		.catch(err => {

@@ -22,10 +22,11 @@ const PostsReducer = (state = {
 
 	switch(action.type){
 		case RECEIVE_POSTS:
-			newState.all.currentPage = action.data.all.currentPage;
-			newState.all.totalPages = action.data.all.totalPages; //can drop this concept
-			newState.all.posts = action.data.all.posts; //might want to concat new posts onto old ones, or can do it in the react component
-			newState.all.totalPosts = action.data.all.totalPosts;
+			console.log(action);
+			newState.all.currentPage = action.data.currentPage;
+			newState.all.totalPages = action.data.totalPages; //can drop this concept
+			newState.all.posts = action.data.posts; //might want to concat new posts onto old ones, or can do it in the react component
+			newState.all.totalPosts = action.data.totalPosts;
 			return newState;
 		case RECEIVE_POST_SHOW:
 			newState.post = action.data.post;

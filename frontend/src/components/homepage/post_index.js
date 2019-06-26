@@ -38,6 +38,10 @@ class PostIndex extends React.Component{
 		}
 	}
 
+	componentDidUpdate(){
+		console.log('componentdidupdate',this.props);
+	}
+
 	render(){
 		const { posts, currentUser } = this.state;
 
