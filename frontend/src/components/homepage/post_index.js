@@ -1,5 +1,5 @@
 import React from 'react';
-import postShowContainer from '../homepage/post_show_container';
+import PostShowContainer from '../homepage/post_show_container';
 
 class PostIndex extends React.Component{
 	constructor(props){
@@ -19,44 +19,30 @@ class PostIndex extends React.Component{
 		});
 	}
 
-
 	static getDerivedStateFromProps(newProps, state){
-		console.log('new props' , newProps);
-		console.log('state', state);
-		if(newProps.currentPage !== state.currentPage){
+		if(newProps.currentPage !== state.currentPage ){
 			let posts = state.posts.concat(newProps.posts);
 			return({
 				currentPage: newProps.currentPage,
 				totalPages: newProps.currentPage,
 				users: newProps.users,
-
 				posts,
 				loading: false
 			})
 		} else {
+			console.log('no new posts');
 			return state;
 		}
 	}
 
-	componentDidUpdate(){
-		console.log('componentdidupdate',this.props);
-	}
-
 	render(){
-		const { posts, currentUser } = this.state;
-
-		const index = ( 
-			<div className='index-container'>
-			<button onClick={this.props.fetchPosts}>Fetch</button>
-				<ul className='index-ul'>
-				</ul>
-			</div>
-		)
-
+		const { posts, currentUser, users } = this.state;
+		console.log('users', users);
+			
 		return(
 			<div className='index-container'>
-			<button onClick={this.props.fetchPosts}>Fetch</button>
 				<ul className='index-ul'>
+					{posts.map(post => (<li key={post.id} ><PostShowContainer post={post} user={users[post.userId + '']}/></li>))}
 				</ul>
 			</div>
 		)

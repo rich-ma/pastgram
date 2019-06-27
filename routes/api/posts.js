@@ -42,38 +42,62 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //grab all posts, grab all users with posts
 //might be easier to just implement with following  
 router.post('/', (req, res) => {
-	let users = req.body.users;
+	let users = Object.assign({}, req.body.users);
 	let postPP = 15;
+
+	let editUsers = (x, y) => {
+		x[y._id] = {
+			username: y.username,
+			avatarUrl: y.avatarUrl
+		}
+	}
+
 	Post.find()
 		.sort({date: -1})
 		.then(posts => {
 			let totalPosts = posts.length;
-				let currentPage = req.body.currentPage;
-				const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
-				const totalPages = Math.ceil(posts.length / postPP);
+			let currentPage = req.body.currentPage;
+			const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
+			const totalPages = Math.ceil(posts.length / postPP);
 
-				newPosts.forEach(post => {
-					if(users[post.userId]){
-						//user already exists
-					} else {
-						User.find(post.userId).then(user => users[user._id] == {
-						avatarUrl: user.avatarUrl,
-						username: user.username
+			//grab user ids from all the posts, check redundancy O(1) time
+			let userIds = {};
+			newPosts.forEach(post => {
+				let id = post.userId;
+				if(userIds[id]){
+				} else {
+					userIds[id] = true;
+				}
+			})
+
+			User.find({
+				'_id': {
+					$in: Object.keys(userIds)
+					}}, (err, newUsers) => {
+						newUsers.forEach(user => { //add any new user to users object for frontend
+							if(users[user._id + '']){
+
+							} else {
+								users[user._id + ''] = {
+									username: user.username,
+									avatarUrl: user.avatarUrl
+								}
+							}
 						});
-					}
-				})
 
-				const data = {
-					users,
-					all: {
-						currentPage,
-						totalPages,
-						posts: newPosts,
-						totalPosts
-					}
-				};
+						const data = {
+							users,
+							all: {
+								currentPage: currentPage + 1,
+								totalPages,
+								posts: newPosts,
+								totalPosts
+							}
+						};
 
-				return res.json(data);
+						console.log(data);
+						return res.json(data);
+					});
 			})
 			.catch(err => res.status(404).json({ nopostsfound: "No posts found." }))
 })

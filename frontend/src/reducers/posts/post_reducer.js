@@ -4,7 +4,7 @@ const PostsReducer = (state = {
 		all:{
 			currentPage: 0,
 			totalPages: undefined,
-			posts: {},
+			posts: [],
 			totalPosts: 0
 		}, 
 		new: undefined, 
