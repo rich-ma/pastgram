@@ -1,20 +1,23 @@
 import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS } from '../../actions/post_actions';
+const _nullAll = {
+	currentPage: 0,
+	totalPages: undefined,
+	posts: [],
+	totalPosts: 0
+};
+
+const _nullProfile = {
+	currentPage: 0,
+	totalPages: undefined,
+	totalPosts: 0,
+	posts: []
+};
 
 const PostsReducer = (state = {
-		all:{
-			currentPage: 0,
-			totalPages: undefined,
-			posts: [],
-			totalPosts: 0
-		}, 
+		all: _nullAll,
 		new: undefined, 
 		post: undefined,
-		profile: {
-			currentPage: 0,
-			totalPages: undefined,
-			totalPosts: 0,
-			posts: []
-		}
+		profile: _nullProfile
 	}, 
 	action) => {
 	Object.freeze(state);
@@ -22,17 +25,20 @@ const PostsReducer = (state = {
 
 	switch(action.type){
 		case RECEIVE_POSTS:
-			console.log(action);
+			newState.profile = _nullProfile;
 			newState.all.currentPage = action.data.currentPage;
 			newState.all.totalPages = action.data.totalPages; //can drop this concept
 			newState.all.posts = action.data.posts; //might want to concat new posts onto old ones, or can do it in the react component
 			newState.all.totalPosts = action.data.totalPosts;
 			return newState;
 		case RECEIVE_POST_SHOW:
+			newState.all = _nullAll;
+			newState.profile = _nullProfile;
 			newState.post = action.data.post;
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
+			newState.all - _nullAll;
 			newState.profile.posts = action.data.posts;
 			newState.profile.currentPage = action.data.currentPage;
 			newState.profile.totalPages = action.data.totalPages;

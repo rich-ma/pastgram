@@ -1,6 +1,6 @@
 import { RECEIVE_USER, RECEIVE_USERS } from '../../actions/user_actions';
 
-const UsersReducer = (state = {all: {}, user: undefined}, action) => {
+const UsersReducer = (state = {all: undefined, user: undefined}, action) => {
 	Object.freeze(state);
 
 	let newState = Object.assign({}, state);

@@ -42,15 +42,8 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //grab all posts, grab all users with posts
 //might be easier to just implement with following  
 router.post('/', (req, res) => {
-	let users = Object.assign({}, req.body.users);
+	let users = req.body.users ? req.body.users : {};
 	let postPP = 15;
-
-	let editUsers = (x, y) => {
-		x[y._id] = {
-			username: y.username,
-			avatarUrl: y.avatarUrl
-		}
-	}
 
 	Post.find()
 		.sort({date: -1})
@@ -61,45 +54,62 @@ router.post('/', (req, res) => {
 			const totalPages = Math.ceil(posts.length / postPP);
 
 			//grab user ids from all the posts, check redundancy O(1) time
-			let userIds = {};
+			let userIds = [];
 			newPosts.forEach(post => {
+				console.log(post);
 				let id = post.userId;
-				if(userIds[id]){
+				if(users[id]){
 				} else {
-					userIds[id] = true;
+					userIds.concat(id);
 				}
 			})
 
-			User.find({
-				'_id': {
-					$in: Object.keys(userIds)
-					}}, (err, newUsers) => {
-						newUsers.forEach(user => { //add any new user to users object for frontend
-							if(users[user._id + '']){
+			//no new users
+			if(userIds.length === 0){
+				const data = {
+					users,
+					all: {
+						currentPage: currentPage + 1,
+						totalPages,
+						posts: newPosts,
+						totalPosts
+					}
+				};
 
-							} else {
-								users[user._id + ''] = {
-									username: user.username,
-									avatarUrl: user.avatarUrl
+				return res.json(data);
+			} else {
+				User.find({
+					'_id': {
+						$in: userIds
+						}}, (err, newUsers) => {
+							console.log(newUsers);
+							newUsers.forEach(user => { //add any new user to users object for frontend
+								if(users[user._id + '']){
+
+								} else {
+									users[user._id + ''] = {
+										username: user.username,
+										avatarUrl: user.avatarUrl
+									}
 								}
-							}
-						});
+							});
 
-						const data = {
-							users,
-							all: {
-								currentPage: currentPage + 1,
-								totalPages,
-								posts: newPosts,
-								totalPosts
-							}
-						};
-
-						console.log(data);
-						return res.json(data);
+							const data = {
+								users,
+								all: {
+									currentPage: currentPage + 1,
+									totalPages,
+									posts: newPosts,
+									totalPosts
+								}
+							};
+							return res.json(data);
 					});
+			}
 			})
-			.catch(err => res.status(404).json({ nopostsfound: "No posts found." }))
+			.catch(err => {
+				res.status(404).json({ nopostsfound: "No posts found." })
+			})
 })
 
 //get all posts from a specific user

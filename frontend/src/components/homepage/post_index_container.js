@@ -6,7 +6,6 @@ import { likePost, unlikePost, fetchPosts } from '../../actions/post_actions';
 import PostIndex from './post_index';
 
 const mSTP = (state, ownProps) => {
-
 	return({
 		posts: state.posts.all.posts,
 		totalPages: state.posts.all.totalPages,
