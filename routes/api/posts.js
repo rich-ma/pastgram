@@ -42,7 +42,7 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //grab all posts, grab all users with posts
 //might be easier to just implement with following  
 router.post('/', (req, res) => {
-	let users = req.body.users ? req.body.users : {};
+	let users = req.body.users;
 	let postPP = 15;
 
 	Post.find()
@@ -60,7 +60,7 @@ router.post('/', (req, res) => {
 				let id = post.userId;
 				if(users[id]){
 				} else {
-					userIds.concat(id);
+					userIds = userIds.concat(id);
 				}
 			})
 

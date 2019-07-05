@@ -20,6 +20,7 @@ class PostIndex extends React.Component{
 	}
 
 	static getDerivedStateFromProps(newProps, state){
+		console.log('get derived state', newProps);
 		if(newProps.currentPage !== state.currentPage){
 			let posts = state.posts.concat(newProps.posts);
 			return({
@@ -30,19 +31,19 @@ class PostIndex extends React.Component{
 				loading: false
 			})
 		} else {
-			console.log('no new posts');
 			return state;
 		}
 	}
 
 	render(){
+		if(!this.state.users || !this.state.posts) return null;
 		const { posts, currentUser, users } = this.state;
 		console.log('state users', users);
 			
 		return(
 			<div className='index-container'>
 				<ul className='index-ul'>
-					
+							{posts.map((post, i) => (<li key={i}><PostShowContainer post={post} user={users[post.userId + '']}/></li>))}
 				</ul>
 			</div>
 		)
@@ -51,13 +52,3 @@ class PostIndex extends React.Component{
 }
 
 export default PostIndex;
-
-	// {posts.map( post => {
-	// 					return(
-	// 						<li key={post.id}>
-	// 							<PostIndexItemContainer post={post} currentUser={currentUser} />
-	// 						</li>
-	// 					)
-	// 				})}
-
-	// {this.state.loading ? null : posts.map(post => (<li key={post.id} ><PostShowContainer post={post} user={users[post.userId + '']}/></li>))}

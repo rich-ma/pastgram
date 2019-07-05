@@ -6,12 +6,13 @@ import { likePost, unlikePost, fetchPosts } from '../../actions/post_actions';
 import PostIndex from './post_index';
 
 const mSTP = (state, ownProps) => {
+	let users = state.users.all ? state.users.all : {};
 	return({
 		posts: state.posts.all.posts,
 		totalPages: state.posts.all.totalPages,
 		currentPage: state.posts.all.currentPage,
 		currentUser: state.session.user,
-		users: state.users.all
+		users
 	})
 }
 
