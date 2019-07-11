@@ -18,7 +18,6 @@ class PostShow extends React.Component {
 	}
 
 	componentWillMount(){
-		console.log(this.state);
 		if(this.props.isPostShow){
 			this.props.fetchPostShow(this.props.postId);
 		} else {

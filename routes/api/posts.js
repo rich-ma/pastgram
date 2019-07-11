@@ -57,7 +57,7 @@ router.post('/', (req, res) => {
 			let userIds = [];
 			newPosts.forEach(post => {
 				console.log(post);
-				let id = post.userId;
+				let id = post.userId + '';
 				if(users[id]){
 				} else {
 					userIds = userIds.concat(id);
@@ -75,7 +75,6 @@ router.post('/', (req, res) => {
 						totalPosts
 					}
 				};
-
 				return res.json(data);
 			} else {
 				User.find({

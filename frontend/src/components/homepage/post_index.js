@@ -13,15 +13,17 @@ class PostIndex extends React.Component{
 			loading: true
 		}
 
+
+
 		this.props.fetchPosts({
-			users: this.state.users,
-			currentPage: this.state.currentPage
+			users: {},
+			currentPage: 0
 		});
 	}
 
 	static getDerivedStateFromProps(newProps, state){
-		console.log('get derived state', newProps);
-		if(newProps.currentPage !== state.currentPage){
+		// console.log('get derived state')
+		// if(newProps.currentPage !== state.currentPage){
 			let posts = state.posts.concat(newProps.posts);
 			return({
 				currentPage: newProps.currentPage,
@@ -30,15 +32,14 @@ class PostIndex extends React.Component{
 				posts,
 				loading: false
 			})
-		} else {
-			return state;
-		}
+		// } else {
+		// 	return state;
+		// }
 	}
 
 	render(){
-		if(!this.state.users || !this.state.posts) return null;
+		if(Object.keys(this.state.users).length === 0 || this.state.posts.length === 0) return null;
 		const { posts, currentUser, users } = this.state;
-		console.log('state users', users);
 			
 		return(
 			<div className='index-container'>
