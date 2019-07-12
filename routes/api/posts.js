@@ -43,7 +43,7 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //might be easier to just implement with following  
 router.post('/', (req, res) => {
 	let users = req.body.users;
-	let postPP = 15;
+	let postPP = 5;
 
 	Post.find()
 		.sort({date: -1})
@@ -115,7 +115,7 @@ router.post('/', (req, res) => {
 router.post('/user/:user_id', passport.authenticate('jwt', {
 			session: false
 		}), (req, res) => {
-	let postPP = 6;
+	let postPP = 12;
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
 		.then(posts => {

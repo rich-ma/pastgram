@@ -58,8 +58,8 @@ export const fetchPostShow = postId => dispatch =>{
 export const fetchPosts = reqData => dispatch =>{
 	return getPosts(reqData)
 		.then(response => {
-			dispatch(receivePosts(response.data.all));
 			dispatch(receiveUsers(response.data.users));
+			dispatch(receivePosts(response.data.all));
 		})
 		.catch(err => {
 			dispatch(receiveErrors(err.response.data));
@@ -77,7 +77,6 @@ export const fetchPosts = reqData => dispatch =>{
 //get more posts for user profile page.
 // data contains (user(boolean), userId, currentpostpage, totalPages)
 export const loadUserPosts = reqData => dispatch => {
-	console.log('in load user posts');
 	if(reqData.loaded){
 		return fetchUserPosts(reqData)
 			.then(response => dispatch(receiveUserPosts(response.data.profile)))

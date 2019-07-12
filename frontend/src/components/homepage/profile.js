@@ -31,24 +31,6 @@ class Profile extends React.Component {
 		
 	}
 
-	// componentWillReceiveProps(newProps) {
-	// 	let posts;
-	// 	if(newProps.currentPage === 1){
-	// 		posts = newProps.posts;
-	// 	} else {
-	// 		posts = [...this.state.posts, ...newProps.posts];
-	// 	}
-	// 	this.setState({
-	// 		currentPage: newProps.currentPage,
-	// 		totalPages: newProps.totalPages,
-	// 		totalPosts: newProps.totalPosts,
-	// 		user: newProps.user,
-	// 		posts,
-	// 		loading: false,
-	// 		loadingPosts: false
-	// 	});
-	// }
-
 	static getDerivedStateFromProps(newProps, state) {
 		let posts;
 		if(newProps.currentPage === 1){
@@ -67,7 +49,6 @@ class Profile extends React.Component {
 			loading: false,
 			loadingPosts: false
 		})
-
 	}
 
 	loadPosts() {

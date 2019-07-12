@@ -17,20 +17,38 @@ class PostIndex extends React.Component{
 
 		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
-
-
-
-
+		this.handleObserver = this.handleObserver.bind(this);
 		this.props.fetchPosts({
 			users: {},
 			currentPage: 0
 		});
 	}
 
+	componentDidMount(){
+		var options = {
+			root: null,
+			rootMargin: '0px',
+			threshold: 0
+		};
+
+		this.observer = new IntersectionObserver(
+			this.handleObserver.bind(this),
+			options
+		);
+
+		this.observer.observe(this.loadingRef);
+	}
+
 	static getDerivedStateFromProps(newProps, state){
-		// console.log('get derived state')
-		// if(newProps.currentPage !== state.currentPage){
-			let posts = state.posts.concat(newProps.posts);
+			let posts;
+			console.log(newProps);
+			if (newProps.currentPage === 1) {
+				posts = newProps.posts;
+			} else if (newProps.currentPage !== state.currentPage) {
+				posts = [...state.posts, ...newProps.posts];
+			} else {
+				posts = state.posts;
+			}
 			return({
 				currentPage: newProps.currentPage,
 				totalPages: newProps.currentPage,
@@ -38,18 +56,32 @@ class PostIndex extends React.Component{
 				posts,
 				loading: false
 			})
-		// } else {
-		// 	return state;
-		// }
 	}
 
 	loadPosts(){
+		this.setState({loading: true});
+		this.props.fetchPosts({
+			users: this.state.users,
+			currentPage: this.state.currentPage,
+		})
+	}
 
+	handleObserver(entities, observer){
+		const y = entities[0].boundingClientRect.y;
+		if(this.state.prevY > y) {
+			if(this.state.loading){
+				return null;
+			} else {
+				this.loadPosts();
+			}
+		}
+		this.setState({
+			prevY: y
+		});
 	}
 
 	render(){
 		let loading = Object.keys(this.state.users).length === 0 || this.state.posts.length === 0;
-		if(loading) return null;
 		const { posts, currentUser, users } = this.state;
 			
 		return(

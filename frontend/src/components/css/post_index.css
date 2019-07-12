@@ -1,6 +1,7 @@
 .index-ul {
 	display: flex;
 	flex-direction: column;
+	margin: 0;
 }
 
 .index-ul li {
@@ -13,9 +14,23 @@
 
 .post-show-img{
 	width: 100%;
+	max-height: 750px;
 }
 
+.index-observer {
+	height: 20px;
+	position: relative;
+	bottom: 1200px;
+	z-index: 100;
+	background: red;
+	width: 300px;
+}
+
+
 @media(min-width: 600px){
+	.index-ul{
+		margin-top: 15px;
+	}
 	.post-show-index{
 		align-self: center;
 		width: auto;
