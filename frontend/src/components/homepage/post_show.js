@@ -102,7 +102,7 @@ class PostShow extends React.Component {
 			)
 		} else {
 			return(
-			<div className='post-show-container'>
+			< div className={this.props.isPostShow ? `post-show-container post-show` : `post-show-container`} >
 				<div className='post-show-mobile'>
 					{profileContainer}
 					{imageContainer}

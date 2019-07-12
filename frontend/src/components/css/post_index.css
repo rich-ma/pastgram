@@ -9,9 +9,28 @@
 
 .post-profile{
 	padding: 0;
-
 }
 
 .post-show-img{
 	width: 100%;
+}
+
+@media(min-width: 600px){
+	.post-show-index{
+		align-self: center;
+		width: auto;
+		max-width: 600px;
+		display:flex;
+		flex-direction: column;
+		background-color: #fff;
+		border: 1px solid #e6e6e6;
+		border-bottom-right-radius: 3px;
+		border-top-right-radius: 3px;
+	}
+
+	.index-container{
+		display: flex;
+		flex-direction: column;
+		align-items: center;
+	}
 }

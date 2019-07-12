@@ -15,6 +15,10 @@ class PostIndex extends React.Component{
 			loading: true
 		}
 
+		this.loadingRef = React.createRef();
+		this.loadPosts = this.loadPosts.bind(this);
+
+
 
 
 		this.props.fetchPosts({
@@ -39,6 +43,10 @@ class PostIndex extends React.Component{
 		// }
 	}
 
+	loadPosts(){
+
+	}
+
 	render(){
 		let loading = Object.keys(this.state.users).length === 0 || this.state.posts.length === 0;
 		if(loading) return null;
@@ -47,8 +55,9 @@ class PostIndex extends React.Component{
 		return(
 			<div className='index-container'>
 				<ul className='index-ul'>
-							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} user={users[post.userId + '']}/></li>))}
+							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} user={users[post.userId + '']}/></li>))}
 				</ul>
+				<div className='index-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
 		)
 	}
