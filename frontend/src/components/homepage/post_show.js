@@ -71,7 +71,9 @@ class PostShow extends React.Component {
 		if(this.state.loading) return null;
 
 		const { post, user } = this.state;
+		user['id'] = post.userId;
 
+		console.log(user);
 		let likeClassName = this.state.like ? 'post-info-icon liked-heart fas fa-heart' : 'post-info-icon far fa-heart';
 
 		const profileContainer = profile(user);
