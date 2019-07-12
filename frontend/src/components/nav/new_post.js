@@ -36,7 +36,6 @@ class NewPost extends React.Component{
 		const data = new FormData();
 		data.append('image', this.state.photoFile);
 		axios.post('/api/image-upload/new', data).then(res => {
-			console.log(this.state.currentUser)
 			const data = {
 				post: {
 					userId: this.state.currentUser.id,

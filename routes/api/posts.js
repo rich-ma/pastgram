@@ -115,10 +115,12 @@ router.post('/', (req, res) => {
 router.post('/user/:user_id', passport.authenticate('jwt', {
 			session: false
 		}), (req, res) => {
+	console.log('in router user posts');
 	let postPP = 6;
 	Post.find({userId: req.params.user_id})
 		.sort({date: -1})
 		.then(posts => {
+			conosle.log(posts);
 			let totalPosts = posts.length; 
 			if(req.body.loaded){
 				let currentPage = req.body.currentPage;

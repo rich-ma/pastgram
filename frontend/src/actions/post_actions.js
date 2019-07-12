@@ -77,6 +77,7 @@ export const fetchPosts = reqData => dispatch =>{
 //get more posts for user profile page.
 // data contains (user(boolean), userId, currentpostpage, totalPages)
 export const loadUserPosts = reqData => dispatch => {
+	console.log('in load user posts');
 	if(reqData.loaded){
 		return fetchUserPosts(reqData)
 			.then(response => dispatch(receiveUserPosts(response.data.profile)))

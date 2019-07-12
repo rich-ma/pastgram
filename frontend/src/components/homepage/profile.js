@@ -1,5 +1,4 @@
 import React from 'react';
-// import axios from 'axios';
 import '../css/profile.css';
 
 
@@ -21,28 +20,31 @@ class Profile extends React.Component {
 		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
 		this.handleObserver = this.handleObserver.bind(this);
+
+
+		this.props.closeModal();
+		this.props.loadUserPosts({
+			loaded: false,
+			userId: this.props.userId,
+			currentPage: this.state.currentPage
+		});
+		
 	}
 
 	// componentWillMount(){
 	// 	this.props.closeModal();
-	// 	this.setState({loading: true});
-	// 	this.loadPosts();
+	// 	this.setState({
+	// 		loading: true
+	// 	});
+	// 	console.log('hello');
+	// 	this.props.loadUserPosts({
+	// 		loaded: this.state.user ? true : false,
+	// 		userId: this.props.userId,
+	// 		currentPage: this.state.currentPage
+	// 	});
 	// }
 
-	componentWillMount(){
-		this.props.closeModal();
-		this.setState({
-			loading: true
-		});
-		this.props.loadUserPosts({
-			loaded: this.state.user ? true : false,
-			userId: this.props.userId,
-			currentPage: this.state.currentPage
-		});
-	}
-
 	componentWillReceiveProps(newProps) {
-		console.log(newProps);
 		let posts;
 		if(newProps.currentPage === 1){
 			posts = newProps.posts;
@@ -57,9 +59,7 @@ class Profile extends React.Component {
 			posts,
 			loading: false,
 			loadingPosts: false
-
 		});
-		// this.props.closeModal();
 	}
 
 	loadPosts() {
@@ -97,37 +97,6 @@ class Profile extends React.Component {
 			prevY: y
 		});
 	}
-
-	// loadPosts(){ 
-	// 	this.setState({loadingPosts: true});
-	// 	axios.post(`/api/posts/user/${this.state.userId}`, {
-	// 		loaded: this.state.user ? true : false,
-	// 		userId: this.props.userId,
-	// 		currentPage: this.state.currentPage
-	// 	}).then(res => {
-	// 		let posts = this.state.posts.concat(res.data.profile.posts);
-	// 		if(!this.state.user){
-	// 			this.setState({
-	// 				user: res.data.user,
-	// 				currentPage: res.data.profile.currentPage,
-	// 				posts,
-	// 				totalPosts: res.data.profile.totalPosts,
-	// 				totalPages: res.data.profile.totalPages,
-	// 				loading: false,
-	// 				loadingPosts: false
-	// 			});
-	// 		} else {
-	// 			this.setState({
-	// 				currentPage: res.data.profile.currentPage,
-	// 				posts,
-	// 				totalPosts: res.data.profile.totalPosts,
-	// 				totalPages: res.data.profile.totalPages,
-	// 				loading: false,
-	// 				loadingPosts: false
-	// 			});
-	// 		}
-	// 	});
-	// }
 
 	render(){
 		const { posts, user, currentUser, userId } = this.state;
@@ -233,5 +202,3 @@ class Profile extends React.Component {
 }
 
 export default Profile;
-
-// <img src={`this.state.`}
