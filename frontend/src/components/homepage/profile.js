@@ -26,7 +26,7 @@ class Profile extends React.Component {
 		this.props.loadUserPosts({
 			loaded: false,
 			userId: this.props.userId,
-			currentPage: this.state.currentPage
+			currentPage: 0
 		});
 		
 	}

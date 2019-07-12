@@ -1,0 +1,17 @@
+.index-ul {
+	display: flex;
+	flex-direction: column;
+}
+
+.index-ul li {
+	margin-bottom: 15px;
+}
+
+.post-profile{
+	padding: 0;
+
+}
+
+.post-show-img{
+	width: 100%;
+}
