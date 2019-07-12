@@ -31,27 +31,34 @@ class Profile extends React.Component {
 		
 	}
 
-	// componentWillMount(){
-	// 	this.props.closeModal();
+	// componentWillReceiveProps(newProps) {
+	// 	let posts;
+	// 	if(newProps.currentPage === 1){
+	// 		posts = newProps.posts;
+	// 	} else {
+	// 		posts = [...this.state.posts, ...newProps.posts];
+	// 	}
 	// 	this.setState({
-	// 		loading: true
-	// 	});
-	// 	console.log('hello');
-	// 	this.props.loadUserPosts({
-	// 		loaded: this.state.user ? true : false,
-	// 		userId: this.props.userId,
-	// 		currentPage: this.state.currentPage
+	// 		currentPage: newProps.currentPage,
+	// 		totalPages: newProps.totalPages,
+	// 		totalPosts: newProps.totalPosts,
+	// 		user: newProps.user,
+	// 		posts,
+	// 		loading: false,
+	// 		loadingPosts: false
 	// 	});
 	// }
 
-	componentWillReceiveProps(newProps) {
+	static getDerivedStateFromProps(newProps, state) {
 		let posts;
 		if(newProps.currentPage === 1){
 			posts = newProps.posts;
+		} else if(newProps.currentPage !== state.currentPage){
+			posts = [...state.posts, ...newProps.posts];
 		} else {
-			posts = [...this.state.posts, ...newProps.posts];
+			posts = state.posts;
 		}
-		this.setState({
+		return({
 			currentPage: newProps.currentPage,
 			totalPages: newProps.totalPages,
 			totalPosts: newProps.totalPosts,
@@ -59,7 +66,8 @@ class Profile extends React.Component {
 			posts,
 			loading: false,
 			loadingPosts: false
-		});
+		})
+
 	}
 
 	loadPosts() {
