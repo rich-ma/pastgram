@@ -182,7 +182,6 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
 				}
 				// Add user id to likes array
 				post.likes.push(req.body.userId);
-
 				post.save().then(post => res.json(post));
 			})
 			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));

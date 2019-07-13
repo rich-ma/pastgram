@@ -1,4 +1,5 @@
 import { RECEIVE_USER, RECEIVE_USERS } from '../../actions/user_actions';
+import { RECEIVE_POST_SHOW } from '../../actions/post_actions';
 
 const UsersReducer = (state = {all: undefined, user: undefined}, action) => {
 	Object.freeze(state);
@@ -9,6 +10,8 @@ const UsersReducer = (state = {all: undefined, user: undefined}, action) => {
 		case RECEIVE_USER:
 			newState.user = action.user;
 			return newState;
+		case RECEIVE_POST_SHOW:
+			newState.user = action.data.user;
 		case RECEIVE_USERS:
 			console.log('user reducer', action);
 			newState.all = action.users;

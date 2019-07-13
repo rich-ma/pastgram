@@ -11,14 +11,13 @@ class PostShow extends React.Component {
 			post: this.props.post,
 			loading: true,
 			like: false,
-			likeLoading: false
+			likeLoading: false,
+			currentUserId: this.props.currentUserId
 		}
 		this.addComment = this.addComment.bind(this);
 		this.toggleLike = this.toggleLike.bind(this);
-	}
 
-	componentWillMount(){
-		if(this.props.isPostShow){
+		if (this.props.isPostShow) {
 			this.props.fetchPostShow(this.props.postId);
 		} else {
 			if (this.props.post.likes.includes(this.props.currentUserId)) {
@@ -35,14 +34,30 @@ class PostShow extends React.Component {
 		}
 	}
 
-	componentWillReceiveProps(newProps){
-		this.setState({post: newProps.post, loading: false});
-			if(newProps.post.likes.includes(this.props.currentUserId)){
-				this.setState({like: true});
-			} else {
-				this.setState({like: false});
-			}
-		if(newProps.user) this.setState({user: newProps.user});
+	// componentWillReceiveProps(newProps){
+	// 	this.setState({post: newProps.post, loading: false});
+	// 		if(newProps.post.likes.includes(this.props.currentUserId)){
+	// 			this.setState({like: true});
+	// 		} else {
+	// 			this.setState({like: false});
+	// 		}
+	// 	if(newProps.user) this.setState({user: newProps.user});
+	// }
+
+	static getDerivedStateFromProps(newProps, state){
+		console.log(newProps);
+		let like = undefined;
+		if(newProps.post){
+			like = newProps.post.likes.includes(state.currentUserId);
+				return ({
+					like: like ? like : false,
+					user: newProps.user ? newProps.user : state.user,
+					loading: false,
+					post: newProps.post
+				})
+		} else {
+			return state;
+		}
 	}
 
 	toggleLike(){
@@ -71,6 +86,7 @@ class PostShow extends React.Component {
 		if(this.state.loading) return null;
 
 		const { post, user } = this.state;
+		console.log(post, user);
 		user['id'] = post.userId;
 
 		let likeClassName = this.state.like ? 'post-info-icon liked-heart fas fa-heart' : 'post-info-icon far fa-heart';

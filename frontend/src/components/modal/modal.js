@@ -52,7 +52,7 @@ class Modal extends React.Component{
 		}
 		return (
 			<div className="modal-background" onClick={closeModal}> 
-				<div className="modal-child animated fadeIn" 
+				<div className="modal-child animated fadeIn" id={modal.modalType === 'postShow' ? 'postModal' : ''}
 				onClick={e => e.stopPropagation()}>
 					{component}
 				</div>

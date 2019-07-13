@@ -84,8 +84,8 @@ export const loadUserPosts = reqData => dispatch => {
 	} else {
 		return fetchUserPosts(reqData)
 		.then(response => {
-			dispatch(receiveUserPosts(response.data.profile));
 			dispatch(receiveUser(response.data.user));
+			dispatch(receiveUserPosts(response.data.profile));
 		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 	}

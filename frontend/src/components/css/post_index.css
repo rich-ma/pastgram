@@ -20,12 +20,8 @@
 .index-observer {
 	height: 20px;
 	position: relative;
-	bottom: 1200px;
-	z-index: 100;
-	background: red;
-	width: 300px;
+	bottom: 1400px;
 }
-
 
 @media(min-width: 600px){
 	.index-ul{

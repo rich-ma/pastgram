@@ -188,6 +188,19 @@ button{
 	bottom: 50px;
 }
 
+@media only screen and (min-width: 425px) and (max-width: 725px) {
+	/* .post-profile {
+		padding: 5px 0px;
+	} */
+
+	#postModal {
+		width: fit-content;
+		max-width: 80%;
+		height: auto;
+		max-height: 80%;
+	}
+}
+
 
 @media(min-width: 735px){
 	.post-grid-container{
