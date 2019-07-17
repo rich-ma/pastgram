@@ -88,7 +88,8 @@ router.post('/', (req, res) => {
 								} else {
 									users[user._id + ''] = {
 										username: user.username,
-										avatarUrl: user.avatarUrl
+										avatarUrl: user.avatarUrl,
+										id: user._id
 									}
 								}
 							});
@@ -139,7 +140,11 @@ router.post('/user/:user_id', passport.authenticate('jwt', {
 				User.findById(posts[0].userId + '')
 				.then(user => {
 					const data = {
-						user: user,
+						user: {
+							username: user.username,
+							avatarUrl: user.avatarUrl,
+							_id: user.id
+						},
 						profile: {
 							currentPage,
 							totalPages,
@@ -163,7 +168,12 @@ router.get('/:id', (req, res) => {
 		.then(post => {
 			User.findById(post.userId + '')
 				.then(user => {
-					return res.json({post, user});
+					console.log(user);
+					return res.json({post, user:{
+						avatarUrl: user.avatarUrl,
+						_id: user._id,
+						username: user.username
+					}});
 				});
 		})
 		.catch(err => res.status(404).json({ nopostfound: "No post found with that ID."}));

@@ -34,23 +34,13 @@ class PostShow extends React.Component {
 		}
 	}
 
-	// componentWillReceiveProps(newProps){
-	// 	this.setState({post: newProps.post, loading: false});
-	// 		if(newProps.post.likes.includes(this.props.currentUserId)){
-	// 			this.setState({like: true});
-	// 		} else {
-	// 			this.setState({like: false});
-	// 		}
-	// 	if(newProps.user) this.setState({user: newProps.user});
-	// }
-
 	static getDerivedStateFromProps(newProps, state){
-		console.log(newProps);
 		let like = undefined;
+		console.log('newprops', newProps);
 		if(newProps.post){
 			like = newProps.post.likes.includes(state.currentUserId);
 				return ({
-					like: like ? like : false,
+					like: like ? true : false,
 					user: newProps.user ? newProps.user : state.user,
 					loading: false,
 					post: newProps.post
@@ -86,8 +76,6 @@ class PostShow extends React.Component {
 		if(this.state.loading) return null;
 
 		const { post, user } = this.state;
-		console.log(post, user);
-		user['id'] = post.userId;
 
 		let likeClassName = this.state.like ? 'post-info-icon liked-heart fas fa-heart' : 'post-info-icon far fa-heart';
 

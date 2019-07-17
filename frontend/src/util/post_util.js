@@ -40,10 +40,10 @@ export const profile = (user) => (
 			</div>
 		)
 		
-		export const postImage = (post) => (
-				<img className='post-show-img' src={post.url} alt='post' />
+export const postImage = (post) => (
+		<img className='post-show-img' src={post.url} alt='post' />
 
-		)
+)
 		// export const postImage = (post) => (
 		// 	<div className='post-show-img-container'>
 		// 		<img className='post-show-img' src={post.url} alt='post' />
