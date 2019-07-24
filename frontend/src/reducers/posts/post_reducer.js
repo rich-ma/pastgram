@@ -1,4 +1,4 @@
-import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS } from '../../actions/post_actions';
+import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS, RECEIVE_POST_UPDATE } from '../../actions/post_actions';
 const _nullAll = {
 	currentPage: 0,
 	totalPages: undefined,
@@ -17,7 +17,8 @@ const PostsReducer = (state = {
 		all: _nullAll,
 		new: undefined, 
 		post: undefined,
-		profile: _nullProfile
+		profile: _nullProfile,
+		postUpdate: undefined
 	}, 
 	action) => {
 	Object.freeze(state);
@@ -25,6 +26,7 @@ const PostsReducer = (state = {
 
 	switch(action.type){
 		case RECEIVE_POSTS:
+			newState.post = undefined;
 			newState.profile = _nullProfile;
 			newState.all.currentPage = action.data.currentPage;
 			newState.all.totalPages = action.data.totalPages; //can drop this concept
@@ -38,7 +40,8 @@ const PostsReducer = (state = {
 			newState.user = action.data.user;
 			return newState;
 		case RECEIVE_USER_POSTS:
-			newState.all - _nullAll;
+			newState.post = undefined;
+			newState.all = _nullAll;
 			newState.profile.posts = action.data.posts;
 			newState.profile.currentPage = action.data.currentPage;
 			newState.profile.totalPages = action.data.totalPages;
@@ -50,6 +53,8 @@ const PostsReducer = (state = {
 		case RECEIVE_POST:
 			newState.post = action.post.data;
 			return newState;
+		case RECEIVE_POST_UPDATE:
+			newState.postUpdate = action.post.data;
 		default:
 			return state;
 	}

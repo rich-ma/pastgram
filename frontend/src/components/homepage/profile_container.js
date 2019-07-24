@@ -9,6 +9,9 @@ import Profile from './profile';
 const mSTP = (state, ownProps) => {
 	const userId = ownProps.match.params.userId;
 
+	//grab updated post for likes and comments
+
+
 	return({
 		userId,
 		currentUser: state.session.user,

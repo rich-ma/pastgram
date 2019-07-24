@@ -38,9 +38,10 @@ class PostShow extends React.Component {
 		let like = undefined;
 		console.log('newprops', newProps);
 		if(newProps.post){
+			console.log('new post is', newProps.post);
 			like = newProps.post.likes.includes(state.currentUserId);
 				return ({
-					like: like ? true : false,
+					like,
 					user: newProps.user ? newProps.user : state.user,
 					loading: false,
 					post: newProps.post
@@ -74,6 +75,7 @@ class PostShow extends React.Component {
 
 	render(){
 		if(this.state.loading) return null;
+		console.log('in render', 'like is', this.state.like);
 
 		const { post, user } = this.state;
 
@@ -97,10 +99,23 @@ class PostShow extends React.Component {
 		</div>
 		)
 
+		const postProfile = this.props.isPostShow ? (
+			<div className='profile-container'>
+				{profileContainer}
+			</div>
+		) : (
+			<div className='extended-profile-container'>
+				{profileContainer}
+				<i class="fas fa-ellipsis-h post-dropdown"></i>
+			</div>
+		)
+
+
+
 		if(this.props.isIndex){
 			return (
 				<div className='post-show-index'>
-					{profileContainer}
+					{postProfile}
 					{imageContainer}
 					{postInfo}
 				</div>
@@ -109,7 +124,7 @@ class PostShow extends React.Component {
 			return(
 			< div className={this.props.isPostShow ? `post-show-container post-show` : `post-show-container`} >
 				<div className='post-show-mobile'>
-					{profileContainer}
+					{postProfile}
 					{imageContainer}
 					{postInfo}
 				</div>
@@ -118,7 +133,7 @@ class PostShow extends React.Component {
 						{imageContainer}
 					</div>
 					<div className='post-show-desktop-right'>
-						{profileContainer}
+						{postProfile}
 						<div>
 						Comments
 						</div>
@@ -132,3 +147,8 @@ class PostShow extends React.Component {
 }
 
 export default PostShow;
+
+// <div className='extended-profile-container'>
+// 						{profileContainer}
+// 						<i class="fas fa-ellipsis-h"></i>
+// 					</div>

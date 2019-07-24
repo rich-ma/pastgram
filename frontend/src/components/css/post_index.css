@@ -23,6 +23,17 @@
 	bottom: 1400px;
 }
 
+.post-dropdown{
+	margin-right: 20px;
+}
+
+.extended-profile-container {
+	display: flex;
+	flex-direction: row;
+	justify-content: space-between;
+	align-items: center;
+}
+
 @media(min-width: 600px){
 	.index-ul{
 		margin-top: 15px;

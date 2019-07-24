@@ -14,6 +14,7 @@ export const RECEIVE_NEW_POST = 'RECEIVE_NEW_POST';
 export const RECEIVE_USER_POSTS = 'RECEIVE_USER_POSTS';
 export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS';
 export const RECEIVE_POST = 'RECEIVE_POST';
+export const RECEIVE_POST_UPDATE = 'RECEIVE_POST_UPDATE';
 
 export const receiveErrors = errors => ({
 	type: RECEIVE_POST_ERRORS,
@@ -42,6 +43,11 @@ export const receiveUserPosts = data => ({
 
 export const receivePost = post => ({
 	type: RECEIVE_POST,
+	post
+})
+
+export const receivePostUpdate = post => ({
+	type: RECEIVE_POST_UPDATE,
 	post
 })
 
@@ -99,12 +105,12 @@ export const writePost = data => dispatch =>{
 
 export const likePost = data => dispatch => {
 	return addLike(data)
-	.then(post => dispatch(receivePost(post)))
+	.then(post => dispatch(receivePostUpdate(post)))
 	.catch(err => dispatch(receiveErrors(err.response.data)))
 }
 
 export const unlikePost = data => dispatch => {
 	return removeLike(data)
-	.then(post => dispatch(receivePost(post)))
+	.then(post => dispatch(receivePostUpdate(post)))
 	.catch(err => dispatch(receiveErrors(err.response.data)))
 }

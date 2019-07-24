@@ -84,7 +84,11 @@
 	color: #999;
 	margin: 5px 0px 5px 10px;
 	text-transform: uppercase;
-	
+}
+
+.extended-profile-container{
+	display: flex;
+	flex-direction: row;
 }
 
 @media only screen and (max-width: 725px){
