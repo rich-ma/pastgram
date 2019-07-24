@@ -14,7 +14,6 @@
 	flex-direction: row;
 	height: 60px;
 	align-items: center;
-	border-bottom: 1px solid #efefef;
 }
 
 .post-profile-img-container{
@@ -89,7 +88,13 @@
 .extended-profile-container{
 	display: flex;
 	flex-direction: row;
+	border-bottom: 1px solid #efefef;
 }
+
+.profile-container{
+	border-bottom: 1px solid #efefef;
+}
+
 
 @media only screen and (max-width: 725px){
 	.post-profile{
