@@ -4,7 +4,7 @@
 	margin: 0;
 }
 
-.index-ul li {
+.index-ul > li {
 	margin-bottom: 15px;
 }
 

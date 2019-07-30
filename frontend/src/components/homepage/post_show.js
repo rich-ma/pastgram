@@ -93,7 +93,7 @@ class PostShow extends React.Component {
 			<div >
 				<div className='close-postshow-dropdown' onClick={this.toggleDrop}/>
 				<div className='postshow-dropdown'>
-					<ul>
+					<ul className="postshow-ddul">
 					<li><Link to={`/posts/${this.state.post._id}`}>Go to post</Link></li>
 						<li>Copy link to post</li>
 						<li onClick={this.toggleDrop}>Cancel</li>
@@ -122,8 +122,11 @@ class PostShow extends React.Component {
 		) : (
 			<div className='extended-profile-container'>
 				{profileContainer}
-				<i className="fas fa-ellipsis-h post-dropdown" onClick={this.toggleDrop}></i>
-				{this.state.toggleDrop ? dropdown : null}
+				<div className='profile-right'>
+					<i className="fas fa-ellipsis-h post-dropdown" 
+					onClick={this.toggleDrop}></i>
+					{this.state.toggleDrop ? dropdown : <div />}
+				</div>
 			</div>
 		)
 

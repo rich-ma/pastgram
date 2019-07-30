@@ -107,16 +107,27 @@
 .postshow-dropdown{
 	 width: 150px;
 	 border-radius: 5px;
-	 position: absolute;
+	 background: #fff;
+	 border: 1px solid #efefef;
+	 position: relative;
+	 top: 60px;
 	 z-index: 10;
 }
 
-.postshow-dropdown ul {
+.postshow-ddul {
 	display: flex;
 	flex-direction: column;
 	align-items: center;
 }
 
+.postshow-ddul > li{
+	margin-bottom: 0;
+}
+
+.profile-right{
+	display: flex;
+	flex-direction: row;
+}
 
 @media only screen and (max-width: 725px){
 	.post-profile{
