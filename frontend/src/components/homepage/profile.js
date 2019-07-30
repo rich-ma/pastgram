@@ -89,7 +89,7 @@ class Profile extends React.Component {
 
 	render(){
 		const { posts, user, currentUser, userId } = this.state;
-
+		
 		const toggleFollow = (
 			<button>{}</button>
 		);
@@ -108,7 +108,11 @@ class Profile extends React.Component {
 							{list.map((innerPost, j) => {
 								let data = {
 									post: innerPost,
-									user
+									user: {
+										id: user._id,
+										avatarUrl: user.avatarUrl,
+										username: user.username
+									}
 								}
 								return (
 									<li key={innerPost._id} >
