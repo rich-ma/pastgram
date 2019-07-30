@@ -1,5 +1,5 @@
 import React from 'react';
-import withRouter from 'react-router-dom';
+import { Link } from 'react-router-dom';
 import { profile, postImage, getDate } from '../../util/post_util';
 import PostInfo from './post_info';
 import '../css/post_show.css';
@@ -39,9 +39,7 @@ class PostShow extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state){
 		let like = undefined;
-		console.log('newprops', newProps);
 		if(newProps.post){
-			console.log('new post is', newProps.post);
 			like = newProps.post.likes.includes(state.currentUserId);
 				return ({
 					like,
@@ -75,18 +73,12 @@ class PostShow extends React.Component {
 		this.setState({toggleDrop: !this.state.toggleDrop})
 	}
 
-	goToPost(){
-		history.pushState
-	}
-
-
 	addComment(){
 
 	}
 
 	render(){
 		if(this.state.loading) return null;
-		console.log('in render', 'like is', this.state.like);
 
 		const { post, user } = this.state;
 
@@ -98,12 +90,15 @@ class PostShow extends React.Component {
 		const date = getDate(new Date(post.date));
 
 		const dropdown = (
-			<div className='postshow-dropdown'>
-				<ul>
-					<li>Go to post</li>
-					<li>Copy link to post</li>
-					<li>Cancel</li>
-				</ul>
+			<div >
+				<div className='close-postshow-dropdown' onClick={this.toggleDrop}/>
+				<div className='postshow-dropdown'>
+					<ul>
+					<li><Link to={`/posts/${this.state.post._id}`}>Go to post</Link></li>
+						<li>Copy link to post</li>
+						<li onClick={this.toggleDrop}>Cancel</li>
+					</ul>
+				</div>
 			</div>
 		);
 
@@ -127,7 +122,8 @@ class PostShow extends React.Component {
 		) : (
 			<div className='extended-profile-container'>
 				{profileContainer}
-				<i class="fas fa-ellipsis-h post-dropdown"></i>
+				<i className="fas fa-ellipsis-h post-dropdown" onClick={this.toggleDrop}></i>
+				{this.state.toggleDrop ? dropdown : null}
 			</div>
 		)
 
@@ -167,7 +163,7 @@ class PostShow extends React.Component {
 	}
 }
 
-export default withRouter(PostShow);
+export default PostShow;
 
 // <div className='extended-profile-container'>
 // 						{profileContainer}
