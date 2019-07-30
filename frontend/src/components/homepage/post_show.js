@@ -1,4 +1,5 @@
 import React from 'react';
+import withRouter from 'react-router-dom';
 import { profile, postImage, getDate } from '../../util/post_util';
 import PostInfo from './post_info';
 import '../css/post_show.css';
@@ -12,10 +13,12 @@ class PostShow extends React.Component {
 			loading: true,
 			like: false,
 			likeLoading: false,
-			currentUserId: this.props.currentUserId
+			currentUserId: this.props.currentUserId,
+			toggle: false
 		}
 		this.addComment = this.addComment.bind(this);
 		this.toggleLike = this.toggleLike.bind(this);
+		this.toggleDrop = this.toggleDrop.bind(this);
 
 		if (this.props.isPostShow) {
 			this.props.fetchPostShow(this.props.postId);
@@ -68,6 +71,14 @@ class PostShow extends React.Component {
 		}
 	}
 
+	toggleDrop(){
+		this.setState({toggleDrop: !this.state.toggleDrop})
+	}
+
+	goToPost(){
+		history.pushState
+	}
+
 
 	addComment(){
 
@@ -85,6 +96,16 @@ class PostShow extends React.Component {
 		const imageContainer = postImage(post);
 
 		const date = getDate(new Date(post.date));
+
+		const dropdown = (
+			<div className='postshow-dropdown'>
+				<ul>
+					<li>Go to post</li>
+					<li>Copy link to post</li>
+					<li>Cancel</li>
+				</ul>
+			</div>
+		);
 
 		const postInfo = ( 
 		<div className='post-info'>
@@ -146,7 +167,7 @@ class PostShow extends React.Component {
 	}
 }
 
-export default PostShow;
+export default withRouter(PostShow);
 
 // <div className='extended-profile-container'>
 // 						{profileContainer}
