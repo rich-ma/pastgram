@@ -18,7 +18,7 @@ class PostShow extends React.Component {
 		}
 		this.addComment = this.addComment.bind(this);
 		this.toggleLike = this.toggleLike.bind(this);
-		this.toggleDrop = this.toggleDrop.bind(this);
+		this.toggleMenu = this.toggleMenu.bind(this);
 
 		if (this.props.isPostShow) {
 			this.props.fetchPostShow(this.props.postId);
@@ -69,8 +69,8 @@ class PostShow extends React.Component {
 		}
 	}
 
-	toggleDrop(){
-		this.setState({toggleDrop: !this.state.toggleDrop})
+	toggleMenu(){
+		this.setState({toggleMenu: !this.state.toggleMenu})
 	}
 
 	addComment(){
@@ -89,14 +89,14 @@ class PostShow extends React.Component {
 
 		const date = getDate(new Date(post.date));
 
-		const dropdown = (
+		const menu = (
 			<div >
-				<div className='close-postshow-dropdown' onClick={this.toggleDrop}/>
-				<div className='postshow-dropdown'>
-					<ul className="postshow-ddul">
-					<li><Link to={`/posts/${this.state.post._id}`}>Go to post</Link></li>
-						<li>Copy link to post</li>
-						<li onClick={this.toggleDrop}>Cancel</li>
+				<div className='close-postshow-menu' onClick={this.toggleMenu}/>
+				<div className='postshow-menu'>
+					<ul className="postshow-mul">
+					<li><Link to={`/posts/${this.state.post._id}`} className='postlink'>Go to post</Link></li>
+						<li>Copy link</li>
+						<li onClick={this.toggleMenu}>Cancel</li>
 					</ul>
 				</div>
 			</div>
@@ -123,9 +123,9 @@ class PostShow extends React.Component {
 			<div className='extended-profile-container'>
 				{profileContainer}
 				<div className='profile-right'>
-					<i className="fas fa-ellipsis-h post-dropdown" 
-					onClick={this.toggleDrop}></i>
-					{this.state.toggleDrop ? dropdown : <div />}
+					<i className="fas fa-ellipsis-h post-menu" 
+					onClick={this.toggleMenu}></i>
+					{this.state.toggleMenu ? menu : <div />}
 				</div>
 			</div>
 		)

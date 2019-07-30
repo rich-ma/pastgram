@@ -35,11 +35,9 @@ ul{
 }
 
 a {
-	margin: 0px 10px;
-	color: #003569;
+	color: black;
 	text-decoration: none;
 	font: inherit;
-	font-weight: 600;
 }
 
 @media(min-width: 450px){
