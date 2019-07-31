@@ -33,9 +33,9 @@ export const getDate = (postDate) => {
 
 export const profile = (user) => (
 			<div className='post-profile'>
-				<div className='post-profile-img-container'>
+				<Link to={`/users/${user.id}`} className='post-profile-img-container'>
 					<img src={user.avatarUrl} alt='user-avatar'/>
-				</div>
+				</Link>
 				<Link to={`/users/${user.id}`} className='post-profile-name'>{user.username}</Link>
 			</div>
 		)
