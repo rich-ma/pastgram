@@ -1,5 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { profile, postImage, getDate } from '../../util/post_util';
 import PostInfo from './post_info';
 import '../css/post_show.css';
@@ -22,6 +23,7 @@ class PostShow extends React.Component {
 
 		if (this.props.isPostShow) {
 			this.props.fetchPostShow(this.props.postId);
+			this.props.closeModal();
 		} else {
 			if (this.props.post.likes.includes(this.props.currentUserId)) {
 				this.setState({
@@ -77,12 +79,7 @@ class PostShow extends React.Component {
 
 	}
 
-	copyToClipboard(e) {
-		document.execCommand('copy');
-		// This is just personal preference.
-		// I prefer to not show the the whole text area selected.
-		e.target.focus();
-		setCopySuccess('Copied!');
+	copyToClipboard(e){
 	};
 
 	render(){
@@ -96,14 +93,15 @@ class PostShow extends React.Component {
 		const imageContainer = postImage(post);
 
 		const date = getDate(new Date(post.date));
+		const link = `http://localhost:3000/#/posts/${post._id}`;
 
 		const menu = (
 			<div >
 				<div className='close-postshow-menu' onClick={this.toggleMenu}/>
 				<div className='postshow-menu'>
 					<ul className="postshow-mul">
-					<li><Link to={`/posts/${this.state.post._id}`} className='postlink'>Go to post</Link></li>
-						<li>Copy link</li>
+						<li><Link to={`/posts/${this.state.post._id}`} className='postlink' onClick={this.toggleMenu}>Go to post</Link></li>
+						<li><CopyToClipboard text={link}><text className='postlink-button'>Copy link</text></CopyToClipboard></li>
 						<li onClick={this.toggleMenu}>Cancel</li>
 					</ul>
 				</div>
