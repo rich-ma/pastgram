@@ -1,4 +1,4 @@
-import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS, RECEIVE_POST_UPDATE } from '../../actions/post_actions';
+import { RECEIVE_POST_SHOW, RECEIVE_POST, RECEIVE_NEW_POST, RECEIVE_USER_POSTS, RECEIVE_POSTS, RECEIVE_POST_UPDATE, CLEAR_POST_UPDATE } from '../../actions/post_actions';
 const _nullAll = {
 	currentPage: 0,
 	totalPages: undefined,
@@ -56,7 +56,9 @@ const PostsReducer = (state = {
 		case RECEIVE_POST_UPDATE:
 			newState.postUpdate = action.post.data;
 			return newState;
-		//clear post update
+		case CLEAR_POST_UPDATE:
+			newState.postUpdate = undefined;
+			return newState;
 		default:
 			return state;
 	}

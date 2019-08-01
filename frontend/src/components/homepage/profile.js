@@ -33,7 +33,11 @@ class Profile extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state) {
 		let posts;
-		if(newProps.currentPage === 1){
+		if(newProps.postUpdate){
+			posts = state.posts;
+			const updatedPost = newProps.postUpdate;
+			posts[updatedPost.index - 1] = updatedPost;
+		} else if(newProps.currentPage === 1){
 			posts = newProps.posts;
 		} else if(newProps.currentPage !== state.currentPage){
 			posts = [...state.posts, ...newProps.posts];
@@ -108,6 +112,7 @@ class Profile extends React.Component {
 							{list.map((innerPost, j) => {
 								let data = {
 									post: innerPost,
+									index: j + 1,
 									user: {
 										id: user._id,
 										avatarUrl: user.avatarUrl,

@@ -21,7 +21,7 @@ class PostShow extends React.Component {
 		this.addComment = this.addComment.bind(this);
 		this.toggleLike = this.toggleLike.bind(this);
 		this.toggleMenu = this.toggleMenu.bind(this);
-
+		
 		if (this.props.isPostShow) {
 			this.props.fetchPostShow(this.props.postId);
 			this.props.closeModal();
@@ -42,7 +42,7 @@ class PostShow extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state){
 		let like = undefined;
-		if(newProps.postUpdate && newProps.isPostShow){
+		if(newProps.postUpdate && !newProps.isIndex){
 			const post = newProps.postUpdate;
 			like = post.likes.includes(state.currentUserId);
 			return ({
@@ -64,19 +64,16 @@ class PostShow extends React.Component {
 
 	toggleLike(){
 		this.setState({likeLoading: true});
-		console.log(this.state);
 		const data = {
 			userId: this.props.currentUserId,
 			postId: this.state.post._id,
 			index: this.state.index
 		}
 		if(this.state.like){
-			console.log(data);
 			this.props.unlikePost(data).then(() => {
 				this.setState({like: false, likeLoading: false});
 			})
 		} else {
-			console.log(data);
 			this.props.likePost(data).then(() => {
 				this.setState({like: true, likeLoading: false});
 			})

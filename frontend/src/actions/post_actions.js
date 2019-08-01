@@ -15,6 +15,7 @@ export const RECEIVE_USER_POSTS = 'RECEIVE_USER_POSTS';
 export const RECEIVE_POST_ERRORS = 'RECEIVE_POST_ERRORS';
 export const RECEIVE_POST = 'RECEIVE_POST';
 export const RECEIVE_POST_UPDATE = 'RECEIVE_POST_UPDATE';
+export const CLEAR_POST_UPDATE = 'CLEAR_POST_UPDATE'
 
 export const receiveErrors = errors => ({
 	type: RECEIVE_POST_ERRORS,
@@ -49,6 +50,10 @@ export const receivePost = post => ({
 export const receivePostUpdate = post => ({
 	type: RECEIVE_POST_UPDATE,
 	post
+})
+
+export const clearPostUpdate = () => ({
+	type: CLEAR_POST_UPDATE
 })
 
 export const fetchPostShow = postId => dispatch =>{

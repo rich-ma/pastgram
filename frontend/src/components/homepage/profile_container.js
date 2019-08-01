@@ -1,6 +1,6 @@
 import { logout } from '../../actions/session_actions';
 import { openModal, closeModal } from '../../actions/modal_actions';
-import { loadUserPosts } from '../../actions/post_actions';
+import { loadUserPosts, clearPostUpdate } from '../../actions/post_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Profile from './profile';
@@ -10,8 +10,6 @@ const mSTP = (state, ownProps) => {
 	const userId = ownProps.match.params.userId;
 
 	//grab updated post for likes and comments
-
-
 	return({
 		userId,
 		currentUser: state.session.user,
@@ -19,7 +17,8 @@ const mSTP = (state, ownProps) => {
 		posts: state.posts.profile.posts,
 		currentPage: state.posts.profile.currentPage,
 		totalPages: state.posts.profile.totalPages,
-		totalPosts: state.posts.profile.totalPosts
+		totalPosts: state.posts.profile.totalPosts,
+		postUpdate: state.posts.postUpdate
 	})
 }
 
@@ -27,7 +26,8 @@ const mDTP = dispatch => ({
 	logout: () => dispatch(logout()),
 	loadUserPosts: (data) => dispatch(loadUserPosts(data)),
 	openModal: (modal) => dispatch(openModal(modal)),
-	closeModal: () => dispatch(closeModal())
+	closeModal: () => dispatch(closeModal()),
+	clearPostUpdate: () => dispatch(clearPostUpdate())
 })
 
 // export default withRouter(connect(mSTP, mDTP)(Profile));

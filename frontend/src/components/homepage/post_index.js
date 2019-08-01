@@ -42,9 +42,9 @@ class PostIndex extends React.Component{
 	static getDerivedStateFromProps(newProps, state){
 			let posts;
 			if(newProps.postUpdate){
-				console.log(newProps.postUpdate);
 				posts = state.posts;
 				posts[newProps.postUpdate.index - 1] = newProps.postUpdate;
+				newProps.clearPostUpdate();
 			}
 			else if (newProps.currentPage === 1) {
 				posts = newProps.posts;
@@ -85,7 +85,6 @@ class PostIndex extends React.Component{
 	}
 
 	render(){
-		console.log('users', this.state.users, 'posts', this.state.posts);
 		let loading = Object.keys(this.state.users).length === 0 || this.state.posts.length === 0;
 		const { posts, currentUser, users } = this.state;
 			

@@ -1,5 +1,5 @@
 import { connect } from 'react-redux';
-import { likePost, unlikePost, fetchPosts } from '../../actions/post_actions';
+import { likePost, unlikePost, fetchPosts, clearPostUpdate } from '../../actions/post_actions';
 //add comment, delete comment
 
 
@@ -20,7 +20,8 @@ const mSTP = (state, ownProps) => {
 const mDTP = dispatch => ({
 	fetchPosts: (data) => dispatch(fetchPosts(data)),
 	likePost: (data) => dispatch(likePost(data)),
-	unlikePost: (data) => dispatch(unlikePost(data))
+	unlikePost: (data) => dispatch(unlikePost(data)),
+	clearPostUpdate: () => dispatch(clearPostUpdate())
 })
 
 export default connect(mSTP, mDTP)(PostIndex);
