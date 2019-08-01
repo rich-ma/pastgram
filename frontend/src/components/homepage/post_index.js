@@ -41,7 +41,10 @@ class PostIndex extends React.Component{
 
 	static getDerivedStateFromProps(newProps, state){
 			let posts;
-			if (newProps.currentPage === 1) {
+			if(newProps.postUpdate){
+				console.log(newProps.postUpdate);
+			}
+			else if (newProps.currentPage === 1) {
 				posts = newProps.posts;
 			} else if (newProps.currentPage !== state.currentPage) {
 				posts = [...state.posts, ...newProps.posts];
@@ -86,7 +89,7 @@ class PostIndex extends React.Component{
 		return(
 			<div className='index-container'>
 				<ul className='index-ul'>
-							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} user={users[post.userId + '']}/></li>))}
+							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} index={i} user={users[post.userId + '']}/></li>))}
 				</ul>
 				<div className='index-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>

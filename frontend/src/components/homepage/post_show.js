@@ -15,7 +15,8 @@ class PostShow extends React.Component {
 			like: false,
 			likeLoading: false,
 			currentUserId: this.props.currentUserId,
-			toggle: false
+			toggle: false,
+			index: this.props.index
 		}
 		this.addComment = this.addComment.bind(this);
 		this.toggleLike = this.toggleLike.bind(this);
@@ -41,14 +42,15 @@ class PostShow extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state){
 		let like = undefined;
-		if(newProps.postUpdate){
-			const post = newProps.postUpdate;
-			like = post.likes.includes(state.currentUserId);
-			return ({
-				like,
-				post
-			})
-		} else if(newProps.post){
+		// if(newProps.postUpdate){
+		// 	const post = newProps.postUpdate;
+		// 	like = post.likes.includes(state.currentUserId);
+		// 	return ({
+		// 		like,
+		// 		post
+		// 	})
+		// } else 
+		if(newProps.post){
 			like = newProps.post.likes.includes(state.currentUserId);
 				return ({
 					like,
@@ -63,16 +65,19 @@ class PostShow extends React.Component {
 
 	toggleLike(){
 		this.setState({likeLoading: true});
+		console.log(this.state);
 		const data = {
 			userId: this.props.currentUserId,
 			postId: this.state.post._id,
-			index: this.state.post.index ? this.state.post.index : undefined
+			index: this.state.index
 		}
 		if(this.state.like){
+			console.log(data);
 			this.props.unlikePost(data).then(() => {
 				this.setState({like: false, likeLoading: false});
 			})
 		} else {
+			console.log(data);
 			this.props.likePost(data).then(() => {
 				this.setState({like: true, likeLoading: false});
 			})

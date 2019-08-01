@@ -180,6 +180,7 @@ router.get('/:id', (req, res) => {
 //toggle likes
 router.post('/like/:id', passport.authenticate('jwt', { session: false }),
   (req, res) => {
+		console.log(req.body);
 		Post.findById(req.params.id)
 			.then(post => {
 				if(post.likes.includes(req.body.userId)) {
@@ -189,7 +190,7 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
 				}
 				// Add user id to likes array
 				post.likes.push(req.body.userId);
-				post.save().then(post => res.json({post:{
+				post.save().then(post => res.json({
 					_id: post._id,
 					likes: post.likes,
 					text: post.text,
@@ -198,7 +199,7 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
 					comments: post.comments,
 					date: post.date,
 					index: req.body.index
-				}}));
+				}));
 			})
 			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));
 });
@@ -229,7 +230,16 @@ router.post('/unlike/:id',
           post.likes.splice(removeIndex, 1);
 
           // Save
-          post.save().then(post => res.json(post));
+          post.save().then(post => res.json({
+          		_id: post._id,
+          		likes: post.likes,
+          		text: post.text,
+          		url: post.url,
+          		userId: post.userId,
+          		comments: post.comments,
+          		date: post.date,
+          		index: req.body.index
+          }));
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
     });
