@@ -43,6 +43,8 @@ class PostIndex extends React.Component{
 			let posts;
 			if(newProps.postUpdate){
 				console.log(newProps.postUpdate);
+				posts = state.posts;
+				posts[newProps.postUpdate.index - 1] = newProps.postUpdate;
 			}
 			else if (newProps.currentPage === 1) {
 				posts = newProps.posts;
