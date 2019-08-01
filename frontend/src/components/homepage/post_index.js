@@ -83,13 +83,14 @@ class PostIndex extends React.Component{
 	}
 
 	render(){
+		console.log('users', this.state.users, 'posts', this.state.posts);
 		let loading = Object.keys(this.state.users).length === 0 || this.state.posts.length === 0;
 		const { posts, currentUser, users } = this.state;
 			
 		return(
 			<div className='index-container'>
 				<ul className='index-ul'>
-							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} index={i} user={users[post.userId + '']}/></li>))}
+							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} index={i + 1} user={users[post.userId + '']}/></li>))}
 				</ul>
 				<div className='index-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
 			</div>
