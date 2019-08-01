@@ -12,6 +12,8 @@ const mSTP = (state, ownProps) => {
 	const user = ownProps.user ? ownProps.user : state.users.user;
 	const isPostShow = ownProps.post ? false : true;
 	const isIndex = ownProps.isIndex ? true : false;
+	const index = ownProps.index ? ownProps.index : undefined;
+	const postUpdate = state.posts.postUpdate ? state.posts.postUpdate : undefined;
 
 	return({
 		postId,
@@ -19,7 +21,9 @@ const mSTP = (state, ownProps) => {
 		post,
 		user,
 		isPostShow,
-		isIndex
+		isIndex,
+		index,
+		postUpdate
 	})
 }
 

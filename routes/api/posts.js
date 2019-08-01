@@ -56,7 +56,6 @@ router.post('/', (req, res) => {
 			//grab user ids from all the posts, check redundancy O(1) time
 			let userIds = [];
 			newPosts.forEach(post => {
-				console.log(post);
 				let id = post.userId + '';
 				if(users[id]){
 				} else {
@@ -81,7 +80,6 @@ router.post('/', (req, res) => {
 					'_id': {
 						$in: userIds
 						}}, (err, newUsers) => {
-							console.log(newUsers);
 							newUsers.forEach(user => { //add any new user to users object for frontend
 								if(users[user._id + '']){
 
@@ -168,7 +166,6 @@ router.get('/:id', (req, res) => {
 		.then(post => {
 			User.findById(post.userId + '')
 				.then(user => {
-					console.log(user);
 					return res.json({post, user:{
 						avatarUrl: user.avatarUrl,
 						_id: user._id,
@@ -192,10 +189,27 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
 				}
 				// Add user id to likes array
 				post.likes.push(req.body.userId);
-				post.save().then(post => res.json(post));
+				post.save().then(post => res.json({post:{
+					_id: post._id,
+					likes: post.likes,
+					text: post.text,
+					url: post.url,
+					userId: post.userId,
+					comments: post.comments,
+					date: post.date,
+					index: req.body.index
+				}}));
 			})
 			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));
 });
+
+//likes: [ '5cda4bd4215ff21fce83166a' ],
+// [0]   _id: 5cfc8052cf869b178bd2f54f,
+// [0]   userId: 5cda4bd4215ff21fce83166a,
+// [0]   text: 'the lovebirds',
+// [0]   url: 'https://postgram-dev.s3.us-west-1.amazonaws.com/1560051792682',
+// [0]   date: 2019-06-09T03:43:14.161Z,
+// [0]   comments: [],
 
 router.post('/unlike/:id',
   passport.authenticate('jwt', { session: false }),

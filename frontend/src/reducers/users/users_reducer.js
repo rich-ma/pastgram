@@ -13,7 +13,6 @@ const UsersReducer = (state = {all: undefined, user: undefined}, action) => {
 		case RECEIVE_POST_SHOW:
 			newState.user = action.data.user;
 		case RECEIVE_USERS:
-			console.log('user reducer', action);
 			newState.all = action.users;
 			return newState;
 		default:

@@ -41,7 +41,14 @@ class PostShow extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state){
 		let like = undefined;
-		if(newProps.post){
+		if(newProps.postUpdate){
+			const post = newProps.postUpdate;
+			like = post.likes.includes(state.currentUserId);
+			return ({
+				like,
+				post
+			})
+		} else if(newProps.post){
 			like = newProps.post.likes.includes(state.currentUserId);
 				return ({
 					like,
@@ -58,7 +65,8 @@ class PostShow extends React.Component {
 		this.setState({likeLoading: true});
 		const data = {
 			userId: this.props.currentUserId,
-			postId: this.state.post._id
+			postId: this.state.post._id,
+			index: this.state.post.index ? this.state.post.index : undefined
 		}
 		if(this.state.like){
 			this.props.unlikePost(data).then(() => {
@@ -79,13 +87,15 @@ class PostShow extends React.Component {
 
 	}
 
-	copyToClipboard(e){
-	};
-
 	render(){
 		if(this.state.loading) return null;
 
 		const { post, user } = this.state;
+
+		
+		if(this.props.isPostShow){
+			user['id'] = user['_id'];
+		}
 
 		let likeClassName = this.state.like ? 'post-info-icon liked-heart fas fa-heart' : 'post-info-icon far fa-heart';
 
@@ -101,7 +111,7 @@ class PostShow extends React.Component {
 				<div className='postshow-menu'>
 					<ul className="postshow-mul">
 						<li><Link to={`/posts/${this.state.post._id}`} className='postlink' onClick={this.toggleMenu}>Go to post</Link></li>
-						<li><CopyToClipboard text={link}><text className='postlink-button'>Copy link</text></CopyToClipboard></li>
+						<li><CopyToClipboard text={link}><div className='postlink-button'>Copy link</div></CopyToClipboard></li>
 						<li onClick={this.toggleMenu}>Cancel</li>
 					</ul>
 				</div>
@@ -136,8 +146,6 @@ class PostShow extends React.Component {
 			</div>
 		)
 
-
-
 		if(this.props.isIndex){
 			return (
 				<div className='post-show-index'>
@@ -148,33 +156,28 @@ class PostShow extends React.Component {
 			)
 		} else {
 			return(
-			< div className={this.props.isPostShow ? `post-show-container post-show` : `post-show-container`} >
-				<div className='post-show-mobile'>
-					{postProfile}
-					{imageContainer}
-					{postInfo}
-				</div>
-				<div className='post-show-desktop'>
-					<div className='post-show-desktop-left'>
-						{imageContainer}
-					</div>
-					<div className='post-show-desktop-right'>
+				< div className={this.props.isPostShow ? `post-show-container post-show` : `post-show-container`} >
+					<div className='post-show-mobile'>
 						{postProfile}
-						<div>
-						Comments
-						</div>
+						{imageContainer}
 						{postInfo}
 					</div>
+					<div className='post-show-desktop'>
+						<div className='post-show-desktop-left'>
+							{imageContainer}
+						</div>
+						<div className='post-show-desktop-right'>
+							{postProfile}
+							<div>
+							Comments
+							</div>
+							{postInfo}
+						</div>
+					</div>
 				</div>
-			</div>
-		)
+			)
 		}
 	}
 }
 
 export default PostShow;
-
-// <div className='extended-profile-container'>
-// 						{profileContainer}
-// 						<i class="fas fa-ellipsis-h"></i>
-// 					</div>

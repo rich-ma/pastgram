@@ -41,7 +41,6 @@ class PostIndex extends React.Component{
 
 	static getDerivedStateFromProps(newProps, state){
 			let posts;
-			console.log(newProps);
 			if (newProps.currentPage === 1) {
 				posts = newProps.posts;
 			} else if (newProps.currentPage !== state.currentPage) {

@@ -27,7 +27,6 @@ class EditUser extends React.Component{
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log(nextProps.errors);
 		if(nextProps.errors.user){
 			this.setState({
 				errors: {user: nextProps.errors.user}
@@ -140,7 +139,6 @@ class EditUser extends React.Component{
 
 	render(){
 		const user = this.props.user;
-		console.log('stateerrors',this.state.errors);
 
 		return(
 			<div className='edit-user-container'>

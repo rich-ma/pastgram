@@ -55,6 +55,8 @@ const PostsReducer = (state = {
 			return newState;
 		case RECEIVE_POST_UPDATE:
 			newState.postUpdate = action.post.data;
+			return newState;
+		//clear post update
 		default:
 			return state;
 	}
