@@ -33,7 +33,9 @@ const UserSchema = new Schema({
 	date: {
 		type: Date,
 		default: Date.now
-	}
+	},
+	followers: [String],
+	following: [String]
 });
 
 const User = mongoose.model('users', UserSchema);

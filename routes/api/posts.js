@@ -141,7 +141,9 @@ router.post('/user/:user_id', passport.authenticate('jwt', {
 						user: {
 							username: user.username,
 							avatarUrl: user.avatarUrl,
-							_id: user.id
+							_id: user.id,
+							followers: user.followers,
+							following: user.following
 						},
 						profile: {
 							currentPage,
