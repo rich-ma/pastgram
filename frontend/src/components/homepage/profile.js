@@ -5,6 +5,7 @@ import '../css/profile.css';
 class Profile extends React.Component {
 	constructor(props){
 		super(props);
+		console.log(this.props.user)
 		this.state = {
 			currentUser: this.props.currentUser,
 			user: this.props.user,
@@ -93,9 +94,22 @@ class Profile extends React.Component {
 
 	render(){
 		const { posts, user, currentUser, userId } = this.state;
+
+		const following = user.following.includes(currentUser.id);
 		
+		const unfollowButton = (
+			<button>
+				
+			</button>
+		)
+
+		const followButton = (
+			<button>
+			
+			</button>
+		)
 		const toggleFollow = (
-			<button>{}</button>
+			<button className={following ? 'follow-button' : 'unfollow-button'}>{following ? ''}</button>
 		);
 
 		const editUser = (
@@ -150,8 +164,8 @@ class Profile extends React.Component {
 		const postsFollow = !this.state.user ? null : (
 				<ul className='user-data'>
 					<li><h3>{this.state.totalPosts}</h3> posts</li>
-					<li><h3>{this.state.totalPosts}</h3> followers</li>
-					<li><h3>{this.state.totalPosts}</h3> following</li>
+					<li><h3>{user.followers.length}</h3> followers</li>
+					<li><h3>{user.following.length}</h3> following</li>
 				</ul>
 		)
 
