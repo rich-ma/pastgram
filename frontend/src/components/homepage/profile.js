@@ -94,7 +94,7 @@ class Profile extends React.Component {
 
 	render(){
 		const { posts, user, currentUser, userId } = this.state;
-
+		console.log(user);
 		const following = user.following.includes(currentUser.id);
 		
 		const unfollowButton = (
@@ -110,7 +110,9 @@ class Profile extends React.Component {
 			</button>
 		)
 		const toggleFollow = (
-			<button className={following ? 'follow-button' : 'unfollow-button'}>{following ? ''}</button>
+			<button className={following ? 'follow-button' : 'unfollow-button'}>
+			
+			</button>
 		);
 
 		const editUser = (

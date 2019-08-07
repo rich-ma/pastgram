@@ -32,12 +32,32 @@ router.get('/:id', (req, res) => {
 router.post('/follow/:id', (req, res) => {
 	User.findById(req.params.id)
 		.then(user => {
-			
+			if(user.followers.includes(req.body.currentUserId)){
+				return res.status(400).json({ alreadyFollowing: 'User is already following this account'})
+			} else {
+				user.followers.push(req.body.currentUserId);
+				user.save().then(user => res.json(user));
+			}
 		})
+		.catch(err => res.status(404).json({ usernotfound: 'No user found'}));
 })
 
 router.post('/unfollow/:id', (req, res) => {
+	User.findById(req.params.id)
+		.then(user => {
+			if(user.followers.includes(req.body.currentUserId)){
 
+				const removeIndex = user.followers.indexOf(req.body.currentUserId);
+
+				user.followers.splice(removeIndex, 1);
+				user.save().then(user => res.json(user));
+			} else {
+				return res.status(400).json({
+					alreadyFollowing: 'User is not following this account'
+				})
+			}
+		})
+		.catch(err => res.status(404).json({ usernotfound: 'No user found'}));
 })
 
 router.post('/register', (req, res) => {

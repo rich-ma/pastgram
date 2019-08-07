@@ -188,19 +188,20 @@ router.post('/like/:id', passport.authenticate('jwt', { session: false }),
 					return res
 						.status(400)
 						.json({ alreadyliked: 'User already liked this post' });
+				} else {
+					// Add user id to likes array
+					post.likes.push(req.body.userId);
+					post.save().then(post => res.json({
+						_id: post._id,
+						likes: post.likes,
+						text: post.text,
+						url: post.url,
+						userId: post.userId,
+						comments: post.comments,
+						date: post.date,
+						index: req.body.index
+					}));
 				}
-				// Add user id to likes array
-				post.likes.push(req.body.userId);
-				post.save().then(post => res.json({
-					_id: post._id,
-					likes: post.likes,
-					text: post.text,
-					url: post.url,
-					userId: post.userId,
-					comments: post.comments,
-					date: post.date,
-					index: req.body.index
-				}));
 			})
 			.catch(err => res.status(404).json({ postnotfound: 'No post found' }));
 });
@@ -214,25 +215,25 @@ router.post('/unlike/:id',
             return res
               .status(400)
               .json({ notliked: 'You have not yet liked this post' });
-          }
+          } else {
+						// Get remove index
+						const removeIndex = post.likes.indexOf(req.userId);
 
-          // Get remove index
-          const removeIndex = post.likes.indexOf(req.userId);
+						// Splice out of array
+						post.likes.splice(removeIndex, 1);
 
-          // Splice out of array
-          post.likes.splice(removeIndex, 1);
-
-          // Save
-          post.save().then(post => res.json({
-          		_id: post._id,
-          		likes: post.likes,
-          		text: post.text,
-          		url: post.url,
-          		userId: post.userId,
-          		comments: post.comments,
-          		date: post.date,
-          		index: req.body.index
-          }));
+						// Save
+						post.save().then(post => res.json({
+								_id: post._id,
+								likes: post.likes,
+								text: post.text,
+								url: post.url,
+								userId: post.userId,
+								comments: post.comments,
+								date: post.date,
+								index: req.body.index
+						}));
+					}
         })
         .catch(err => res.status(404).json({ postnotfound: 'No post found' }));
     });
