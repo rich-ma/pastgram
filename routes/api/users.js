@@ -29,6 +29,17 @@ router.get('/:id', (req, res) => {
 		.catch(err => res.status(404).json({nouserfound: 'No user found with that ID.'}))
 })
 
+router.post('/follow/:id', (req, res) => {
+	User.findById(req.params.id)
+		.then(user => {
+			
+		})
+})
+
+router.post('/unfollow/:id', (req, res) => {
+
+})
+
 router.post('/register', (req, res) => {
 	const { errors, isValid } = validateRegisterInput(req.body);
 

@@ -1,6 +1,7 @@
 import { logout } from '../../actions/session_actions';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { loadUserPosts, clearPostUpdate } from '../../actions/post_actions';
+import { followUser, unfollowUser } from '../../actions/user_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Profile from './profile';
@@ -27,7 +28,9 @@ const mDTP = dispatch => ({
 	loadUserPosts: (data) => dispatch(loadUserPosts(data)),
 	openModal: (modal) => dispatch(openModal(modal)),
 	closeModal: () => dispatch(closeModal()),
-	clearPostUpdate: () => dispatch(clearPostUpdate())
+	clearPostUpdate: () => dispatch(clearPostUpdate()),
+	followUser: (data) => dispatch(followUser(data)),
+	unfollowUser: (data) => dispatch(unfollowUser(data))
 })
 
 // export default withRouter(connect(mSTP, mDTP)(Profile));
