@@ -5,7 +5,6 @@ import '../css/profile.css';
 class Profile extends React.Component {
 	constructor(props){
 		super(props);
-		console.log(this.props.user)
 		this.state = {
 			currentUser: this.props.currentUser,
 			user: this.props.user,
@@ -21,6 +20,7 @@ class Profile extends React.Component {
 		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
 		this.handleObserver = this.handleObserver.bind(this);
+		this.toggleFollow = this.toggleFollow.bind(this);
 
 
 		this.props.closeModal();
@@ -92,13 +92,26 @@ class Profile extends React.Component {
 		});
 	}
 
+	toggleFollow() {
+		const data = {
+			userId: this.state.userId,
+			currentUserId: this.state.currentUser.id,
+		};
+
+	}
+
+
 	render(){
 		const { posts, user, currentUser, userId } = this.state;
-		console.log(user);
-		const following = user.following.includes(currentUser.id);
+		let following = undefined;
+
+		if(user){
+			following = user.following.includes(currentUser.id);
+		}
+
 		
 		const unfollowButton = (
-			<button className='unfollow-bt'>
+			<button className='unfollow-bt' onClick={this.toggleFollow}>
 				<div>
 				</div>
 			</button>
@@ -109,8 +122,9 @@ class Profile extends React.Component {
 				Follow
 			</button>
 		)
-		const toggleFollow = (
-			<button className={following ? 'follow-button' : 'unfollow-button'}>
+
+		const toggleButton = (
+			<button>
 			
 			</button>
 		);
@@ -180,7 +194,7 @@ class Profile extends React.Component {
 			</div>
 		)
 
-		const button = currentUser.id === userId ? editUser : toggleFollow;
+		const button = currentUser.id === userId ? editUser : toggleButton;
  
 		const openModal = this.props.openModal;
 
