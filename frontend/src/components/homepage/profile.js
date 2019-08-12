@@ -95,23 +95,22 @@ class Profile extends React.Component {
 	toggleFollow() {
 		const data = {
 			userId: this.state.userId,
-			currentUserId: this.state.currentUser.id,
+			currentUserId: this.state.currentUser.id
 		};
-
 	}
 
-
+	//check if user is current user, if not, create following button
 	render(){
 		const { posts, user, currentUser, userId } = this.state;
-		let following = undefined;
+		let toggleButton;
+		let editUser;
 
-		if(user){
-			following = user.following.includes(currentUser.id);
-		}
+		if (user && currentUser.id !== userId) {
+			let following = user.following.includes(currentUser.id);
 
-		
-		const unfollowButton = (
+			const unfollowButton = (
 			<button className='unfollow-bt' onClick={this.toggleFollow}>
+				Following
 				<div>
 				</div>
 			</button>
@@ -123,15 +122,16 @@ class Profile extends React.Component {
 			</button>
 		)
 
-		const toggleButton = (
-			<button>
-			
-			</button>
-		);
+		toggleButton = following ? unfollowButton : followButton;
+		} else { 
+			editUser = (
+				<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
+			)
+		}
 
-		const editUser = (
-			<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
-		)
+		const button = currentUser.id === userId ? editUser : toggleButton;
+
+		const openModal = this.props.openModal;
 
 		const postGrid = (
 		<div className='post-grid-container'>
@@ -193,10 +193,6 @@ class Profile extends React.Component {
 				<h4 className='followers'>Followed by ...</h4>
 			</div>
 		)
-
-		const button = currentUser.id === userId ? editUser : toggleButton;
- 
-		const openModal = this.props.openModal;
 
 		return (
 			<div className='profile-container'>
