@@ -15,13 +15,15 @@ class Profile extends React.Component {
 			userId: this.props.userId,
 			loading: true,
 			loadingPosts: false,
-			prevY: 0
-		}
+			prevY: 0,
+			toggleFollowMenu : false,
+			followLoading: false
+		};
+
 		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
 		this.handleObserver = this.handleObserver.bind(this);
 		this.toggleFollow = this.toggleFollow.bind(this);
-
 
 		this.props.closeModal();
 		this.props.loadUserPosts({
@@ -29,7 +31,6 @@ class Profile extends React.Component {
 			userId: this.props.userId,
 			currentPage: 0
 		});
-		
 	}
 
 	static getDerivedStateFromProps(newProps, state) {
@@ -93,11 +94,24 @@ class Profile extends React.Component {
 	}
 
 	toggleFollow() {
+		const { user, currentUser } = this.state;
+		this.setState({ followLoading: true });
+
 		const data = {
 			userId: this.state.userId,
-			currentUserId: this.state.currentUser.id
+			currentUserId: currentUser.id
 		};
+
+		if(user.following.includes(currentUser.id)){
+			this.props.unfollowUser(data).then(() => {
+				this.setState({ followLoading: false });
+			});
+		} else {
+			this.props.followUser(data).then(() => {
+				this.setState({ followLoading: false });
+		});
 	}
+}
 
 	//check if user is current user, if not, create following button
 	render(){
@@ -105,11 +119,13 @@ class Profile extends React.Component {
 		let toggleButton;
 		let editUser;
 
+		console.log(user);
+
 		if (user && currentUser.id !== userId) {
 			let following = user.following.includes(currentUser.id);
 
 			const unfollowButton = (
-			<button className='unfollow-bt' onClick={this.toggleFollow}>
+			<button className='unfollow-bt' onClick={ this.state.followLoading ? null : this.toggleFollow}>
 				Following
 				<div>
 				</div>
@@ -117,7 +133,7 @@ class Profile extends React.Component {
 		)
 
 		const followButton = (
-			<button className='follow-bt' onClick={this.toggleFollow}>
+			<button className='follow-bt' onClick={this.state.followLoading ? null : this.toggleFollow}>
 				Follow
 			</button>
 		)
@@ -181,7 +197,7 @@ class Profile extends React.Component {
 		const postsFollow = !this.state.user ? null : (
 				<ul className='user-data'>
 					<li><h3>{this.state.totalPosts}</h3> posts</li>
-					<li><h3>{user.followers.length}</h3> followers</li>
+					<li><h3>{user.followers.length}</h3> {user.followers.length === 1 ? 'follower' : 'followers'}</li>
 					<li><h3>{user.following.length}</h3> following</li>
 				</ul>
 		)
