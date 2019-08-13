@@ -19,7 +19,9 @@ router.get('/current', passport.authenticate('jwt', {
 		id: req.user.id,
 		username: req.user.username,
 		email: req.user.email,
-		avatarUrl: req.user.avatarUrl
+		avatarUrl: req.user.avatarUrl,
+		followers: req.user.followers,
+		following: req.user.following
 	});
 })
 

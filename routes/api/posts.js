@@ -172,7 +172,9 @@ router.get('/:id', (req, res) => {
 					return res.json({post, user:{
 						avatarUrl: user.avatarUrl,
 						_id: user._id,
-						username: user.username
+						username: user.username,
+						followers: user.followers,
+						following: user.following
 					}});
 				});
 		})

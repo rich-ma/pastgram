@@ -121,7 +121,7 @@ class Profile extends React.Component {
 
 		if(user){
 			console.log('user', user);
-			if(currentUser.id !== userId) {
+			if(currentUser.id !== userId){
 				let following = user.followers.includes(currentUser.id + '');
 
 				const unfollowButton = (
