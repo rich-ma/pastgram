@@ -204,6 +204,67 @@ button{
 	border-radius: 4px;
 }
 
+.close-follow-menu {
+	position: fixed;
+	width: 200vw;
+	height: 200vh;
+	top: -100vh;
+	left: -100vw;
+	z-index: 3;
+	background-color: rgba(0, 0, 0, .5);
+}
+
+.follow-menu {
+	width: 400px;
+	height: 295px;
+	background: #fff;
+	border: 1px solid #efefef;
+	position: fixed;
+	top: calc(50% - 146px);
+	right: calc(50% - 200px);
+	z-index: 10;
+	animation: IGCoreModalShow .1s ease-out;
+	background-color: #fff;
+	border-radius: 12px;
+	overflow: hidden;
+	display: flex;
+	flex-direction: column;
+	justify-content: space-between;
+	align-items: center;
+}
+
+.follow-mul {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	margin: 0px;
+}
+
+.follow-mul>li {
+	border-top: 1px solid #efefef;
+	cursor: pointer;
+	line-height: 1.5;
+	margin: 0;
+	min-height: 48px;
+	width: 100%;
+	text-align: center;
+	display: flex;
+	flex-direction: column;
+	justify-content: center;
+}
+
+.follow-mul>li:first-child {
+	border-top: 1px solid #efefef;
+	font-weight: 500;
+}
+
+.unfollow-name{
+	font-size: 14px;
+	line-height: 18px;
+	font-weight: 400;
+}
+
 @media only screen and (min-width: 425px) and (max-width: 725px) {
 	/* .post-profile {
 		padding: 5px 0px;

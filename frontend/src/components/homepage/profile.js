@@ -16,7 +16,7 @@ class Profile extends React.Component {
 			loading: true,
 			loadingPosts: false,
 			prevY: 0,
-			toggleFollowMenu : false,
+			followMenu : false,
 			followLoading: false
 		};
 
@@ -24,6 +24,7 @@ class Profile extends React.Component {
 		this.loadPosts = this.loadPosts.bind(this);
 		this.handleObserver = this.handleObserver.bind(this);
 		this.toggleFollow = this.toggleFollow.bind(this);
+		this.toggleMenu = this.toggleMenu.bind(this);
 
 		this.props.closeModal();
 		this.props.loadUserPosts({
@@ -109,9 +110,14 @@ class Profile extends React.Component {
 		} else {
 			this.props.followUser(data).then(() => {
 				this.setState({ followLoading: false });
-		});
+			});
+		}
+	}	
+
+	toggleMenu(){
+		this.setState({ followMenu: !this.state.followMenu });
+		console.log(this.state.followMenu);
 	}
-}
 
 	//check if user is current user, if not, create following button
 	render(){
@@ -119,21 +125,35 @@ class Profile extends React.Component {
 		let toggleButton;
 		let editUser;
 
+		const menu = user ? (
+			<div>
+				<div className='close-follow-menu' onClick={this.toggleMenu}/>
+				<div className='follow-menu'>
+					<div className='avatar-box unfollow-avatar'>
+						<img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>
+					</div>
+					<span className='unfollow-name'>Unfollow @{user.username}?</span>
+					<ul className="follow-mul">
+						<li className='unfollow-confirm'>Unfollow</li>
+						<li onClick={this.toggleMenu}>Cancel</li>
+					</ul>
+				</div>
+			</div>
+		) : null;
+
 		if(user){
-			console.log('user', user);
 			if(currentUser.id !== userId){
 				let following = user.followers.includes(currentUser.id + '');
 
 				const unfollowButton = (
-				<button className='unfollow-bt' onClick={ this.state.followLoading ? null : this.toggleFollow}>
+				<button className='unfollow-bt' onClick={this.toggleMenu}>
 					Following
-					<div>
-					</div>
+					{this.state.followMenu ? menu : <div />}
 				</button>
 				)
 
 				const followButton = (
-					<button className='follow-bt' onClick={this.state.followLoading ? null : this.toggleFollow}>
+					<button className='follow-bt' onClick={ this.state.followLoading ? null : this.toggleFollow} >
 						Follow
 					</button>
 				)
