@@ -102,7 +102,7 @@ class Profile extends React.Component {
 			currentUserId: currentUser.id
 		};
 
-		if(user.following.includes(currentUser.id)){
+		if(user.followers.includes(currentUser.id)){
 			this.props.unfollowUser(data).then(() => {
 				this.setState({ followLoading: false });
 			});
@@ -119,30 +119,31 @@ class Profile extends React.Component {
 		let toggleButton;
 		let editUser;
 
-		console.log(user);
+		if(user){
+			console.log('user', user);
+			if(currentUser.id !== userId) {
+				let following = user.followers.includes(currentUser.id + '');
 
-		if (user && currentUser.id !== userId) {
-			let following = user.following.includes(currentUser.id);
+				const unfollowButton = (
+				<button className='unfollow-bt' onClick={ this.state.followLoading ? null : this.toggleFollow}>
+					Following
+					<div>
+					</div>
+				</button>
+				)
 
-			const unfollowButton = (
-			<button className='unfollow-bt' onClick={ this.state.followLoading ? null : this.toggleFollow}>
-				Following
-				<div>
-				</div>
-			</button>
-		)
+				const followButton = (
+					<button className='follow-bt' onClick={this.state.followLoading ? null : this.toggleFollow}>
+						Follow
+					</button>
+				)
 
-		const followButton = (
-			<button className='follow-bt' onClick={this.state.followLoading ? null : this.toggleFollow}>
-				Follow
-			</button>
-		)
-
-		toggleButton = following ? unfollowButton : followButton;
-		} else { 
-			editUser = (
-				<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
-			)
+				toggleButton = following ? unfollowButton : followButton;
+			} else { 
+				editUser = (
+					<button onClick={e => this.props.openModal({modal: 'editUser', data: user})} >Edit Profile</button>
+				)
+			}
 		}
 
 		const button = currentUser.id === userId ? editUser : toggleButton;

@@ -8,6 +8,7 @@ const UsersReducer = (state = {all: undefined, user: undefined}, action) => {
 
 	switch(action.type){
 		case RECEIVE_USER:
+			console.log('action', action);
 			newState.user = action.user;
 			return newState;
 		case RECEIVE_POST_SHOW:

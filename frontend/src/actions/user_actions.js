@@ -47,12 +47,12 @@ export const clearUserErrors = () => dispatch => (
 
 export const followUser = data => dispatch => (
 	UserAPIUtil.followUser(data)
-		.then(user => dispatch(receiveUser(user)))
+		.then(user => dispatch(receiveUser(user.data)))
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 );
 
 export const unfollowUser = data => dispatch => (
 	UserAPIUtil.unfollowUser(data)
-		.then(user => dispatch(receiveUser(user)))
+		.then(user => dispatch(receiveUser(user.data)))
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 );
