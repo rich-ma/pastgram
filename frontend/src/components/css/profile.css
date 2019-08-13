@@ -204,6 +204,14 @@ button{
 	border-radius: 4px;
 }
 
+.unfollow-avatar {
+	width: 90px;
+	height: 90px;
+	overflow: hidden;
+	border-radius: 50%;
+	margin-top: 30px;
+}
+
 .close-follow-menu {
 	position: fixed;
 	width: 200vw;
@@ -215,8 +223,8 @@ button{
 }
 
 .follow-menu {
-	width: 400px;
-	height: 295px;
+	width: 398px;
+	height: 290px;
 	background: #fff;
 	border: 1px solid #efefef;
 	position: fixed;
@@ -243,6 +251,7 @@ button{
 
 .follow-mul>li {
 	border-top: 1px solid #efefef;
+	font-weight: 400;
 	cursor: pointer;
 	line-height: 1.5;
 	margin: 0;
@@ -256,13 +265,15 @@ button{
 
 .follow-mul>li:first-child {
 	border-top: 1px solid #efefef;
-	font-weight: 500;
+	font-weight: 700;
+	color: #ed4956;
 }
 
 .unfollow-name{
 	font-size: 14px;
 	line-height: 18px;
 	font-weight: 400;
+	margin-top: 5px;
 }
 
 @media only screen and (min-width: 425px) and (max-width: 725px) {

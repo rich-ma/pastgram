@@ -105,7 +105,7 @@ class Profile extends React.Component {
 
 		if(user.followers.includes(currentUser.id)){
 			this.props.unfollowUser(data).then(() => {
-				this.setState({ followLoading: false });
+				this.setState({ followLoading: false, followMenu: false });
 			});
 		} else {
 			this.props.followUser(data).then(() => {
@@ -129,12 +129,13 @@ class Profile extends React.Component {
 			<div>
 				<div className='close-follow-menu' onClick={this.toggleMenu}/>
 				<div className='follow-menu'>
-					<div className='avatar-box unfollow-avatar'>
+					<div className='unfollow-avatar'>
 						<img src={user.avatarUrl} className='user-avatar' alt='user-avatar'/>
 					</div>
 					<span className='unfollow-name'>Unfollow @{user.username}?</span>
 					<ul className="follow-mul">
-						<li className='unfollow-confirm'>Unfollow</li>
+						<li className='unfollow-confirm' 
+						onClick={ this.state.followLoading ? null : this.toggleFollow}>Unfollow</li>
 						<li onClick={this.toggleMenu}>Cancel</li>
 					</ul>
 				</div>
