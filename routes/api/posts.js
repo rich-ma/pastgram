@@ -137,7 +137,6 @@ router.post('/user/:user_id', passport.authenticate('jwt', {
 				const currentPage = 1;
 				User.findById(posts[0].userId + '')
 				.then(user => {
-					console.log(user);
 					const data = {
 						user: {
 							username: user.username,

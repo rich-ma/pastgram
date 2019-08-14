@@ -116,7 +116,6 @@ class Profile extends React.Component {
 
 	toggleMenu(){
 		this.setState({ followMenu: !this.state.followMenu });
-		console.log(this.state.followMenu);
 	}
 
 	//check if user is current user, if not, create following button

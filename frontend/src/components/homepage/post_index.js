@@ -1,4 +1,5 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
 import PostShowContainer from '../homepage/post_show_container';
 
 import '../css/post_index.css';
@@ -87,13 +88,25 @@ class PostIndex extends React.Component{
 	render(){
 		let loading = Object.keys(this.state.users).length === 0 || this.state.posts.length === 0;
 		const { posts, currentUser, users } = this.state;
+
+		const desktopProfile = <div className='index-profile'>
+				<Link to={`/users/${currentUser.id}`} className='index-profile-img-container'>
+					<img src={currentUser.avatarUrl} alt='user-avatar'/>
+				</Link>
+				<Link to={`/users/${currentUser.id}`} className='index-profile-name'>{currentUser.username}</Link>
+			</div>
 			
 		return(
 			<div className='index-container'>
-				<ul className='index-ul'>
-							{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} index={i + 1} user={users[post.userId + '']}/></li>))}
-				</ul>
-				<div className='index-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
+				<div className='index-left'>
+					<ul className='index-ul'>
+					{loading ? null : posts.map((post, i) => (<li key={i}><PostShowContainer post={post} isIndex={true} index={i + 1} user={users[post.userId + '']}/></li>))}
+					</ul>
+					<div className='index-observer' ref={loadingRef => (this.loadingRef = loadingRef)}></div>
+				</div>
+				<div className='index-right'>
+					{desktopProfile}
+				</div>
 			</div>
 		)
 	}
