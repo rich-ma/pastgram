@@ -1,7 +1,7 @@
 .user-info-upper{
 	display: flex;
 	flex-direction: row;
-	margin: 30px 16px 24px 16px;
+	margin: 0px 16px 24px 16px;
 }
 
 .user-desktop{
@@ -104,6 +104,7 @@
 	flex-direction: row;
 	border-top: 1px solid #efefef;
 	justify-content: space-evenly;
+	padding-top: 10px;
 }
 
 .user-bio{
@@ -291,6 +292,7 @@ button{
 
 
 @media(min-width: 735px){
+
 	.post-grid-container{
 		max-width: 935px;
 		margin: 0 auto;
@@ -359,9 +361,10 @@ button{
 		flex-direction: column;
 	}
 
-	.avatar-box{
-		width: 166px;
-		height: 166px;
+	.avatar-box {
+		margin-right: 70px;
+		height: 150px;
+		width: 150px;
 	}
 
 	.user-avatar{
