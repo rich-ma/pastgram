@@ -37,6 +37,7 @@ const SessionReducer = (state = initialState, action) => {
 			newState.user.name = action.user.name;
 			newState.user.bio = action.user.bio;
 			newState.user.username = action.user.username;
+			newState.user.avatarUrl = action.user.avatarUrl;
 			return newState;
 		default:
 			return state;
