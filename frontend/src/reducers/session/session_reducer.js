@@ -24,7 +24,7 @@ const SessionReducer = (state = initialState, action) => {
 		case RECEIVE_CURRENT_USER:
 			return {
 				isAuthenticated: true,
-				user:  action.user
+				user: action.user
 			}
 		case RECEIVE_USER_SIGN_IN:
 			return {
@@ -34,7 +34,9 @@ const SessionReducer = (state = initialState, action) => {
 				user: action.user
 			}
 		case RECEIVE_CURRENT_USER_UPDATE:
-			newState.user = action.user;
+			newState.user.name = action.user.name;
+			newState.user.bio = action.user.bio;
+			newState.user.username = action.user.username;
 			return newState;
 		default:
 			return state;

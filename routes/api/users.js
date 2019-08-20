@@ -22,7 +22,8 @@ router.get('/current', passport.authenticate('jwt', {
 		avatarUrl: req.user.avatarUrl,
 		followers: req.user.followers,
 		following: req.user.following,
-		name: req.user.name
+		name: req.user.name,
+		bio: req.user.bio
 	});
 })
 
@@ -163,6 +164,7 @@ router.post('/login', (req, res) => {
 
 	User.findOne({email: req.body.email})
 		.then(user => {
+			console.log('test', user);
 			if(!user){
 				return res.status(404).json({email: "This user does not exist."});
 			}
