@@ -21,7 +21,8 @@ router.get('/current', passport.authenticate('jwt', {
 		email: req.user.email,
 		avatarUrl: req.user.avatarUrl,
 		followers: req.user.followers,
-		following: req.user.following
+		following: req.user.following,
+		name: req.user.name
 	});
 })
 
@@ -170,7 +171,7 @@ router.post('/login', (req, res) => {
 				.then(isMatch => {
 					if(isMatch){
 						//payload that we are sending back
-						const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl };
+						const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl, name: user.name };
 
 						//create a JSON webtoken
 						jwt.sign(
@@ -194,5 +195,4 @@ router.post('/login', (req, res) => {
 		})
 })
 
-router.get
 module.exports = router;
