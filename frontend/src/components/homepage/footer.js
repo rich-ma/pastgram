@@ -8,7 +8,7 @@ const Footer = () => (
 				LINKEDIN</a>
 				</li>
 		</ul>
-		<h3>&copy; 2019 POSTGRAM</h3>
+		<h3>&copy; 2019 LATEGRAM</h3>
 	</footer>
 )
 
