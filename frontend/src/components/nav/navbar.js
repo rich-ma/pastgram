@@ -34,7 +34,7 @@ class NavBar extends React.Component {
 				<div className='navbar'>
 					<Link className='nav-left' to='/'>
 					<i className="fab fa-instagram"></i>
-					<h1 className='nav-title'>Lategram</h1>
+					<h1 className='nav-title'>Pastgram</h1>
 					</Link>
 					<input className='nav-search' type="text" placeholder="Search.." />
 					<div className='nav-right'>

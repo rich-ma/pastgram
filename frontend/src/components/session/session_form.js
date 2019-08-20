@@ -76,7 +76,7 @@ class SessionForm extends React.Component {
 		return (
 			<div className='session-wrapper'>
 				<div className='session-container'>
-					<h1 className="session-title">Lategram</h1>
+					<h1 className="session-title">Pastgram</h1>
 					{welcome}
 					<br/>
 					{this.renderErrors()}
