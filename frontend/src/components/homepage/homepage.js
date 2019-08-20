@@ -1,6 +1,6 @@
 import React from 'react';
 import { Route, Switch } from 'react-router-dom';
-import { AuthRoute, ProtectedRoute } from '../../util/route_util';
+import { ProtectedRoute } from '../../util/route_util';
 import SignupFormContainer from '../../components/session/signup_form_container';
 import NavbarContainer from '../nav/navbar_container';
 import '../css/homepage.css';

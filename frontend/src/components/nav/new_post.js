@@ -122,7 +122,7 @@ class NewPost extends React.Component{
 				</div>
 				<div className='new-post-lower'>
 					<div className='new-post-image-container'>
-						<img className='post-preview' src={this.state.photoUrl} />
+						<img alt='' className='post-preview' src={this.state.photoUrl} />
 					</div>
 					<input type='file' accept='image/*' onChange={e => this.imagePreview(e)} />
 				</div>

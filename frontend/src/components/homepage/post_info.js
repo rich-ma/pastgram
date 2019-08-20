@@ -13,12 +13,7 @@ class PostInfo extends React.Component {
 
 		this.toggleLike = this.toggleLike.bind(this);
 	}
-
-	componentWillMount(){
-		// this.props.post.likes.forEach(like => console.log(like));
-		// this.setState({like: likeStatus});
-	}
-
+	
 	componentWillReceiveProps(newProps){
 		this.setState({post: newProps.post})
 	}

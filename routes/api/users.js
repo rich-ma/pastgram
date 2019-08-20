@@ -158,14 +158,12 @@ router.patch('/:id', passport.authenticate('jwt',{ session: false }), (req, res)
 });
 
 router.post('/login', (req, res) => {
-	console.log('test');
 	const { errors, isValid } = validateLoginInput(req.body);
 
 	if(!isValid) return res.status(400).json(errors);
 
 	User.findOne({email: req.body.email})
 		.then(user => {
-			console.log('test', user);
 			if(!user){
 				return res.status(404).json({email: "This user does not exist."});
 			}

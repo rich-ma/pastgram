@@ -15,6 +15,8 @@ const imageUploads = require('./routes/api/image_uploads');
 const User = require('./models/User');
 const Post = require('./models/Post');
 
+const port = process.env.PORT || 5000;
+
 mongoose
 	.connect(db, { useNewUrlParser: true })
 	.then(() => console.log("Connected to MongoDB successfully"))
@@ -34,7 +36,6 @@ app.use('/api/users', users);
 app.use('/api/posts', posts);
 
 // production process.env.PORT provided by heroku
-const port = process.env.PORT || 5000;
 
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('frontend/build'));

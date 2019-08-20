@@ -32,8 +32,6 @@ class PostIndex extends React.Component{
 			threshold: 0
 		};
 
-		console.log(this.state.currentUser);
-
 		this.observer = new IntersectionObserver(
 			this.handleObserver.bind(this),
 			options

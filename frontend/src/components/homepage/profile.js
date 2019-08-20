@@ -203,17 +203,17 @@ class Profile extends React.Component {
 		</div>
 		);
 
-		const postList = (
-			<ul className='test-list'>
-				{posts.map((post, i) => {
-					return (
-						<li key={'post' + i}>
-							<img className='profile-post-img' src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt={post.text}/>
-						</li>
-					)
-				})}
-			</ul>
-		)
+		// const postList = (
+		// 	<ul className='test-list'>
+		// 		{posts.map((post, i) => {
+		// 			return (
+		// 				<li key={'post' + i}>
+		// 					<img className='profile-post-img' src={post.url} onClick={() => openModal({modal: 'postShow', data: post})} alt={post.text}/>
+		// 				</li>
+		// 			)
+		// 		})}
+		// 	</ul>
+		// )
 
 		const postsFollow = !this.state.user ? null : (
 				<ul className='user-data'>

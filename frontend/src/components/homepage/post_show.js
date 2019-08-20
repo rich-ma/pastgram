@@ -2,7 +2,6 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import { CopyToClipboard } from 'react-copy-to-clipboard';
 import { profile, postImage, getDate } from '../../util/post_util';
-import PostInfo from './post_info';
 import '../css/post_show.css';
 
 class PostShow extends React.Component {
