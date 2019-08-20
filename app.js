@@ -34,15 +34,15 @@ app.use('/api/image-upload', imageUploads);
 app.use('/api/users', users);
 app.use('/api/posts', posts);
 
+// production process.env.PORT provided by heroku
+const port = process.env.PORT || 5000;
+
 if (process.env.NODE_ENV === 'production') {
 	app.use(express.static('frontend/build'));
 	app.get('/', (req, res) => {
-		res.sendFile(path.resolve(__dirname, 'frontend', 'build', 'index.html'));
+		res.sendFile(path.resolve(__dirname, 'frontend', 'public', 'index.html'));
 	})
 }
-
-// production process.env.PORT provided by heroku
-const port = process.env.PORT || 5000;
 
 //starting a socket and lstening for connections
 app.listen(port, () => console.log(`Server is running on port ${port}`));
