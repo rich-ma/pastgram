@@ -110,10 +110,26 @@
 		object-fit: cover;
 	}
 
-	.index-profile-name {
+	.index-names{
+		display: flex;
+		flex-direction: column;
+		margin-left: 14px;
+
+	}
+
+	.index-username {
 		font-size: 14px;
-		margin-left: 10px;
 		font-weight: 600;
+	}
+
+	.index-name {
+		font-size: 12px;
+		line-height: 14px;
+		overflow: hidden;
+		text-overflow: ellipsis;
+		white-space: nowrap;
+		color: #999;
+		margin-top: 2px;
 	}
 
 

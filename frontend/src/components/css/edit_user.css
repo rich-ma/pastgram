@@ -51,10 +51,13 @@
 	height: 42px;
 	border-radius: 50%;
 	overflow: hidden;
+	display: flex;
+	justify-content: center;
 }
 
 .edit-avatar-container > img {
-	width: 100%;
+	width: initial;
+	height: 100%;
 }
 
 #edit-avatar-img{

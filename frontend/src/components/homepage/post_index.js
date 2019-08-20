@@ -95,7 +95,10 @@ class PostIndex extends React.Component{
 				<Link to={`/users/${currentUser.id}`} className='index-profile-img-container'>
 					<img src={currentUser.avatarUrl} alt='user-avatar'/>
 				</Link>
-				<Link to={`/users/${currentUser.id}`} className='index-profile-name'>{currentUser.username}</Link>
+				<Link to={`/users/${currentUser.id}`} className='index-names'>
+					<span className='index-username'>{currentUser.username}</span>
+					{currentUser.name ? <span className='index-name'>{currentUser.name}</span> : null}
+				</Link>
 			</div>
 			
 		return(
