@@ -32,13 +32,13 @@ body {
 	width: 100%;
 	justify-content: center;
 	align-items: center;
+	margin-top: 20px;
 }
 
 .session-wrapper {
 	display: flex;
 	flex-direction: column;
 	width: 100%;
-	justify-content: center;
 	align-items: center;
 }
 
@@ -52,6 +52,7 @@ body {
 		height: 100%;
 		align-self: center;
 		margin: 0 auto;
+		justify-content: center;
 	}
 
 	.session-container{
@@ -60,6 +61,7 @@ body {
 		border-radius: 1px;
 		padding: 10px 0;
 		width: 348px;
+		margin-top: 0px;
 		}
 
 	.session-input{
