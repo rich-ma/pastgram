@@ -35,8 +35,19 @@ class Profile extends React.Component {
 	}
 
 	static getDerivedStateFromProps(newProps, state) {
-		let posts;
-		if(newProps.postUpdate){
+		let posts = [];
+		let user;
+		let loading = false;
+		if(state.user){
+			if(state.user._id !== newProps.user._id){
+				user = newProps.user;
+			}
+		}
+		
+		if(!state.user && newProps.user){
+			user = newProps.user;
+			loading = true;
+		} else if(newProps.postUpdate){
 			posts = state.posts;
 			const updatedPost = newProps.postUpdate;
 			posts[updatedPost.index - 1] = updatedPost;
@@ -51,9 +62,9 @@ class Profile extends React.Component {
 			currentPage: newProps.currentPage,
 			totalPages: newProps.totalPages,
 			totalPosts: newProps.totalPosts,
-			user: newProps.user,
+			user: user || newProps.user,
 			posts,
-			loading: false,
+			loading,
 			loadingPosts: false
 		})
 	}

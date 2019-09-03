@@ -29,7 +29,20 @@ router.get('/current', passport.authenticate('jwt', {
 
 router.get('/:id', (req, res) => {
 	User.findById(req.params.id)
-		.then(user => res.json(user))
+		.then(user => {
+			let data = {
+				user: {
+						username: user.username,
+						avatarUrl: user.avatarUrl,
+						_id: user.id,
+						followers: user.followers,
+						following: user.following,
+						name: user.name,
+						bio: user.bio
+				}
+			}
+			return res.json(data);
+		})
 		.catch(err => res.status(404).json({nouserfound: 'No user found with that ID.'}))
 })
 
