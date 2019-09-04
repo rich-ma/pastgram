@@ -25,7 +25,12 @@ class Profile extends React.Component {
 		this.handleObserver = this.handleObserver.bind(this);
 		this.toggleFollow = this.toggleFollow.bind(this);
 		this.toggleMenu = this.toggleMenu.bind(this);
+		this.loadProfile = this.loadProfile.bind(this);
 
+		this.loadProfile();
+	}
+
+	loadProfile(){
 		this.props.closeModal();
 		this.props.loadUserPosts({
 			loaded: false,
@@ -36,15 +41,28 @@ class Profile extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state) {
 		let posts = [];
-		let user;
+		let user = undefined;
 		let loading = false;
-		if(state.user){
-			if(state.user._id !== newProps.user._id){
-				user = newProps.user;
-			}
+
+		if(state.user && state.user._id + '' !== newProps.match.params.userId + '') {
+			newProps.closeModal();
+			newProps.loadUserPosts({
+				loaded: false,
+				userId: newProps.userId,
+				currentPage: 0
+			});
+			return ({
+				currentPage: 0,
+				totalPages: 0,
+				totalPosts: 0,
+				user,
+				posts: [],
+				loading: true,
+				loadingPosts: false
+			})
 		}
-		
-		if(!state.user && newProps.user){
+
+		if (!state.user && newProps.user) {
 			user = newProps.user;
 			loading = true;
 		} else if(newProps.postUpdate){
