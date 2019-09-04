@@ -30,8 +30,9 @@ class Profile extends React.Component {
 		this.loadProfile();
 	}
 
-	loadProfile(){
+	loadProfile(id){
 		this.props.closeModal();
+		this.props.getUser();
 		this.props.loadUserPosts({
 			loaded: false,
 			userId: this.props.userId,
@@ -44,23 +45,23 @@ class Profile extends React.Component {
 		let user = undefined;
 		let loading = false;
 
-		if(state.user && state.user._id + '' !== newProps.match.params.userId + '') {
-			newProps.closeModal();
-			newProps.loadUserPosts({
-				loaded: false,
-				userId: newProps.userId,
-				currentPage: 0
-			});
-			return ({
-				currentPage: 0,
-				totalPages: 0,
-				totalPosts: 0,
-				user,
-				posts: [],
-				loading: true,
-				loadingPosts: false
-			})
-		}
+		// if(state.user && state.user._id + '' !== newProps.match.params.userId + '') {
+		// 	newProps.closeModal();
+		// 	newProps.loadUserPosts({
+		// 		loaded: false,
+		// 		userId: newProps.userId,
+		// 		currentPage: 0
+		// 	});
+		// 	return ({
+		// 		currentPage: 0,
+		// 		totalPages: 0,
+		// 		totalPosts: 0,
+		// 		user,
+		// 		posts: [],
+		// 		loading: true,
+		// 		loadingPosts: false
+		// 	})
+		// }
 
 		if (!state.user && newProps.user) {
 			user = newProps.user;

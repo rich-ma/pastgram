@@ -1,7 +1,7 @@
 import { logout } from '../../actions/session_actions';
 import { openModal, closeModal } from '../../actions/modal_actions';
 import { loadUserPosts, clearPostUpdate } from '../../actions/post_actions';
-import { followUser, unfollowUser } from '../../actions/user_actions';
+import { followUser, unfollowUser, getUser } from '../../actions/user_actions';
 import { connect } from 'react-redux';
 import { withRouter } from 'react-router-dom';
 import Profile from './profile';
@@ -23,8 +23,14 @@ const mSTP = (state, ownProps) => {
 	})
 }
 
+const loadProfile=(id){
+	getUser(id);
+	loadUserPosts(id);
+}
+
 const mDTP = dispatch => ({
 	logout: () => dispatch(logout()),
+	getUser: (id) => dispatch(getUser(id)),
 	loadUserPosts: (data) => dispatch(loadUserPosts(data)),
 	openModal: (modal) => dispatch(openModal(modal)),
 	closeModal: () => dispatch(closeModal()),
