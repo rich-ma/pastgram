@@ -25,12 +25,12 @@ const mSTP = (state, ownProps) => {
 
 const loadProfile = (id) => {
 	closeModal();
-	getUser(id);
+	getUser(id).then(() =>
 	loadUserPosts({
 		loaded: false,
 		userId: id,
 		currentPage: 0
-	});
+	}))
 };
 
 const mDTP = dispatch => ({

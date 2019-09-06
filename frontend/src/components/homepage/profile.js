@@ -45,30 +45,28 @@ class Profile extends React.Component {
 		let user = undefined;
 		let loading = false;
 
-		// if(state.user && state.user._id + '' !== newProps.match.params.userId + '') {
-		// 	newProps.closeModal();
-		// 	newProps.loadUserPosts({
-		// 		loaded: false,
-		// 		userId: newProps.userId,
-		// 		currentPage: 0
-		// 	});
-		// 	return ({
-		// 		currentPage: 0,
-		// 		totalPages: 0,
-		// 		totalPosts: 0,
-		// 		user,
-		// 		posts: [],
-		// 		loading: true,
-		// 		loadingPosts: false
-		// 	})
-		// }
-
-		console.log('newprops', newProps);
-		console.log('state', state);
+		if(state.user && state.user._id + '' !== newProps.match.params.userId + '') {
+			newProps.getUser(newProps.match.params.userId);
+			return ({
+				currentPage: 0,
+				totalPages: 0,
+				totalPosts: 0,
+				user,
+				posts: [],
+				loading: true,
+				loadingPosts: false
+			})
+		}
 
 		if (!state.user && newProps.user) {
 			user = newProps.user;
 			loading = true;
+		} else if(newProps.loading){
+			newProps.loadUserPosts({
+			loaded: false,
+			userId: newProps.match.params.userId,
+			currentPage: 0
+			});
 		} else if(newProps.postUpdate){
 			posts = state.posts;
 			const updatedPost = newProps.postUpdate;
