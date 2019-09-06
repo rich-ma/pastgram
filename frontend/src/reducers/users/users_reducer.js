@@ -6,6 +6,8 @@ const UsersReducer = (state = {all: undefined, user: undefined}, action) => {
 
 	let newState = Object.assign({}, state);
 
+	console.log('action', action);
+
 	switch(action.type){
 		case RECEIVE_USER:
 			newState.user = action.user;

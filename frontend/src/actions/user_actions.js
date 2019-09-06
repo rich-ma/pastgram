@@ -28,7 +28,7 @@ export const clearErrors = () => ({
 
 export const getUser = id => dispatch => (
 	UserAPIUtil.getUser(id)
-		.then(user => dispatch(receiveUser(user)))
+		.then(user => dispatch(receiveUser(user.data.user)))
 		.catch(err => receiveErrors(err.response.data))
 )
 

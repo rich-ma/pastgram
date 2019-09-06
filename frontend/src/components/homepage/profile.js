@@ -27,15 +27,15 @@ class Profile extends React.Component {
 		this.toggleMenu = this.toggleMenu.bind(this);
 		this.loadProfile = this.loadProfile.bind(this);
 
-		this.loadProfile();
+		this.loadProfile(this.props.match.params.userId);
 	}
 
 	loadProfile(id){
 		this.props.closeModal();
-		this.props.getUser();
+		this.props.getUser(id);
 		this.props.loadUserPosts({
 			loaded: false,
-			userId: this.props.userId,
+			userId: id,
 			currentPage: 0
 		});
 	}
@@ -62,6 +62,9 @@ class Profile extends React.Component {
 		// 		loadingPosts: false
 		// 	})
 		// }
+
+		console.log('newprops', newProps);
+		console.log('state', state);
 
 		if (!state.user && newProps.user) {
 			user = newProps.user;

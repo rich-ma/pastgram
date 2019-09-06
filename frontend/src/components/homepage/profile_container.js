@@ -27,7 +27,9 @@ const loadProfile = (id) => {
 	closeModal();
 	getUser(id);
 	loadUserPosts({
-
+		loaded: false,
+		userId: id,
+		currentPage: 0
 	});
 };
 
