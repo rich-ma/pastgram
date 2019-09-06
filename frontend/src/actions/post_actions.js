@@ -86,10 +86,7 @@ export const loadUserPosts = reqData => dispatch => {
 			.catch(err => dispatch(receiveErrors(err.response.data)))
 	} else {
 		return fetchUserPosts(reqData)
-		.then(response => {
-			dispatch(receiveUser(response.data.user));
-			dispatch(receiveUserPosts(response.data.profile));
-		})
+		.then(response => dispatch(receiveUserPosts(response.data.profile)))
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 	}
 };

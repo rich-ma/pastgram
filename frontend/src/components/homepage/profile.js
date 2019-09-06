@@ -17,7 +17,7 @@ class Profile extends React.Component {
 			loadingPosts: false,
 			prevY: 0,
 			followMenu : false,
-			followLoading: false
+			followLoading: false,
 		};
 
 		this.loadingRef = React.createRef();
@@ -41,27 +41,36 @@ class Profile extends React.Component {
 	}
 
 	static getDerivedStateFromProps(newProps, state) {
+		if(state.loading && !newProps.user){
+			return state;
+		}
+
 		let posts = [];
 		let user = undefined;
 		let loading = false;
+		console.log('newProps', newProps);
+		console.log('state', state);
 
-		if(state.user && state.user._id + '' !== newProps.match.params.userId + '') {
-			newProps.getUser(newProps.match.params.userId);
-			return ({
-				currentPage: 0,
-				totalPages: 0,
-				totalPosts: 0,
-				user,
-				posts: [],
-				loading: true,
-				loadingPosts: false
-			})
+		if(state.user && (state.user._id + '' !== newProps.match.params.userId + '')) {
+			console.log('not same user');
+			window.location.reload();
+			// newProps.getUser(newProps.match.params.userId);
+			// return ({
+			// 	currentPage: 0,
+			// 	totalPages: 0,
+			// 	totalPosts: 0,
+			// 	user,
+			// 	posts: [],
+			// 	loading: true,
+			// 	loadingPosts: false
+			// })
 		}
-
-		if (!state.user && newProps.user) {
+		if (!state.user && newProps.user){
 			user = newProps.user;
 			loading = true;
-		} else if(newProps.loading){
+		} else if(state.loading){
+			user = newProps.user;
+			console.log('state is loading',newProps);
 			newProps.loadUserPosts({
 			loaded: false,
 			userId: newProps.match.params.userId,

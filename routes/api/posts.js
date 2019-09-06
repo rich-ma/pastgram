@@ -110,6 +110,60 @@ router.post('/', (req, res) => {
 			})
 })
 
+// //get all posts from a specific user
+// router.post('/user/:user_id', passport.authenticate('jwt', {
+// 			session: false
+// 		}), (req, res) => {
+// 	let postPP = 12;
+// 	Post.find({userId: req.params.user_id})
+// 		.sort({date: -1})
+// 		.then(posts => {
+// 			let totalPosts = posts.length; 
+// 			if(req.body.loaded){
+// 				let currentPage = req.body.currentPage;
+// 				const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
+// 				const data = {
+// 					profile:{
+// 						currentPage: req.body.currentPage + 1,
+// 						totalPages: req.body.totalPages,
+// 						posts: newPosts,
+// 						totalPosts
+// 					}
+// 				};
+// 				return res.json(data);
+// 			} else {
+// 				const newPosts = posts.slice(0, postPP);
+// 				const totalPages = Math.ceil(posts.length/postPP);
+// 				const currentPage = 1;
+// 				User.findById(posts[0].userId + '')
+// 				.then(user => {
+// 					const data = {
+// 						user: {
+// 							username: user.username,
+// 							avatarUrl: user.avatarUrl,
+// 							_id: user.id,
+// 							followers: user.followers,
+// 							following: user.following,
+// 							name: user.name,
+// 							bio: user.bio
+// 						},
+// 						profile: {
+// 							currentPage,
+// 							totalPages,
+// 							posts: newPosts,
+// 							totalPosts
+// 						}
+// 					};
+// 					return res.json(data);
+// 				})
+// 				// .catch(err => res.status(404).json({ nouserfound: 'No user found with that id'}))
+// 			}
+// 		})
+// 		.catch(err => res.status(404).json({
+// 			nopostsfound: "No posts found from that user."
+// 		}));
+// });
+
 //get all posts from a specific user
 router.post('/user/:user_id', passport.authenticate('jwt', {
 			session: false
@@ -135,27 +189,15 @@ router.post('/user/:user_id', passport.authenticate('jwt', {
 				const newPosts = posts.slice(0, postPP);
 				const totalPages = Math.ceil(posts.length/postPP);
 				const currentPage = 1;
-				User.findById(posts[0].userId + '')
-				.then(user => {
-					const data = {
-						user: {
-							username: user.username,
-							avatarUrl: user.avatarUrl,
-							_id: user.id,
-							followers: user.followers,
-							following: user.following,
-							name: user.name,
-							bio: user.bio
-						},
-						profile: {
-							currentPage,
-							totalPages,
-							posts: newPosts,
-							totalPosts
-						}
-					};
-					return res.json(data);
-				})
+				const data = {
+					profile: {
+						currentPage,
+						totalPages,
+						posts: newPosts,
+						totalPosts
+					}
+				};
+				return res.json(data);
 				// .catch(err => res.status(404).json({ nouserfound: 'No user found with that id'}))
 			}
 		})
