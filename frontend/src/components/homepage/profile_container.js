@@ -23,12 +23,16 @@ const mSTP = (state, ownProps) => {
 	})
 }
 
-const loadProfile=(id){
+const loadProfile = (id) => {
+	closeModal();
 	getUser(id);
-	loadUserPosts(id);
-}
+	loadUserPosts({
+
+	});
+};
 
 const mDTP = dispatch => ({
+	loadProfile: (id) => dispatch(loadProfile(id)),
 	logout: () => dispatch(logout()),
 	getUser: (id) => dispatch(getUser(id)),
 	loadUserPosts: (data) => dispatch(loadUserPosts(data)),
