@@ -52,30 +52,12 @@ class Profile extends React.Component {
 		console.log('state', state);
 
 		if(state.user && (state.user._id + '' !== newProps.match.params.userId + '')) {
-			console.log('not same user');
 			window.location.reload();
-			// newProps.getUser(newProps.match.params.userId);
-			// return ({
-			// 	currentPage: 0,
-			// 	totalPages: 0,
-			// 	totalPosts: 0,
-			// 	user,
-			// 	posts: [],
-			// 	loading: true,
-			// 	loadingPosts: false
-			// })
 		}
+
 		if (!state.user && newProps.user){
 			user = newProps.user;
 			loading = true;
-		} else if(state.loading){
-			user = newProps.user;
-			console.log('state is loading',newProps);
-			newProps.loadUserPosts({
-			loaded: false,
-			userId: newProps.match.params.userId,
-			currentPage: 0
-			});
 		} else if(newProps.postUpdate){
 			posts = state.posts;
 			const updatedPost = newProps.postUpdate;
