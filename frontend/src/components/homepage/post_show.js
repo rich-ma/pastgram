@@ -41,6 +41,12 @@ class PostShow extends React.Component {
 
 	static getDerivedStateFromProps(newProps, state){
 		let like = undefined;
+
+		console.log('newprops',newProps);
+		if (newProps.isPostShow && state.post && (state.post._id + '' !== newProps.match.params.postId + '')) {
+			window.location.reload();
+		}
+
 		if(newProps.postUpdate && !newProps.isIndex){
 			const post = newProps.postUpdate;
 			like = post.likes.includes(state.currentUserId);

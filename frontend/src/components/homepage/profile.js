@@ -48,13 +48,10 @@ class Profile extends React.Component {
 		let posts = [];
 		let user = undefined;
 		let loading = false;
-		console.log('newProps', newProps);
-		console.log('state', state);
 
 		if(state.user && (state.user._id + '' !== newProps.match.params.userId + '')) {
 			window.location.reload();
 		}
-
 		if (!state.user && newProps.user){
 			user = newProps.user;
 			loading = true;

@@ -80,6 +80,7 @@ class EditUser extends React.Component{
 
 			this.props.updateUser(data);
 		}
+		this.props.closeModal();
 	}
 
 	updateField(field){
