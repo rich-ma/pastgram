@@ -6,7 +6,7 @@ import {
 	removeLike,
 	fetchUserPosts
 } from '../util/post_api_util';
-import { receiveUser, receiveUsers } from './user_actions';
+import { receiveUsers } from './user_actions';
 
 export const RECEIVE_POST_SHOW = 'RECEIVE_POST_SHOW';
 export const RECEIVE_POSTS = 'RECEIVE_POSTS';

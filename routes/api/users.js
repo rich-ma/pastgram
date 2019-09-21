@@ -87,7 +87,6 @@ router.post('/register', (req, res) => {
 		if(user){
 			return res.status(400).json({email: "A User is already registered with that email"}); //user already registered with email
 		} else {
-			
 			User.findOne({username: req.body.username})
 			.then(user =>{
 				if (user) return res.status(400).json({
