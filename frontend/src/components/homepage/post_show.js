@@ -44,7 +44,7 @@ class PostShow extends React.Component {
 
 		console.log('newprops',newProps);
 		if (newProps.isPostShow && state.post && (state.post._id + '' !== newProps.match.params.postId + '')) {
-			window.location.reload();
+			window.location.reload ();
 		}
 
 		if(newProps.postUpdate && !newProps.isIndex){
