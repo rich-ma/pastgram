@@ -50,9 +50,8 @@ export const login = user => dispatch => (
 );
 
 export const signup = user => dispatch => {
-	return (APIUtil.signup(user).then((data) => {
-		console.log('user action', data);
-			dispatch(receiveUserSignIn(data.data.user))
+	return (APIUtil.signup(user).then((response) => {
+			dispatch(receiveUserSignIn(response.data.user))
 	}, err => (
 			dispatch(receiveErrors(err.response.data))
 		))
