@@ -40,6 +40,7 @@ class NavBar extends React.Component {
 					<div className='nav-right'>
 						<i className="far fa-plus-square" onClick={() => openModal({modal: 'newPost'})}></i>
 						<Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
+						<button onClick={this.props.logout}>logout</button>
 					</div>
 				</div>
 			</nav>

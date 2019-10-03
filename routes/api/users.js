@@ -111,6 +111,7 @@ router.post('/register', (req, res) => {
 					newUser.save()
 						.then((user) => {
 							const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl};
+							console.log('payload', payload);
 							jwt.sign(
 								payload,
 								keys.secretOrKey,
