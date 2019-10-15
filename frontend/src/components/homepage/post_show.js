@@ -42,7 +42,6 @@ class PostShow extends React.Component {
 	static getDerivedStateFromProps(newProps, state){
 		let like = undefined;
 
-		console.log('newprops',newProps);
 		if (newProps.isPostShow && state.post && (state.post._id + '' !== newProps.match.params.postId + '')) {
 			window.location.reload ();
 		}
@@ -181,7 +180,7 @@ class PostShow extends React.Component {
 						</div>
 						<div className='post-show-desktop-right'>
 							{postProfile}
-							
+
 							{caption}
 							{postInfo}
 						</div>
