@@ -226,6 +226,16 @@
 		min-width: 325px;
 		max-width: 325px;
 		border-left: 1px solid #efefef;
+		display: flex;
+		flex-direction: column;
+		justify-content: space-between;
+	}
+
+	.caption-container{
+		height: 100%;
+		border-bottom: 1px solid #efefef;
+		margin: 0;
+		padding-left: 10px;
 	}
 
 }

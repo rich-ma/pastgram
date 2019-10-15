@@ -181,9 +181,8 @@ class PostShow extends React.Component {
 						</div>
 						<div className='post-show-desktop-right'>
 							{postProfile}
-							<div>
-							Comments
-							</div>
+							
+							{caption}
 							{postInfo}
 						</div>
 					</div>
