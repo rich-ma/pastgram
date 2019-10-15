@@ -111,6 +111,12 @@ class PostShow extends React.Component {
 		const date = getDate(new Date(post.date));
 		const link = `http://localhost:3000/#/posts/${post._id}`;
 
+		const caption = (
+			<span className='caption-container'>
+				<h3 className='caption-username'>{user.username}</h3>{post.text}
+			</span>
+		)
+
 		const menu = (
 			<div >
 				<div className='close-postshow-menu' onClick={this.toggleMenu}/>
@@ -133,6 +139,7 @@ class PostShow extends React.Component {
 				<div className='post-likes-container'>
 					Liked by <h3 className='post-likes'>{this.state.post.likes.length}</h3>{this.state.post.likes.length === 1 ? 'person' : 'people'}
 				</div>
+				{this.props.isIndex ? caption : null}
 			<h4 className='post-date'>{date}</h4>
 		</div>
 		)
