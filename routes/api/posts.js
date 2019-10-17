@@ -10,6 +10,19 @@ router.get('/test', (req, res) => {
 	return res.json({msg: 'This is the posts route'});
 });
 
+router.post('/seed', (req, res) => {
+	//grab all existing posts, add likes randomly from 0 to 8 of the existing users
+	//put the user id's in an array and randomly choose 0 to 8
+
+	Post.find()
+		.then(posts => {
+			
+		})
+
+
+
+})
+
 //post new post
 router.post('/new', passport.authenticate('jwt', {session: false}), 
 (req, res) => {
