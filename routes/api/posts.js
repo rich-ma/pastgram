@@ -14,9 +14,22 @@ router.post('/seed', (req, res) => {
 	//grab all existing posts, add likes randomly from 0 to 8 of the existing users
 	//put the user id's in an array and randomly choose 0 to 8
 
-	Post.find()
-		.then(posts => {
-			
+	User.find()
+		.then(users => {
+			let ids = [];
+			users.forEach(user => ids.push(user._id));
+
+			Post.find()
+				.then(posts => {
+					
+					posts.forEach(post => {
+
+						//randomly chooses value from 4-8
+						const num = Math.floor(Math.random() * 5) + 4;
+						
+						
+					})
+				})
 		})
 
 
