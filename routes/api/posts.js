@@ -11,6 +11,7 @@ router.get('/test', (req, res) => {
 });
 
 router.post('/seed', (req, res) => {
+	console.log('in seed router');
 	//grab all existing posts, add likes randomly from 0 to 8 of the existing users
 	//put the user id's in an array and randomly choose 0 to 8
 	Post.find()
@@ -46,18 +47,20 @@ router.post('/seed', (req, res) => {
 
 				ids = shuffle(ids);
 
-				while(num > 0){
-					post.likes.push(ids[num]);
-					num--;
-				}
+				// while(num > 0){
+				// 	post.likes.push(ids[num]);
+				// 	num--;
+				// }
 
-				post.save();
-				
+				// post.save();
+				console.log(post.likes, ids);
+
 			})
+
 		})
-
-
-
+	return res.json({
+		msg: 'done'
+	})
 })
 
 //post new post

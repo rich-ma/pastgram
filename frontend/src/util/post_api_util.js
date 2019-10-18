@@ -23,3 +23,8 @@ export const removeLike = data => {
 export const fetchUserPosts = data => {
 	return axios.post(`/api/posts/user/${data.userId}`, data);
 }
+
+export const seedLikes = () => {
+	console.log('seeding');
+	return axios.post('/api/posts/seed');
+}
