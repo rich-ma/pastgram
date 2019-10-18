@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/navbar.css';
-import { seedLikes } from '../../util/post_api_util';
 // withrouter maybe to update after new post? 
 
 class NavBar extends React.Component {
