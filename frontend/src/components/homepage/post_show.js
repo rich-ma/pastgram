@@ -139,6 +139,7 @@ class PostShow extends React.Component {
 					Liked by <h3 className='post-likes'>{this.state.post.likes.length}</h3>{this.state.post.likes.length === 1 ? 'person' : 'people'}
 				</div>
 				{this.props.isIndex ? caption : null}
+				{this.props.isIndex ? <span className='index-span'></span> : null}
 			<h4 className='post-date'>{date}</h4>
 		</div>
 		)

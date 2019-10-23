@@ -83,7 +83,6 @@
 
 .caption-container{
 	margin-top: 5px;
-	margin-left: 10px;
 	display: inline-block;
 	color: #262626;
 }
@@ -94,6 +93,7 @@
 	font-weight: 600;
 	font-size: 14px;
 	margin-right: 4px;
+	margin-left: 10px;
 }
 
 @media(min-width: 1000px){
