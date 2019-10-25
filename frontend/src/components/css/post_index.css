@@ -79,6 +79,7 @@
 .post-date{
 	font: 10px;
 	font-weight: 400;
+	margin-top: 10px;
 }
 
 .caption-container{
@@ -93,7 +94,6 @@
 	font-weight: 600;
 	font-size: 14px;
 	margin-right: 4px;
-	margin-left: 10px;
 }
 
 @media(min-width: 1000px){

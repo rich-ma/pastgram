@@ -165,6 +165,79 @@ router.post('/', (req, res) => {
 			})
 })
 
+//get follower posts only
+//immediately grab all users that current user is following, follow same procedures 
+// this allows us to not need to find the user based on the results anymore.  
+// now in our get posts, we call fetchusers, grab the users, then using those users, calling fetch posts
+router.post('/', (req, res) => {
+	let users = req.body.users;
+	let postPP = 5;
+
+	Post.find()
+		.sort({date: -1})
+		.then(posts => {
+			let totalPosts = posts.length;
+			let currentPage = req.body.currentPage;
+			const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
+			const totalPages = Math.ceil(posts.length / postPP);
+
+			//grab user ids from all the posts, check redundancy O(1) time
+			let userIds = [];
+			newPosts.forEach(post => {
+				let id = post.userId + '';
+				if(users[id]){
+				} else {
+					userIds = userIds.concat(id);
+				}
+			})
+
+			//no new users
+			if(userIds.length === 0){
+				const data = {
+					users,
+					all: {
+						currentPage: currentPage + 1,
+						totalPages,
+						posts: newPosts,
+						totalPosts
+					}
+				};
+				return res.json(data);
+			} else {
+				User.find({
+					'_id': {
+						$in: userIds
+						}}, (err, newUsers) => {
+							newUsers.forEach(user => { //add any new user to users object for frontend
+								if(users[user._id + '']){
+
+								} else {
+									users[user._id + ''] = {
+										username: user.username,
+										avatarUrl: user.avatarUrl,
+										id: user._id
+									}
+								}
+							});
+
+							const data = {
+								users,
+								all: {
+									currentPage: currentPage + 1,
+									totalPages,
+									posts: newPosts,
+									totalPosts
+								}
+							};
+							return res.json(data);
+					});
+			}
+			})
+			.catch(err => {
+				res.status(404).json({ nopostsfound: "No posts found." })
+			})
+})
+
 // //get all posts from a specific user
 // router.post('/user/:user_id', passport.authenticate('jwt', {
 // 			session: false

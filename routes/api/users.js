@@ -110,7 +110,7 @@ router.post('/register', (req, res) => {
 					//saving to db and then giving a token for an hour for the user
 					newUser.save()
 						.then((user) => {
-							const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl};
+							const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl, followers: user.followers, following: user.following};
 							jwt.sign(
 								payload,
 								keys.secretOrKey,
@@ -184,7 +184,7 @@ router.post('/login', (req, res) => {
 				.then(isMatch => {
 					if(isMatch){
 						//payload that we are sending back
-						const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl, name: user.name };
+						const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl, name: user.name, following: user.following, followers: user.followers };
 
 						//create a JSON webtoken
 						jwt.sign(
