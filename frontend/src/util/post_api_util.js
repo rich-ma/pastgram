@@ -5,7 +5,7 @@ export const getPostShow = postId => {
 }
 
 export const getPosts = reqData => {
-	return axios.post('/api/posts/', reqData);
+	return axios.post('/api/posts/all', reqData);
 }
 
 export const createPost = data => {

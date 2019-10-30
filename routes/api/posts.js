@@ -96,7 +96,7 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //index posts
 //grab all posts, grab all users with posts
 //might be easier to just implement with following  
-router.post('/', (req, res) => {
+router.post('/all', (req, res) => {
 	let users = req.body.users;
 	let postPP = 5;
 
@@ -170,17 +170,33 @@ router.post('/', (req, res) => {
 // this allows us to not need to find the user based on the results anymore.  
 // now in our get posts, we call fetchusers, grab the users, then using those users, calling fetch posts
 router.post('/', (req, res) => {
-	let users = req.body.users;
+	let userIds = req.body.following;
+	let usersArray = req.body.users;
 	let postPP = 5;
 
-	Post.find({id: {$in: users}})
+	Post.find({userId: {$in: userIds}})
 		.sort({date: -1})
 		.then(posts => {
 			let totalPosts = posts.length;
 			let currentPage = req.body.currentPage;
 			const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
 			const totalPages = Math.ceil(posts.length / postPP);
-
+			
+			if(users.length !== userIds.length){
+				User.find({_id: {$in: userIds}})
+				.then(users => {
+					const data = {
+						users,
+						all: {
+							currentPage: currentPage + 1,
+							totalPages,
+							posts: newPosts,
+							totalPosts
+						}
+					};
+					return res.json(data);
+				});
+			} else {
 				const data = {
 					users,
 					all: {
@@ -191,11 +207,12 @@ router.post('/', (req, res) => {
 					}
 				};
 				return res.json(data);
-			});
+			}
 		})
 		.catch(err => {
 			res.status(404).json({ nopostsfound: "No posts found." })
 		})
+});
 
 // //get all posts from a specific user
 // router.post('/user/:user_id', passport.authenticate('jwt', {
