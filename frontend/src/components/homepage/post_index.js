@@ -21,7 +21,8 @@ class PostIndex extends React.Component{
 		this.handleObserver = this.handleObserver.bind(this);
 		this.props.fetchPosts({
 			users: {},
-			currentPage: 0
+			currentPage: 0,
+			following: this.state.currentUser.following
 		});
 	}
 
