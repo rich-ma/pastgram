@@ -47,9 +47,19 @@ router.get('/:id', (req, res) => {
 })
 
 router.post('/follow/:id', (req, res) => {
-	User.findById(req.params.id)
-		.then(user => {
-			if(user.followers.includes(req.body.currentUserId)){
+	User.find({_id: {$in: [req.body.userId, req.body.currentUserId]}})
+		.then(users => {
+			let currentUser, followUser;
+
+			users.forEach(user => {
+				if(user._id + '' === req.body.userId){
+					followUser = user;
+				} else {
+					currentUser = user;
+				}
+			})
+
+			if(followUser.followers.includes(req.body.currentUserId)){
 				return res.status(400).json({ alreadyFollowing: 'User is already following this account'})
 			} else {
 				user.followers.push(req.body.currentUserId);
