@@ -170,16 +170,16 @@ router.post('/all', (req, res) => {
 // this allows us to not need to find the user based on the results anymore.  
 // now in our get posts, we call fetchusers, grab the users, then using those users, calling fetch posts
 router.post('/', (req, res) => {
-	console.log(req.body);
+	console.log('body', req.body);
 	// let userIds = req.body.following;
 	let userIds = ["5d9adc1c38adb20017be4012", "5d9adc8838adb20017be4013"];
 	let users = req.body.users;
+
 	let postPP = 5;
 
 	Post.find({userId: {$in: userIds}})
 		.sort({date: -1})
 		.then(posts => {
-			console.log('posts', posts);
 			let totalPosts = posts.length;
 			let currentPage = req.body.currentPage;
 			const newPosts = posts.slice(postPP * currentPage, postPP * (currentPage + 1));
@@ -188,8 +188,13 @@ router.post('/', (req, res) => {
 			if(Object.keys(users).length !== userIds.length){
 				User.find({_id: {$in: userIds}})
 				.then(newUsers => {
+					users = {};
+					newUsers.forEach(user => {
+						users[user.id + ''] = user
+					})
+
 					const data = {
-						users: newUsers,
+						users,
 						all: {
 							currentPage: currentPage + 1,
 							totalPages,
