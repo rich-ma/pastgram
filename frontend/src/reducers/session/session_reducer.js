@@ -38,7 +38,7 @@ const SessionReducer = (state = initialState, action) => {
 			newState.user.bio = action.user.bio;
 			newState.user.username = action.user.username;
 			newState.user.avatarUrl = action.user.avatarUrl;
-			newState.user.following = action.user.avatarUrl;
+			newState.user.following = action.user.following;
 			return newState;
 		default:
 			return state;

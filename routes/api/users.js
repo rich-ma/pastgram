@@ -51,6 +51,7 @@ router.post('/follow/:id', (req, res) => {
 		.then(users => {
 			let currentUser, followUser;
 
+
 			users.forEach(user => {
 				if(user._id + '' === req.body.userId){
 					followUser = user;
@@ -59,11 +60,18 @@ router.post('/follow/:id', (req, res) => {
 				}
 			})
 
-			if(followUser.followers.includes(req.body.currentUserId)){
+			if(followUser.followers.includes(currentUser._id + '')){
 				return res.status(400).json({ alreadyFollowing: 'User is already following this account'})
 			} else {
-				user.followers.push(req.body.currentUserId);
-				user.save().then(user => res.json(user));
+				followUser.followers.push(req.body.currentUserId);
+				currentUser.following.push(req.body.userId);
+				followUser.save();
+				currentUser.save();
+				const data = {
+					currentUser, followUser
+				};
+
+				res.json(data);
 			}
 		})
 		.catch(err => res.status(404).json({ usernotfound: 'No user found'}));
