@@ -71,7 +71,7 @@ router.post('/follow/:id', (req, res) => {
 					currentUser, followUser
 				};
 
-				res.json(data);
+				return res.json(data);
 			}
 		})
 		.catch(err => res.status(404).json({ usernotfound: 'No user found'}));

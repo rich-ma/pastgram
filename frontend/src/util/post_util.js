@@ -31,14 +31,17 @@ export const getDate = (postDate) => {
 	return date;
 }
 
-export const profile = (user) => (
+export const profile = (user) => {
+	const id = user.id ? user.id : user._id + '';
+	return (
 			<div className='post-profile'>
-				<Link to={`/users/${user.id}`} className='post-profile-img-container'>
+				<Link to={`/users/${id}`} className='post-profile-img-container'>
 					<img src={user.avatarUrl} alt='user-avatar'/>
 				</Link>
-				<Link to={`/users/${user.id}`} className='post-profile-name'>{user.username}</Link>
+				<Link to={`/users/${id}`} className='post-profile-name'>{user.username}</Link>
 			</div>
 		)
+	}
 		
 export const postImage = (post) => (
 		<img className='post-show-img' src={post.url} alt='post' />
