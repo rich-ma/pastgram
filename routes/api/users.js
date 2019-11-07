@@ -88,28 +88,27 @@ router.post('/unfollow/:id', (req, res) => {
 				currentUser = user;
 			}
 		})
+
+		if(currentUser.followers.includes(req.body.currentUserId)){
+			let removeIndex = currentUser.followers.indexOf(req.body.currentUserId);
+
+			currentUser.followers.splice(removeIndex,1);
+
+			removeIndex = followUser.following.indexOf(req.body.userId);
+
+			followUser.following.splice(removeIndex, 1);
+
+			currentUser.save();
+			followUser.save();
+			return res.json({currentUser, followUser});
+		} else {
+			return res.status(400).json({
+				notFollowing: 'User is not following this account'
+			})
+		}
 	})
 
-	
-}
-
-
-	User.findById(req.params.id)
-		.then(user => {
-			if(user.followers.includes(req.body.currentUserId)){
-
-				let removeIndex = user.followers.indexOf(req.body.currentUserId);
-
-				user.followers.splice(removeIndex, 1);
-				user.save().then(user => res.json(user));
-			} else {
-				return res.status(400).json({
-					alreadyFollowing: 'User is not following this account'
-				})
-			}
-		})
-		.catch(err => res.status(404).json({ usernotfound: 'No user found'}));
-})
+});
 
 router.post('/register', (req, res) => {
 	const { errors, isValid } = validateRegisterInput(req.body);
