@@ -56,6 +56,9 @@ export const followUser = data => dispatch => (
 
 export const unfollowUser = data => dispatch => (
 	UserAPIUtil.unfollowUser(data)
-		.then(user => dispatch(receiveUserUpdate(user.data)))
+		.then(res => {
+			dispatch(receiveUserUpdate(res.data.currentUser));
+			dispatch(receiveUser(res.data.followUser));
+		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 );

@@ -123,6 +123,7 @@ class Profile extends React.Component {
 		};
 
 		if(user.followers.includes(currentUser.id)){
+			console.log('unfollowing');
 			this.props.unfollowUser(data).then(() => {
 				this.setState({ followLoading: false, followMenu: false });
 			});

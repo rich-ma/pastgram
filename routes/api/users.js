@@ -89,25 +89,32 @@ router.post('/unfollow/:id', (req, res) => {
 			}
 		})
 
-		if(currentUser.followers.includes(req.body.currentUserId)){
-			let removeIndex = currentUser.followers.indexOf(req.body.currentUserId);
+		console.log(followUser, currentUser);
 
-			currentUser.followers.splice(removeIndex,1);
+		if(followUser.followers.includes(req.body.currentUserId)){
+			let removeIndex = followUser.followers.indexOf(req.body.currentUserId);
+			followUser.followers.splice(removeIndex,1);
 
-			removeIndex = followUser.following.indexOf(req.body.userId);
+			removeIndex = currentUser.following.indexOf(req.body.userId);
 
-			followUser.following.splice(removeIndex, 1);
+			currentUser.following.splice(removeIndex, 1);
 
 			currentUser.save();
 			followUser.save();
-			return res.json({currentUser, followUser});
+
+			const data = {
+				currentUser, followUser
+			}
+			return res.json(data);
 		} else {
 			return res.status(400).json({
 				notFollowing: 'User is not following this account'
 			})
 		}
 	})
-
+	.catch(err => res.status(404).json({
+		usernotfound: 'No user found'
+	}));
 });
 
 router.post('/register', (req, res) => {
