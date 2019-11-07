@@ -51,7 +51,6 @@ router.post('/follow/:id', (req, res) => {
 		.then(users => {
 			let currentUser, followUser;
 
-
 			users.forEach(user => {
 				if(user._id + '' === req.body.userId){
 					followUser = user;
@@ -78,11 +77,28 @@ router.post('/follow/:id', (req, res) => {
 })
 
 router.post('/unfollow/:id', (req, res) => {
+	User.find({_id: {$in: [req.body.userId, req.body.currentUserId]}})
+	.then(users => {
+		let currentUser, followUser;
+
+		users.forEach(user => {
+			if(user._id + '' === req.body.userId){
+				followUser = user;
+			} else {
+				currentUser = user;
+			}
+		})
+	})
+
+	
+}
+
+
 	User.findById(req.params.id)
 		.then(user => {
 			if(user.followers.includes(req.body.currentUserId)){
 
-				const removeIndex = user.followers.indexOf(req.body.currentUserId);
+				let removeIndex = user.followers.indexOf(req.body.currentUserId);
 
 				user.followers.splice(removeIndex, 1);
 				user.save().then(user => res.json(user));

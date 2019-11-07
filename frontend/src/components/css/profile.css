@@ -278,9 +278,6 @@ button{
 }
 
 @media only screen and (min-width: 425px) and (max-width: 725px) {
-	/* .post-profile {
-		padding: 5px 0px;
-	} */
 
 	#postModal {
 		width: fit-content;
@@ -288,6 +285,7 @@ button{
 		height: auto;
 		max-height: 80%;
 	}
+
 }
 
 
@@ -402,6 +400,5 @@ button{
 		max-width: 935px;
 		justify-content: center;
 	}
-
 	
 }
