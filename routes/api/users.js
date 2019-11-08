@@ -89,10 +89,9 @@ router.post('/unfollow/:id', (req, res) => {
 			}
 		})
 
-		console.log(followUser, currentUser);
-
 		if(followUser.followers.includes(req.body.currentUserId)){
 			let removeIndex = followUser.followers.indexOf(req.body.currentUserId);
+
 			followUser.followers.splice(removeIndex,1);
 
 			removeIndex = currentUser.following.indexOf(req.body.userId);

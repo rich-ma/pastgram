@@ -110,6 +110,10 @@ class PostIndex extends React.Component{
 				</div>
 				<div className='index-right'>
 					{desktopProfile}
+					<label class="index-switch">
+						<input type="checkbox" />
+						<span class="slider round"></span>
+					</label>
 				</div>
 			</div>
 		)
