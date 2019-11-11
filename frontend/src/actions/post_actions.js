@@ -1,5 +1,6 @@
 import {
 	getPosts,
+	getAllPosts,
 	createPost,
 	getPostShow,
 	addLike,
@@ -67,6 +68,7 @@ export const fetchPostShow = postId => dispatch =>{
 
 //need to pingpong users object to minimize hitting the db for user objects every time
 export const fetchPosts = reqData => dispatch =>{
+	console.log('fetch following')
 	return getPosts(reqData)
 		.then(response => {
 			dispatch(receiveUsers(response.data.users));
@@ -77,6 +79,10 @@ export const fetchPosts = reqData => dispatch =>{
 		})
 }
 
+export const fetchAllPosts = reqData => dispatch => {
+	console.log('fetch all posts');
+	return getAllPosts(reqData);
+}
 // export const fetchPostIndex = reqData => dispatch => {
 // 	return getIndexUsers(reqData)
 // 		.then()

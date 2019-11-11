@@ -8,6 +8,10 @@ export const getPosts = reqData => {
 	return axios.post('/api/posts/', reqData);
 }
 
+export const getAllPosts = reqData => {
+	return axios.post('/api/posts/all', reqData);
+}
+
 export const createPost = data => {
 	return axios.post('/api/posts/new', data);
 }

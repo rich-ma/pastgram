@@ -335,7 +335,7 @@ router.get('/:id', (req, res) => {
 		})
 		.catch(err => res.status(404).json({ nopostfound: "No post found with that ID."}));
 });
-
+7
 
 //toggle likes
 router.post('/like/:id', passport.authenticate('jwt', { session: false }),

@@ -69,16 +69,22 @@ class PostIndex extends React.Component{
 	}
 
 	loadPosts(){
+		console.log(this.state.allToggle);
 		this.setState({loading: true});
-		this.props.fetchPosts({
+		const data = {
 			users: this.state.users,
-			currentPage: this.state.currentPage,
-		})
+			currentPage: this.state.currentPage
+		};
+		this.state.allToggle ? 
+		this.props.fetchAllPosts(data) :
+		this.props.fetchPosts(data);
 	}
 
 	toggleIndex(e){
-		this.setState({allToggle: !this.state.allToggle});
-		this.loadPosts()
+		console.log(this.state.allToggle);
+		this.setState({
+			allToggle: !this.state.allToggle
+		}, () => this.loadPosts());
 	}
 
 	handleObserver(entities, observer){
@@ -121,7 +127,7 @@ class PostIndex extends React.Component{
 					{desktopProfile}
 					<label className="index-switch">
 						<h3>All Posts</h3>
-						<input type="checkbox" onClick={e => this.toggleIndex(e)}/>
+						<input type="checkbox" onChange={this.toggleIndex}/>
 						<span className="slider round"></span>
 					</label>
 				</div>
