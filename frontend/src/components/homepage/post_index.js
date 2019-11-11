@@ -73,7 +73,8 @@ class PostIndex extends React.Component{
 		this.setState({loading: true});
 		const data = {
 			users: this.state.users,
-			currentPage: this.state.currentPage
+			currentPage: this.state.currentPage,
+			following: this.state.currentUser.following
 		};
 		this.state.allToggle ? 
 		this.props.fetchAllPosts(data) :
@@ -83,7 +84,9 @@ class PostIndex extends React.Component{
 	toggleIndex(e){
 		console.log(this.state.allToggle);
 		this.setState({
-			allToggle: !this.state.allToggle
+			allToggle: !this.state.allToggle,
+			posts: [],
+			currentPage: 0
 		}, () => this.loadPosts());
 	}
 

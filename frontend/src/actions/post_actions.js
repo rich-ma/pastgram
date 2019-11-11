@@ -81,7 +81,14 @@ export const fetchPosts = reqData => dispatch =>{
 
 export const fetchAllPosts = reqData => dispatch => {
 	console.log('fetch all posts');
-	return getAllPosts(reqData);
+	return getAllPosts(reqData)
+		.then(response => {
+			dispatch(receiveUsers(response.data.users));
+			dispatch(receivePosts(response.data.all));
+		})
+		.catch(err => {
+			dispatch(receiveErrors(err.response.data));
+		})
 }
 // export const fetchPostIndex = reqData => dispatch => {
 // 	return getIndexUsers(reqData)
