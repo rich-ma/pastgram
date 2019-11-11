@@ -13,18 +13,22 @@ class PostIndex extends React.Component{
 			currentUser: this.props.currentUser,
 			posts: this.props.posts,
 			users: this.props.users,
-			loading: true
+			loading: true,
+			allToggle: false
 		}
 
 		this.loadingRef = React.createRef();
 		this.loadPosts = this.loadPosts.bind(this);
 		this.handleObserver = this.handleObserver.bind(this);
+		this.toggleIndex = this.toggleIndex.bind(this);
 		this.props.fetchPosts({
 			users: {},
 			currentPage: 0,
 			following: this.state.currentUser.following
 		});
 	}
+
+
 
 	componentDidMount(){
 		var options = {
@@ -72,6 +76,11 @@ class PostIndex extends React.Component{
 		})
 	}
 
+	toggleIndex(e){
+		this.setState({allToggle: !this.state.allToggle});
+		this.loadPosts()
+	}
+
 	handleObserver(entities, observer){
 		const y = entities[0].boundingClientRect.y;
 		if(this.state.prevY > y) {
@@ -94,7 +103,7 @@ class PostIndex extends React.Component{
 				<Link to={`/users/${currentUser.id}`} className='index-profile-img-container'>
 					<img src={currentUser.avatarUrl} alt='user-avatar'/>
 				</Link>
-				<Link to={`/users/${currentUser.id}`} className='index-names'>
+				<Link to={`/users/${currentUser.id}`} className='index-names' default={false} value={true} >
 					<span className='index-username'>{currentUser.username}</span>
 					{currentUser.name ? <span className='index-name'>{currentUser.name}</span> : null}
 				</Link>
@@ -110,15 +119,15 @@ class PostIndex extends React.Component{
 				</div>
 				<div className='index-right'>
 					{desktopProfile}
-					<label class="index-switch">
-						<input type="checkbox" />
-						<span class="slider round"></span>
+					<label className="index-switch">
+						<h3>All Posts</h3>
+						<input type="checkbox" onClick={e => this.toggleIndex(e)}/>
+						<span className="slider round"></span>
 					</label>
 				</div>
 			</div>
 		)
 	}
-
 }
 
 export default PostIndex;
