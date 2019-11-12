@@ -69,7 +69,7 @@ class PostIndex extends React.Component{
 	}
 
 	loadPosts(){
-		console.log(this.state.allToggle);
+		console.log(this.state);
 		this.setState({loading: true});
 		const data = {
 			users: this.state.users,

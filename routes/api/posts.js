@@ -97,6 +97,7 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 //grab all posts, grab all users with posts
 //might be easier to just implement with following  
 router.post('/all', (req, res) => {
+	console.log(req.body);
 	let users = req.body.users;
 	let postPP = 5;
 

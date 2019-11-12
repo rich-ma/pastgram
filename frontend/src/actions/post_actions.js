@@ -89,11 +89,7 @@ export const fetchAllPosts = reqData => dispatch => {
 		.catch(err => {
 			dispatch(receiveErrors(err.response.data));
 		})
-}
-// export const fetchPostIndex = reqData => dispatch => {
-// 	return getIndexUsers(reqData)
-// 		.then()
-// }
+};
 
 //get more posts for user profile page.
 // data contains (user(boolean), userId, currentpostpage, totalPages)
