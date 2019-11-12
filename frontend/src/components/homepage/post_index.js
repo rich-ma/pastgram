@@ -68,12 +68,12 @@ class PostIndex extends React.Component{
 			})
 	}
 
-	loadPosts(){
+	loadPosts(swap = false){
 		console.log(this.state);
 		this.setState({loading: true});
 		const data = {
 			users: this.state.users,
-			currentPage: this.state.currentPage,
+			currentPage: swap ? 0 : this.state.currentPage,
 			following: this.state.currentUser.following
 		};
 		this.state.allToggle ? 
@@ -87,7 +87,7 @@ class PostIndex extends React.Component{
 			allToggle: !this.state.allToggle,
 			posts: [],
 			currentPage: 0
-		}, () => this.loadPosts());
+		}, () => this.loadPosts(true));
 	}
 
 	handleObserver(entities, observer){
