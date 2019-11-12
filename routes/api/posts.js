@@ -95,9 +95,7 @@ router.post('/new', passport.authenticate('jwt', {session: false}),
 
 //index posts
 //grab all posts, grab all users with posts
-//might be easier to just implement with following  
 router.post('/all', (req, res) => {
-	console.log('all body', req.body);
 	let users = req.body.users;
 	let postPP = 5;
 
@@ -170,7 +168,7 @@ router.post('/all', (req, res) => {
 router.post('/', (req, res) => {
 	console.log('followers body', req.body);
 	// let userIds = req.body.following;
-	let userIds = ["5d9adc1c38adb20017be4012", "5d9adc8838adb20017be4013"];
+	let userIds = req.body.following;
 	let users = req.body.users;
 
 	let postPP = 5;
