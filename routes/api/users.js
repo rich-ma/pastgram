@@ -269,9 +269,6 @@ router.post('/seed', (req, res) => {
 		return array;
 	}
 
-	//grab one extra incase currentUser is in there.  
-	let ids = shuffle(ids).slice(0, rand + 1);
-
 	User.find({ '_id': { $in: ids }}, (err, users) => {
 		users.forEach(user => {
 			let randFollower = Math.floor(Math.random() * 3) + 5;
@@ -281,6 +278,7 @@ router.post('/seed', (req, res) => {
 			user.following = shuffle(ids).slice(0, randFollowing);
 			user.followers = shuffle(ids).slice(0, randFollower);
 			user.save();
+			console.log(user);
 		})
 
 		return res.json({complete: 'done'})

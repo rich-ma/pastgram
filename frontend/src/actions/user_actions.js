@@ -62,3 +62,5 @@ export const unfollowUser = data => dispatch => (
 		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 );
+
+
