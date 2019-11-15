@@ -121,6 +121,8 @@ router.post('/register', (req, res) => {
 
 	if(!isValid) return res.status(400).json(errors);
 
+	const followArr = ['5d9adc1c38adb20017be4012', '5d9adc8838adb20017be4013', '5d9addc938adb20017be4016', '5d9adf5038adb20017be4019'];
+
 	User.findOne({email: req.body.email})
 	.then(user => {
 		if(user){
@@ -133,23 +135,33 @@ router.post('/register', (req, res) => {
 				}); //user already registers with username	
 			});
 
-			const newUser = new User({
+			const regUser = new User({
 				username: req.body.username,
 				email: req.body.email,
 				password: req.body.password,
-				avatarUrl: "https://www.showflipper.com/blog/images/default.jpg"
+				avatarUrl: "https://www.showflipper.com/blog/images/default.jpg",
+				following: followArr,
+				followers: followArr
 			})
 
 			//creating salted pw, running 10 times
 			bcrypt.genSalt(10, (err, salt) => {
-				bcrypt.hash(newUser.password, salt, (err, hash) => {
+				bcrypt.hash(regUser.password, salt, (err, hash) => {
 					if(err) throw err;
-					newUser.password = hash;
+					regUser.password = hash;
 
 					//saving to db and then giving a token for an hour for the user
-					newUser.save()
-						.then((user) => {
-							const payload = {id: user.id, username: user.username, email: user.email, avatarUrl: user.avatarUrl, followers: user.followers, following: user.following};
+					regUser.save()
+						.then((newUser) => {
+							const payload = {id: newUser._id, username: newUser.username, email: newUser.email, avatarUrl: newUser.avatarUrl, followers: newUser.followers, following: newUser.following};
+							Users.find({'_id' { $in: following}}, (err, users) => {
+								users.forEach(user => {
+									users.followers.push(newUser._id + '');
+									users.following.push(newUser._id + '')
+								})
+
+								user.save();
+							})
 							jwt.sign(
 								payload,
 								keys.secretOrKey,
