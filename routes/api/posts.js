@@ -166,7 +166,6 @@ router.post('/all', (req, res) => {
 
 //get follower posts only
 router.post('/', (req, res) => {
-	console.log('followers body', req.body);
 	// let userIds = req.body.following;
 	let userIds = req.body.following;
 	let users = req.body.users;

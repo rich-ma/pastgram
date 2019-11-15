@@ -154,15 +154,14 @@ router.post('/register', (req, res) => {
 					regUser.save()
 						.then((newUser) => {
 							const payload = {id: newUser._id, username: newUser.username, email: newUser.email, avatarUrl: newUser.avatarUrl, followers: newUser.followers, following: newUser.following};
-							Users.find({'_id' { $in: following}}, (err, users) => {
+							User.find({'_id': { $in: followArr}}, (err, users) => {
 								users.forEach(user => {
-									users.followers.push(newUser._id + '');
-									users.following.push(newUser._id + '')
-								})
-
-								user.save();
-							})
-							jwt.sign(
+									user.followers.push(newUser._id + '');
+									user.following.push(newUser._id + '')
+									user.save();
+								});
+								console.log('payload', payload);
+								jwt.sign(
 								payload,
 								keys.secretOrKey,
 								// Sets key to expire in set amt of seconds.
@@ -174,7 +173,8 @@ router.post('/register', (req, res) => {
 										token: 'Bearer ' + token
 									});
 								}
-							);
+							)
+							})
 						})
 						.catch(err => console.log(err));
 				})
