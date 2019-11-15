@@ -18,6 +18,6 @@ export const unfollowUser = data => {
 	return axios.post(`/api/users/unfollow/${data.userId}`, data)
 }
 
-export const seedUsers = () => {
-	return axios.post('/api/users/seed');
-}
+// export const seedUsers = () => {
+// 	return axios.post('/api/users/seed');
+// }

@@ -106,25 +106,30 @@
 		width: 295px;
 	}
 
-	/* The switch - the box around the slider */
-	.index-switch {
+	.switch-container{
+		margin-top: 60px;
 		position: fixed;
+		margin-left: 20px;
+		font-size: 10px;
+		display: flex;
+	}
+
+	.index-switch {
 		width: 40px;
 		height: 21px;
 		top: 200px;
 		-ms-flex-align: center;
 		align-items: center;
-		margin-left: 15px;
+		margin-left: 5px;
+		z-index: 1;
 	}
 
-	/* Hide default HTML checkbox */
 	.index-switch input {
 		opacity: 0;
 		width: 0;
 		height: 0;
 	}
 
-	/* The slider */
 	.slider {
 		position: absolute;
 		cursor: pointer;
@@ -163,9 +168,10 @@
 		transform: translateX(17px);
 	}
 
-	/* Rounded sliders */
 	.slider.round {
 		border-radius: 20px;
+		width: 40px;
+		height: 20px;
 	}
 
 	.slider.round:before {
@@ -207,7 +213,6 @@
 		display: flex;
 		flex-direction: column;
 		margin-left: 14px;
-
 	}
 
 	.index-username {

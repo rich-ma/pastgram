@@ -128,11 +128,13 @@ class PostIndex extends React.Component{
 				</div>
 				<div className='index-right'>
 					{desktopProfile}
-					<label className="index-switch">
-						<h3>All Posts</h3>
-						<input type="checkbox" onChange={this.toggleIndex}/>
-						<span className="slider round"></span>
-					</label>
+					<div className='switch-container'>
+						<label className="index-switch">
+							<input type="checkbox" onChange={this.toggleIndex}/>
+							<span className="slider round"></span>
+						</label>
+						All Posts
+					</div>
 				</div>
 			</div>
 		)

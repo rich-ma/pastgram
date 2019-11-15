@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/navbar.css';
-import { seedUsers } from '../../util/user_api_util';
 // withrouter maybe to update after new post? 
 
 class NavBar extends React.Component {
@@ -42,7 +41,6 @@ class NavBar extends React.Component {
 						<i className="far fa-plus-square" onClick={() => openModal({modal: 'newPost'})}></i>
 						<Link className='session-link' to={`/users/${this.state.currentUser.id}`}><i className="far fa-user"></i></Link>
 					</div>
-					<button onClick={seedUsers}>seed</button>
 				</div>
 			</nav>
 		)
