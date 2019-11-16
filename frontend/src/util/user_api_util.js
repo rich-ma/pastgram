@@ -18,6 +18,11 @@ export const unfollowUser = data => {
 	return axios.post(`/api/users/unfollow/${data.userId}`, data)
 }
 
+export const getSuggestions = data => {
+	console.log('in api util', data);
+	return axios.post('/api/users/suggestions', data)
+}
+
 // export const seedUsers = () => {
 // 	return axios.post('/api/users/seed');
 // }

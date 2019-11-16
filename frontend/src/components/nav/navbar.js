@@ -1,7 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
 import '../css/navbar.css';
-// withrouter maybe to update after new post? 
 
 class NavBar extends React.Component {
 	constructor(props){

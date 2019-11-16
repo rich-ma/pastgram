@@ -2,7 +2,6 @@ import { connect } from 'react-redux';
 import { likePost, unlikePost, fetchPosts, clearPostUpdate, fetchAllPosts } from '../../actions/post_actions';
 //add comment, delete comment
 
-
 import PostIndex from './post_index';
 
 const mSTP = (state, ownProps) => {

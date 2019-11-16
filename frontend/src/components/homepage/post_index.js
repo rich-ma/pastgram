@@ -1,6 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import PostShowContainer from '../homepage/post_show_container';
+import PostShowContainer from './post_show_container';
+import UserSuggestionContainer from './user_suggestion_container';
 
 import '../css/post_index.css';
 
@@ -135,6 +136,7 @@ class PostIndex extends React.Component{
 						</label>
 						All Posts
 					</div>
+					<UserSuggestionContainer />
 				</div>
 			</div>
 		)

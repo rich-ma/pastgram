@@ -5,6 +5,7 @@ export const RECEIVE_USER = 'RECEIVE_USER';
 export const RECEIVE_USERS = 'RECEIVE_USERS';
 export const RECEIVE_USER_ERRORS = 'RECEIVE_USER_ERRORS';
 export const CLEAR_USER_ERRORS = 'CLEAR_USER_ERRORS';
+export const RECEIVE_SUGGESTIONS = 'RECEIVE_SUGGESTIONS';
 
 export const receiveUser = user => ({
 	type: RECEIVE_USER,
@@ -25,6 +26,10 @@ export const clearErrors = () => ({
 	type: CLEAR_USER_ERRORS
 })
 
+export const receiveUserSuggestions = users => ({
+	type: RECEIVE_SUGGESTIONS,
+	users
+})
 
 export const getUser = id => dispatch => (
 	UserAPIUtil.getUser(id)
@@ -62,5 +67,15 @@ export const unfollowUser = data => dispatch => (
 		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 );
+
+export const fetchUserSuggestions = data => dispatch => {
+	console.log('fetch users action', data);
+	return UserAPIUtil.getSuggestions(data)
+		.then(users => {
+			console.log(users);
+			dispatch(receiveUserSuggestions(users));
+		})
+		.catch(err => dispatch(receiveErrors(err.response.data)))
+	};
 
 

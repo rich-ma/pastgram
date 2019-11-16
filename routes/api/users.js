@@ -160,7 +160,6 @@ router.post('/register', (req, res) => {
 									user.following.push(newUser._id + '')
 									user.save();
 								});
-								console.log('payload', payload);
 								jwt.sign(
 								payload,
 								keys.secretOrKey,
@@ -257,6 +256,15 @@ router.post('/login', (req, res) => {
 					}
 				})
 		})
+})
+
+//get suggestions
+router.post('/suggestions', (req, res) => {
+	const { following } = req.body;
+
+	User.find({'_id': { $nin: following}}, (err, users) => {
+		return res.json(users.slice(0,3));
+	});
 })
 
 // Seed followers and following for each user. 
