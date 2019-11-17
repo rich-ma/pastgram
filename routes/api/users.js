@@ -267,43 +267,4 @@ router.post('/suggestions', (req, res) => {
 	});
 })
 
-// Seed followers and following for each user. 
-// router.post('/seed', (req, res) => {
-// 	let ids = ['5d9adc8838adb20017be4013', '5d9adc1c38adb20017be4012', '5d9add0838adb20017be4014', '5d9add2b38adb20017be4015', '5d9addc938adb20017be4016', '5d9ade1738adb20017be4017', '5d9ade3138adb20017be4018', '5d9adf5038adb20017be4019', '5d9adfbc38adb20017be401a', '5d9ae00e38adb20017be401b'];
-
-// 	function shuffle(array) {
-// 		var currentIndex = array.length,
-// 			temporaryValue, randomIndex;
-
-// 		// While there remain elements to shuffle...
-// 		while (0 !== currentIndex) {
-
-// 			// Pick a remaining element...
-// 			randomIndex = Math.floor(Math.random() * currentIndex);
-// 			currentIndex -= 1;
-
-// 			// And swap it with the current element.
-// 			temporaryValue = array[currentIndex];
-// 			array[currentIndex] = array[randomIndex];
-// 			array[randomIndex] = temporaryValue;
-// 		}
-// 		return array;
-// 	}
-
-// 	User.find({ '_id': { $in: ids }}, (err, users) => {
-// 		users.forEach(user => {
-// 			let randFollower = Math.floor(Math.random() * 3) + 5;
-// 			let randFollowing = Math.floor(Math.random() * 3) + 5;
-			
-
-// 			user.following = shuffle(ids).slice(0, randFollowing);
-// 			user.followers = shuffle(ids).slice(0, randFollower);
-// 			user.save();
-// 			console.log(user);
-// 		})
-
-// 		return res.json({complete: 'done'})
-// 	});
-// })
-
 module.exports = router;
