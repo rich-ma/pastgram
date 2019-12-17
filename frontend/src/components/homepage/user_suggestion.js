@@ -25,9 +25,7 @@ class UserSuggestion extends React.Component{
 			<div className='suggestion-container'>
 				<h3 className='suggestion-title'>Suggestions For You</h3>
 				<ul className='suggestion-list'>
-					{users.map(user => {
-						return user;
-					})}
+					
 				</ul>
 			</div>
 		)
