@@ -260,12 +260,13 @@ router.post('/login', (req, res) => {
 
 //get suggestions
 router.post('/suggestions', (req, res) => {
-	const { following } = req.body;
+	const following = req.body;
 	console.log(following);
 
 	User.find({'_id': { $nin: following}}, (err, users) => {
-		console.log(users);
-		return users.slice(0,3);
+		console.log('test', users);
+
+		return users;
 	});
 })
 

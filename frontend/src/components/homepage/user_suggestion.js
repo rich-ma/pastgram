@@ -1,5 +1,4 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
 
 class UserSuggestion extends React.Component{
 	constructor(props){
@@ -19,7 +18,6 @@ class UserSuggestion extends React.Component{
 	}
 
 	render(){
-		const { users } = this.state;
 
 		return(
 			<div className='suggestion-container'>
