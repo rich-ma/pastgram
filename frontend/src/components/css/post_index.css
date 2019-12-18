@@ -231,7 +231,7 @@
 	}
 
 	.suggestion-container {
-		position: absolute;
+		position: fixed;
 		top: 220px;
 		margin-left: 20px;
 		border: 1px solid rgb(230,230,230);
@@ -245,6 +245,7 @@
 		color: rgba(var(--f52, 153, 153, 153), 1);
 		font-size: 14px;
 		line-height: 18px;
+		margin: 10px 0px 0px 10px;
 
 	}
 
