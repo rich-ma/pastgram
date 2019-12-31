@@ -69,11 +69,9 @@ export const unfollowUser = data => dispatch => (
 );
 
 export const fetchUserSuggestions = data => dispatch => {
-	console.log('fetch users action', data);
 	return UserAPIUtil.getSuggestions(data)
-		.then(users => {
-			console.log(users);
-			dispatch(receiveUserSuggestions(users));
+		.then(res => {
+			dispatch(receiveUserSuggestions(res.data));
 		})
 		.catch(err => dispatch(receiveErrors(err.response.data)))
 	};

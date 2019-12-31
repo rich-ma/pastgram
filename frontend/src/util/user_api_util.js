@@ -20,9 +20,5 @@ export const unfollowUser = data => {
 
 export const getSuggestions = data => {
 	console.log('in api util', data);
-	return axios.post('/api/users/suggestions', data)
+	return axios.post('/api/users/suggestions', data);
 }
-
-// export const seedUsers = () => {
-// 	return axios.post('/api/users/seed');
-// }

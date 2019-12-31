@@ -261,12 +261,14 @@ router.post('/login', (req, res) => {
 //get suggestions
 router.post('/suggestions', (req, res) => {
 	const following = req.body;
-	console.log(following);
 
 	User.find({'_id': { $nin: following}}, (err, users) => {
-		console.log('test', users);
-
-		return users;
+		let recUsers = users.slice(0,3);
+		let userObj = {};
+		recUsers.forEach(user => {
+			userObj[user._id] = user;
+		});
+		return res.json(userObj);
 	});
 })
 
