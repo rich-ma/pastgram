@@ -245,9 +245,18 @@
 		color: rgba(var(--f52, 153, 153, 153), 1);
 		font-size: 14px;
 		line-height: 18px;
-		margin: 10px 0px 0px 10px;
-
+		margin: 10px 0px -15px 10px;
 	}
 
-	
+	.suggestion-list{
+		flex-direction: column;
+	}
+
+	.suggestion-list > li {
+		height: 50px;
+	}	
+
+	.suggestion-name{
+		font-size: 12px;
+	}
 }

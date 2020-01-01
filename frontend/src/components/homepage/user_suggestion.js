@@ -1,6 +1,5 @@
 import React from 'react';
-import { profile } from '../../util/post_util';
-
+import { Link } from 'react-router-dom';
 class UserSuggestion extends React.Component{
 	constructor(props){
 		super(props);
@@ -30,9 +29,16 @@ class UserSuggestion extends React.Component{
 				<ul className='suggestion-list'>
 					{ Object.keys(users).map(id => {
 						const user = users[id];
-						const profileContainer = profile(user);
-						return <li>{profileContainer}</li>
-
+						return (
+							<li className='suggestion-item'>
+								<div className='post-profile'>
+									<Link to={`/users/${id}`} className='post-profile-img-container'>
+										<img src={user.avatarUrl} alt='user-avatar'/>
+									</Link>
+									<Link to={`/users/${id}`} className='post-profile-name suggestion-name'>{user.username}</Link>
+								</div>
+							</li>
+						)
 					})}
 				</ul>
 			</div>
