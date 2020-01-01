@@ -256,7 +256,16 @@
 		height: 50px;
 	}	
 
-	.suggestion-name{
+	.suggestion-name-container{
+		display: flex;
+		flex-direction: column;
 		font-size: 12px;
+		margin-left: 10px;
+		color: #999999;
+	}
+
+	.suggestion-name{
+		font-size: 14px;
+		margin: 0;
 	}
 }
