@@ -29,8 +29,6 @@ class PostIndex extends React.Component{
 		});
 	}
 
-
-
 	componentDidMount(){
 		var options = {
 			root: null,
