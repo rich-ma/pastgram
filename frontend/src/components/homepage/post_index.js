@@ -135,6 +135,14 @@ class PostIndex extends React.Component{
 						All Posts
 					</div>
 					<UserSuggestionContainer />
+					<div className='sidebar-footer'>
+						<ul className='sidebar-links'>
+							<li><a target="_blank" href="https://github.com/rich-ma">Github</a></li>
+							<li>·</li>
+							<li><a target="_blank" href="https://www.linkedin.com/in/richard-ma-39a24718/">LinkedIn</a></li>
+						</ul>
+						<h3 className='sidebar-title'>&copy; 2020 PASTGRAM</h3>
+					</div>
 				</div>
 			</div>
 		)

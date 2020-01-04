@@ -11,7 +11,7 @@ export const getDate = (postDate) => {
 	let date;
 
 	if (yearsDiff > 0) {
-		date = months[Date.getMonth()] + ' ' + postDate.getDate() + ',' + postDate.getFullYear();
+		date = months[postDate.getMonth()] + ' ' + postDate.getDate() + ',' + postDate.getFullYear();
 	} else if (hourDiff < 1) {
 		date = Math.ceil(minDiff) + ' minutes ago';
 		if (Math.floor(minDiff) === 1) date = 'a minute ago';

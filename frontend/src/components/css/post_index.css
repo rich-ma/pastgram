@@ -268,4 +268,36 @@
 		font-size: 14px;
 		margin: 0;
 	}
+
+	.sidebar-footer{
+		position: fixed;
+		top: 420px;
+		margin-left: 22px;
+	}
+
+	.sidebar-links{
+    margin: 0px 0px 15px -10px;
+		color: #c7c7c7;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 13px;
+	}
+
+	.sidebar-links >li > a {
+		color: #c7c7c7;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 13px;
+	}
+
+	.sidebar-links > li {
+		margin-right: 3px;
+	}
+
+	.sidebar-title{
+		color: #c7c7c7;
+		font-size: 12px;
+		font-weight: 400;
+		line-height: 13px;
+	}
 }

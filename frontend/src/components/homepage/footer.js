@@ -9,7 +9,7 @@ const Footer = () => (
 				LINKEDIN</a>
 				</li>
 			</ul>
-			<h3>&copy; 2019 PASTGRAM</h3>
+			<h3>&copy; 2020 PASTGRAM</h3>
 		</div>
 	</footer>
 )
